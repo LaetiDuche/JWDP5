@@ -24,3 +24,83 @@ h4, .social{
     text-align: center;
     color: #9960e3;
 }
+header{
+    background-color: #f3e9f1;
+}
+.navbar-header{
+    display: flex;
+}
+.navbar-brand{
+    margin-right: auto;
+}
+.navbar-nav{
+    flex-direction: row;
+}
+ul{
+    margin-top: 1.5rem;
+}
+.navbar-nav .nav-link{
+    padding-right: 1rem;
+    padding-left: 1rem;
+    color: black;
+}
+.fas, .far, .fab{
+    color: #9960e3;
+    font-size: 1.2rem;
+}
+.card{
+    width: auto;
+    margin: 0.5rem; 
+    box-shadow: 2px 2px 12px lightgrey;
+    border-radius: 0.5rem;
+    transition: ease-in-out;
+} 
+.card:hover{
+    transform: scale(1.05);
+}
+a{
+    text-decoration: none;
+}
+.body{
+    background-color:#f3e9f1;
+    padding-bottom: 2rem;
+}
+.head-body{
+    background-color: white;
+}
+.card-img-top {
+    height: 15rem;
+    object-fit: cover;
+    width: 100%;
+    transition: transform .2s;
+    border-radius: 0.5rem;
+}
+.row{
+    --bs-gutter-y: 1.5rem;
+}
+.col{
+    align-items: center;
+}
+.jumbotron{
+    padding: 2rem 1rem;
+    background-color: white;
+    margin-bottom: 1rem;
+    box-shadow: inset 0px 4px 4px -3px rgb(53 53 53 / 20%);
+}
+.display-4, .lead{
+    text-align: center;
+}
+.display-4{
+    font-family: 'Kaushan Script', cursive;
+    color: #9960e3;
+}
+.title-price{
+    display: flex;
+    align-items: baseline;
+}
+footer{
+    padding-top: 1.5rem;
+}
+.fa-twitter, .fa-facebook{
+    margin: 0 0.5rem;
+}

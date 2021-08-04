@@ -98,6 +98,9 @@ a{
     display: flex;
     align-items: baseline;
 }
+.row-product{
+    display: flex;
+}
 footer{
     padding-top: 1.5rem;
 }
@@ -110,6 +113,11 @@ footer{
     }
 }
 @media (min-width: 426px) {
+    .row-2{
+        margin-top: 1rem;
+    }
+}
+@media (min-width: 768px) {
     .row-2{
         margin-top: 1rem;
     }

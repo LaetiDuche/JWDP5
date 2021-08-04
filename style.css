@@ -24,6 +24,8 @@ h4, .social{
     text-align: center;
     color: #9960e3;
 }
+
+/*Header*/
 header{
     background-color: #f3e9f1;
 }
@@ -48,6 +50,7 @@ ul{
     color: #9960e3;
     font-size: 1.2rem;
 }
+
 .card{
     width: auto;
     margin: 0.5rem; 
@@ -55,7 +58,7 @@ ul{
     border-radius: 0.5rem;
     transition: ease-in-out;
 } 
-.card:hover{
+a .card:hover{
     transform: scale(1.05);
 }
 a{
@@ -75,8 +78,9 @@ a{
     transition: transform .2s;
     border-radius: 0.5rem;
 }
-.row{
+.row-2{
     --bs-gutter-y: 1.5rem;
+    align-items: center;
 }
 .col{
     align-items: center;
@@ -98,15 +102,28 @@ a{
     display: flex;
     align-items: baseline;
 }
-.row-product{
-    display: flex;
+
+/* Page product*/
+.title-price2{
+    flex-direction: row;
 }
+.btn-comand{
+    align-items: center;
+}
+.btn-outline-light{
+    color: #9960e3;
+    border-color: #9960e3;
+}
+
+/*Footer*/
 footer{
     padding-top: 1.5rem;
 }
 .fa-twitter, .fa-facebook{
     margin: 0 0.5rem;
 }
+
+/*Breakpoints*/
 @media (max-width: 425px) {
     .card{
         margin: 0.2rem;
@@ -120,6 +137,13 @@ footer{
 @media (min-width: 768px) {
     .row-2{
         margin-top: 1rem;
+    }
+    .card-product{
+        display: flex;
+        flex-direction: row;
+    }
+    .page-product{
+        align-items: center;
     }
 }
 @media (min-width: 1024px) {

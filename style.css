@@ -104,3 +104,26 @@ footer{
 .fa-twitter, .fa-facebook{
     margin: 0 0.5rem;
 }
+@media (max-width: 425px) {
+    .card{
+        margin: 0.2rem;
+    }
+}
+@media (min-width: 426px) {
+    .row-2{
+        margin-top: 1rem;
+    }
+}
+@media (min-width: 1024px) {
+    .card-img-top{
+        height: 20rem;
+     }
+}
+@media (max-width: 425px) {
+    .row{
+       flex-direction: column;
+    }
+    h4, .social{
+        text-align: start;
+    }
+}

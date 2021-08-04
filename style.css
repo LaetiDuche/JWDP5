@@ -9,18 +9,16 @@ a, button{
 h2, p{
     color: black;
 }
-h2{
-    margin: 1rem;
-    size: 1.5rem;
-    padding-bottom: 1rem;
+h3{
+   font-size: 1rem;
     text-align: center;
 }
-h3{
+h2{
     margin-right: auto;
-    color: #9960e3;
+    color: #e68b01;
     font-family: 'Kaushan Script', cursive;
 }
-h4, .social{
+h3, .social{
     text-align: center;
     color: #9960e3;
 }
@@ -42,7 +40,6 @@ ul{
     margin-top: 1.5rem;
 }
 .navbar-nav .nav-link{
-    padding-right: 1rem;
     padding-left: 1rem;
     color: black;
 }
@@ -50,7 +47,7 @@ ul{
     color: #9960e3;
     font-size: 1.2rem;
 }
-
+    
 .card{
     width: auto;
     margin: 0.5rem; 
@@ -96,7 +93,7 @@ a{
 }
 .display-4{
     font-family: 'Kaushan Script', cursive;
-    color: #9960e3;
+    color: #e68b01;
 }
 .title-price{
     display: flex;
@@ -114,7 +111,13 @@ a{
     color: #9960e3;
     border-color: #9960e3;
 }
-
+.fa-shopping-cart{
+    margin-right: 0.5rem;
+}
+.btn-panier{
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
 /*Footer*/
 footer{
     padding-top: 1.5rem;
@@ -155,7 +158,7 @@ footer{
     .row{
        flex-direction: column;
     }
-    h4, .social{
+    h3, .social{
         text-align: start;
     }
 }

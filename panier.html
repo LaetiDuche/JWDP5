@@ -21,22 +21,22 @@
 <body>
     <div class="page-container">
         <header>
-            <div class="bloc l-bloc " id="bloc-0">
+            <div class="bloc l-bloc shadow-sm" id="bloc-0" >
                 <div class="container bloc-sm">
                     <nav class="navbar row navbar-light light-blue lighten-4">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="index.html">
+                        <div class="navbar-header d-flex">
+                            <a class="navbar-brand me-auto" href="index.html">
                                 <img src="logo-orinoco.png" alt="logo chariot" height="70" width="157" />
                             </a>
-                            <ul class="navbar-nav">
+                            <ul class="navbar-nav flex-row mt-4">
                                 <li class="nav-item">
-                                    <a href="index.html" class="nav-link" aria-label="accueil">
+                                    <a href="index.html" class="nav-link ps-3" aria-label="accueil">
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="panier.html" class="nav-link" aria-label="mon-panier">
-                                        <i class="fas fa-shopping-cart"></i>
+                                    <a href="panier.html" class="nav-link ps-3" aria-label="mon-panier">
+                                        <i class="fas fa-shopping-cart me-2"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -47,15 +47,15 @@
         </header>
 
         <section class="body">
-            <div class="jumbotron jumbotron-fluid">
+            <div class="jumbotron jumbotron-fluid bg-white py-2 px-1">
                 <div class="container">
-                    <h1 class="display-4">Orinours</h1>
-                    <p class="lead">Choisissez parmis nos ours en peluche fait à la main.</p>
+                    <h1 class="display-4 text-center">Orinours</h1>
+                    <p class="lead text-center">Choisissez parmis nos ours en peluche fait à la main.</p>
                 </div>
             </div>
             <div class="container">
-                <div class="row row-2 mx-1">
-                    <div class="col-12 articles">
+                <div class="row  mx-1 my-3">
+                    <div class="col-12 bg-white p-4 rounded-3 my-2">
                         <div class="col-12">
                             <h2>Mon panier</h2>
                         </div>
@@ -69,85 +69,84 @@
                             </thead>
                             <tbody id="cart-tablebody"></tbody>
                         </table>
-
-                        <p>Sous total : <span class="subtotal"></span>€</p>
+                        <p> Total: <span class="subtotal"></span>€</p>
                     </div>
 
-                    <div class="col-12 form">
+                    <div class="col-12 bg-white p-4 rounded-3 my-2">
                         <div>
-                            <h3 class="titre-command">Confirmer ma commande</h3>
+                            <h3 class="titre-command text-start">Confirmer ma commande</h3>
                             <p>Remplissez le formulaire pour confirmer votre commande</p>
                         </div>
                         <form class="row g-3 needs-validation" novalidate>
                             <div class="col-md-4">
-                              <label for="validationCustom01" class="form-label">Prénom</label>
-                              <input type="text" class="form-control" id="validationCustom01" value="" required>
-                              <div class="invalid-feedback">
-                                  Veuillez entrer votre prénom.
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              <label for="validationCustom02" class="form-label">Nom</label>
-                              <input type="text" class="form-control" id="validationCustom02" value="" required>
-                              <div class="invalid-feedback">
-                                  Veuillez entrer votre nom.
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              <label for="validationCustomUsername" class="form-label">Adresse e-mail</label>
-                              <div class="input-group has-validation">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                <label for="validationCustom01" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="validationCustom01" value="" required>
                                 <div class="invalid-feedback">
-                                    Veuillez choisir une adresse e-mail valide.
+                                    Veuillez entrer votre prénom.
                                 </div>
-                              </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustom02" class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="validationCustom02" value="" required>
+                                <div class="invalid-feedback">
+                                    Veuillez entrer votre nom.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustomUsername" class="form-label">Adresse e-mail</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                    <input type="text" class="form-control" id="validationCustomUsername"
+                                        aria-describedby="inputGroupPrepend" required>
+                                    <div class="invalid-feedback">
+                                        Veuillez choisir une adresse e-mail valide.
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                              <label for="validationCustom03" class="form-label">Ville</label>
-                              <input type="text" class="form-control" id="validationCustom03" required>
-                              <div class="invalid-feedback">
-                                Veuillez fournir une ville valide.
-                              </div>
+                                <label for="validationCustom03" class="form-label">Ville</label>
+                                <input type="text" class="form-control" id="validationCustom03" required>
+                                <div class="invalid-feedback">
+                                    Veuillez fournir une ville valide.
+                                </div>
                             </div>
                             <div class="col-md-3">
-                              <label for="validationCustom04" class="form-label">Pays</label>
-                              <select class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Choisir...</option>
-                                <option>...</option>
-                              </select>
-                              <div class="invalid-feedback">
-                                Veuillez sélectionner un pays valide.
-                              </div>
+                                <label for="validationCustom04" class="form-label">Pays</label>
+                                <select class="form-select" id="validationCustom04" required>
+                                    <option selected disabled value="">Choisir...</option>
+                                    <option>...</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Veuillez sélectionner un pays valide.
+                                </div>
                             </div>
                             <div class="col-12">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                                <label class="form-check-label" for="invalidCheck">
-                                    Accepter les termes et conditions
-                                </label>
-                                <div class="invalid-feedback">
-                                    Vous devez accepter avant de soumettre.
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Accepter les termes et conditions
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        Vous devez accepter avant de soumettre.
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                             <div class="col-12 text-center">
-                              <button class="btn btn-outline-light " type="submit">Commander</button>
+                                <button class="btn btn-outline-light rounded-3 shadow" type="submit">Commander</button>
                             </div>
-                          </form>
+                        </form>
                     </div>
-
                 </div>
             </div>
         </section>
 
         <footer>
-            <div class="container row-footer">
+            <div class="container">
                 <div class="row">
                     <div class="col">
                         <h3>Plan du site</h3>
                     </div>
-                    <div class="col social">
+                    <div class="col social text-center">
                         <a class="social" href="" aria-label="twitter"><i class="fab fa-twitter"></i></a>
                         <a class="social" href="" aria-label="facebook"><i class="fab fa-facebook"></i></a>
                     </div>

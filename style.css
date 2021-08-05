@@ -9,14 +9,21 @@ a, button{
 h2, p{
     color: black;
 }
+
 h3{
-   font-size: 1rem;
+    font-size: 1rem;
     text-align: center;
 }
 h2{
     margin-right: auto;
     color: #e68b01;
     font-family: 'Kaushan Script', cursive;
+}
+.titre-command{
+    font-size: calc(1.325rem + .9vw);
+    color: #e68b01;
+    font-family: 'Kaushan Script', cursive;
+    text-align: start;
 }
 h3, .social{
     text-align: center;
@@ -111,6 +118,8 @@ a{
 .btn-outline-light{
     color: #9960e3;
     border-color: #9960e3;
+    border: 2px solid;
+    box-shadow: 2px 2px 12px lightgrey;
 }
 .fa-shopping-cart{
     margin-right: 0.5rem;
@@ -118,6 +127,13 @@ a{
 .btn-panier{
     margin-top: 1.5rem;
     margin-bottom: 1rem;
+}
+
+/*Page panier*/
+.panier, .form, .articles{
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
 }
 /*Footer*/
 footer{

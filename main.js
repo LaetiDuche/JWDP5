@@ -1,7 +1,7 @@
 fetch('http://localhost:3000/api/teddies');
 
 
-//Validation formulaire commande
+//Validation formulaire 
 (function () {
     'use strict'
   

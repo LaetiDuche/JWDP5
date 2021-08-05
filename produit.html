@@ -13,7 +13,7 @@
     <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <script src="script.js" type="texte/javascript" defer></script>
+    <script src="main.js" defer></script>
 
     <title>Orinoco-produit</title>
 </head>
@@ -26,7 +26,7 @@
                     <nav class="navbar row navbar-light light-blue lighten-4">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="index.html">
-                                <img src="logo-orinoco.png" alt="logo chariot" height="70" width="" />
+                                <img src="logo-orinoco.png" alt="logo chariot" height="70" width="157" />
                             </a>
                             <ul class="navbar-nav">
                                 <li class="nav-item">
@@ -65,14 +65,15 @@
                                     <p>Description: <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna aliqua.
                                     </p>
-                                    <select class="form-select" aria-label="Default select example">
+                                    <label for="c"></label>
+                                    <select id="color" class="form-select" name="c" aria-label="Default select example">
                                         <option selected>Choisir une couleur</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
                                       </select>
                                     <div class="col-12 text-center btn-panier">
-                                        <button class="btn btn-outline-light" type="submit">
+                                        <button class="btn btn-outline-light" type="submit" data-id="" data-name="" data-price="" data-url="">
                                             <i class="fas fa-shopping-cart"></i>
                                             Ajouter au panier
                                         </button>
@@ -102,6 +103,7 @@
                 </div>
             </div>
         </footer>
+    </div>
 </body>
 
 </html>

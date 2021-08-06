@@ -1,16 +1,9 @@
-const http = require("http");
-
-const server = http.createServer(function(req, res) {
-
-  // A l'arrivée d'une requête
-  res.write("Hello World!");
-  res.end();
-})
-
-// Lancer le serveur
-server.listen(3000)
-
-fetch('http://localhost:3000/api/teddies');
+fetch('http://localhost:3000/api/teddies')
+  .then((response) => response.json())
+  .then(response => console.log(response))
+  .catch(error =>{
+  console.log(error)
+});
 
 
 //Validation formulaire 

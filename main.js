@@ -6,7 +6,7 @@ fetch('http://localhost:3000/api/teddies')
 });
 
 
-//Validation formulaire 
+//Validation formulaire Bootstrap
 (function () {
     'use strict'
   

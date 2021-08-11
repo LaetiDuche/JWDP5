@@ -22,9 +22,9 @@ var cardTeddy = document.querySelector("#card-teddy > div >article > a > figure"
 cardTeddy.setAttribute("class", "card rounded-3 my-1 shadow-sm ");
 
 var imageTeddy = document.querySelector("#card-teddy > div >article > a > figure > img");
-imageTeddy.setAttribute("class", "card-img-top");
-imageTeddy.setAttribute("imageUrl", "");
+imageTeddy.setAttribute("class", "card-img-top ");
 imageTeddy.setAttribute("alt", "");
+imageTeddy.src = teddies[i].imageUrl;
 
 var figureTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption");
 figureTeddy.setAttribute("class", "card-body");
@@ -33,11 +33,15 @@ var textTeddy = document.querySelector("#card-teddy > div >article > a > figure 
 textTeddy.setAttribute("class", "title-price d-flex");
 
 var nomTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption > div > h2");
-nomTeddy.setAttribute("name", "");
+nomTeddy.setAttribute("class", "name");
+nomTeddy.textContent = teddies[i].name;
 
 var prixTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption > div > p");
-prixTeddy.setAttribute("class", "card-text");
+prixTeddy.setAttribute("class", "card-text price");
 prixTeddy.setAttribute("price", "");
 
 var descriptionTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption > p");
-descriptionTeddy.setAttribute("description", ""); 
+descriptionTeddy.setAttribute("class", "description"); 
+descriptionTeddy.textContent = teddies[i].description;
+
+

@@ -2,6 +2,7 @@ body{
     margin: 0;
     padding: 0;
     font-family:'arial';
+    background-color:#f3e9f1;
 }
 a, a:hover, button{
     outline-color: #9960e3;
@@ -36,9 +37,9 @@ header{
 }
 
 /*Section*/
-.body{
+/* .body{
     background-color:#f3e9f1;
-}
+} */
 .jumbotron{
     box-shadow: inset 0px 4px 4px -3px rgb(53 53 53 / 20%);
 }
@@ -66,5 +67,7 @@ a .card:hover{
 
 /*Footer*/
 footer{
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
+    padding-top: 1rem;
+    background-color: white;
 }

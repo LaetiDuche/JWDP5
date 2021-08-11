@@ -18,16 +18,16 @@ articleTeddy.setAttribute("id", "");
 var lienTeddy = document.querySelector("#card-teddy > div >article > a");
 lienTeddy.setAttribute("href", "");
 
-var cardTeddy = document.querySelector("#card-teddy > div >article > a > figure");
-cardTeddy.setAttribute("class", "card rounded-3 my-1 shadow-sm ");
+var figureTeddy = document.querySelector("#card-teddy > div >article > a > figure");
+figureTeddy.setAttribute("class", "card rounded-3 my-1 shadow-sm ");
 
 var imageTeddy = document.querySelector("#card-teddy > div >article > a > figure > img");
 imageTeddy.setAttribute("class", "card-img-top ");
 imageTeddy.setAttribute("alt", "");
 imageTeddy.src = teddies[i].imageUrl;
 
-var figureTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption");
-figureTeddy.setAttribute("class", "card-body");
+var captionTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption");
+captionTeddy.setAttribute("class", "card-body");
 
 var textTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption > div");
 textTeddy.setAttribute("class", "title-price d-flex");

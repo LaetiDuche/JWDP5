@@ -2,5 +2,6 @@
     "liveServer.settings.port": 3001,
     "explorer.sortOrder": "type",
     "liveServer.settings.host": "127.0.0.1 ",
-    "liveServer.settings.useLocalIp": true
+    "liveServer.settings.useLocalIp": true,
+    "liveServer.settings.CustomBrowser": "chrome"
 }

@@ -1,48 +1,94 @@
-console.log(window);
+/* console.log(window); */
 /* alert('test'); */
+/* let urlTeddy = 'http://localhost:3000/api/teddies';
 
-let container = document.getElementById('card-teddy');
+document.querySelector('#name').addEventListener('input', function(){
+  if(this.value.length == 5){
+    let urlTeddy = 'http://localhost:3000/api/teddies?name=${this.value}';
 
-let firstDiv = document.createElement('div');
-container.appendChild(firstDiv);
-document.querySelector("div").classList.add('row');
+    fetch(urlTeddy).then((response => 
+      response.json().then((data) => {
+        console.log(data);
+        let affichage ='<div>';
+        for (let nomTeddy of data){
+          affichage += '<h2>${nomTeddy.name}</h2>';
+        }
+        affichage += '</div>';
+      })
+    ));
+  }
+}); */
+body();
+function body(){
+  getTeddies();
+}
 
-let articleTeddy = document.createElement('article');
-firstDiv.appendChild(articleTeddy);
-document.querySelector("article").classList.add('col-12', 'col-md-6', 'col-xl-4', 'my-3');
+function getTeddies() {
+  fetch("http://localhost:3000/api/teddies")
+    .then(function (res) {
+      return res.json();
+    })
+    .catch((error) => {
+      console.log(error)
+    })
 
-let lienTeddy = document.createElement('a');
-articleTeddy.appendChild(lienTeddy);
-document.querySelector("article > a").setAttribute('href', 'produit.html');
+    .then(function (insertDataTeddies) {
+      const cartes = insertDataTeddies;
+      console.log(cartes);
+      for (let card in cartes) {
 
-let figureTeddy = document.createElement('figure');
-lienTeddy.appendChild(figureTeddy);
-document.querySelector("figure").classList.add('card','rounded-3', 'my-1', 'shadow-sm');
+        let container = document.getElementById('card-teddy');
 
-let imageTeddy = document.createElement('img');
-figureTeddy.appendChild(imageTeddy);
-document.querySelector("figure >img").classList.add('card-img-top');
-document.querySelector("figure > img").setAttribute("alt", "");
+        let firstDiv = document.createElement('div');
+        container.appendChild(firstDiv);
+        firstDiv.classList.add('row');
 
-let captionTeddy = document.createElement('figcaption');
-figureTeddy.appendChild(captionTeddy);
-document.querySelector("figcaption").classList.add('card-body');
+        let articleTeddy = document.createElement('article');
+        firstDiv.appendChild(articleTeddy);
+        articleTeddy.classList.add('col-12', 'col-md-6', 'col-xl-4', 'my-3');
 
-let textTeddy = document.createElement('div');
-captionTeddy.appendChild(textTeddy);
-document.querySelector("figcaption > div").classList.add("title-price" ,"d-flex");
+        let lienTeddy = document.createElement('a');
+        articleTeddy.appendChild(lienTeddy);
+        lienTeddy.href ='produit.html?id=${insertDataTeddies[card]._id}';
+        /* document.querySelector("article > a").setAttribute('href', ''); */
+        
 
-let nomTeddy = document.createElement('h2');
-textTeddy.appendChild(nomTeddy);
-document.querySelector('h2').setAttribute('id', 'name');
+        let figureTeddy = document.createElement('figure');
+        lienTeddy.appendChild(figureTeddy);
+        figureTeddy.classList.add('card', 'rounded-3', 'my-1', 'shadow-sm');
 
-let prixTeddy = document.createElement('p');
-textTeddy.appendChild(prixTeddy);
-document.querySelector('figcaption > div > p').classList.add("card-text", "my-auto");
+        let imageTeddy = document.createElement('img');
+        figureTeddy.appendChild(imageTeddy);
+        imageTeddy.src = insertDataTeddies[card].imageUrl;
+        imageTeddy.classList.add('card-img-top');
+        document.querySelector("figure > img").setAttribute("alt", "");
 
-let descriptionTeddy = document.createElement('p');
-captionTeddy.append(descriptionTeddy);
-document.querySelector('figure > figcaption > p').setAttribute("id", "description");
+        let captionTeddy = document.createElement('figcaption');
+        figureTeddy.appendChild(captionTeddy);
+        captionTeddy.classList.add('card-body');
+
+        let textTeddy = document.createElement('div');
+        captionTeddy.appendChild(textTeddy);
+        textTeddy.classList.add("title-price", "d-flex");
+
+        let nomTeddy = document.createElement('h2');
+        textTeddy.appendChild(nomTeddy);
+        nomTeddy.innerHTML = insertDataTeddies[card].name;
+        /* document.querySelector('h2').setAttribute('id', 'name'); */
+
+        let prixTeddy = document.createElement('p');
+        textTeddy.appendChild(prixTeddy);
+        prixTeddy.innerHTML = insertDataTeddies[card].price + ' €';
+        prixTeddy.classList.add("card-text", "my-auto");
+
+        let descriptionTeddy = document.createElement('p');
+        captionTeddy.append(descriptionTeddy);
+        descriptionTeddy.innerHTML = insertDataTeddies[card].description;
+        document.querySelector('figure > figcaption > p').setAttribute("id", "description");
+
+      }
+    });
+  }
 
 
 
@@ -165,4 +211,3 @@ prixTeddy.setAttribute("id", "price");
 var descriptionTeddy = document.querySelector("#card-teddy > div >article > a > figure > figcaption > p");
 descriptionTeddy.setAttribute("id", "description");
  */
-

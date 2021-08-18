@@ -37,9 +37,7 @@ header{
 }
 
 /*Section*/
-/* .body{
-    background-color:#f3e9f1;
-} */
+
 .jumbotron{
     box-shadow: inset 0px 4px 4px -3px rgb(53 53 53 / 20%);
 }
@@ -56,7 +54,7 @@ a .card:hover{
     transform: scale(1.05);
 }
 .card-img-top {
-    min-height: 16rem;
+    height: 16rem;
     object-fit: cover;
     transition: transform .2s;
 }
@@ -64,12 +62,9 @@ a .card:hover{
     color: #9960e3;
     border-color: #9960e3;
 }
-.row{
-  --bs-gutter-x: none;
-}
+
 /*Footer*/
 footer{
-    /* margin-top: 1.5rem; */
     padding-top: 1rem;
     background-color: white;
 }

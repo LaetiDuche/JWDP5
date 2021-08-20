@@ -12,8 +12,7 @@ function getTeddies() {
     .then(function (res) {
       return res.json();
     })
-    .catch((error) => {
-      console.log(error)
+    .catch((err) => {
     })
 
     //Fonction boucle pour créer chaque article automatiquement
@@ -33,7 +32,7 @@ function getTeddies() {
         //Chaque carte est cliquable et mène à la page produit grâce à l'ID de chaque teddie
         let lienTeddy = document.createElement('a');
         articleTeddy.appendChild(lienTeddy);
-        lienTeddy.href ='produit.html?id=${insertDataTeddies[card]._id}'; //Appel data 
+        lienTeddy.href =`produit.html?id=${insertDataTeddies[card]._id}`; //Appel data 
         
         let figureTeddy = document.createElement('figure');
         lienTeddy.appendChild(figureTeddy);
@@ -44,7 +43,7 @@ function getTeddies() {
         figureTeddy.appendChild(imageTeddy);
         imageTeddy.src = insertDataTeddies[card].imageUrl;//Appel data
         imageTeddy.classList.add('card-img-top');
-        document.querySelector("figure > img").setAttribute("alt", "ours en peluche orinours");
+        imageTeddy.setAttribute("alt", "ours en peluche orinours");
 
         let captionTeddy = document.createElement('figcaption');
         figureTeddy.appendChild(captionTeddy);
@@ -54,7 +53,7 @@ function getTeddies() {
         captionTeddy.appendChild(textTeddy);
         textTeddy.classList.add("title-price", "d-flex");
 
-        //Insertion pour le nom des teddies
+        //Insertion du nom des teddies
         let nomTeddy = document.createElement('h2');
         textTeddy.appendChild(nomTeddy);
         nomTeddy.innerHTML = insertDataTeddies[card].name;//Appel data 
@@ -69,7 +68,6 @@ function getTeddies() {
         let descriptionTeddy = document.createElement('p');
         captionTeddy.append(descriptionTeddy);
         descriptionTeddy.innerHTML = insertDataTeddies[card].description;//Appel data
-
       }
     });
   }

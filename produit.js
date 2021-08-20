@@ -1,94 +1,121 @@
-/* fetch('http://localhost:3000/api/teddies')
-    .then((response) => response.json())
-    .then(response => console.log(response))
-    .catch(error => {
-        console.log(error)
-    }); */
+let params = new URL(document.location).searchParams;
+let id = params.get("id");
 
-var urlTeddy = 'http://localhost:3000/api/teddies';
+body();
 
-fetch(urlTeddy)
-    .then((response) =>
-        response.json().then((data) => {
-            console.log(data);
-            document.querySelector('#image').innerHTML = data.imageUrl;
-            document.querySelector('#name').innerHTML = data.name;
-            document.querySelector('#price').innerHTML = "Prix : " + data.price + ' €';
-            document.querySelector('#description').innerHTML = "Description : " + data.description;
-            document.querySelector('#colors').innerHTML = data.colors;
-        })
-    )
-    .catch((err) => console.log('erreur : ' + err));
+function body() {
+  getTeddies();
+}
 
+function getTeddies() {
+  fetch(`http://localhost:3000/api/teddies/${id}`)
+    .then(function (res) {
+      return res.json();
+    })
+    .catch((err) => {
+    })
+    .then(function (insertDataTeddies) {
+      card = insertDataTeddies;
+      console.log(card);
 
+      var cardTeddy = document.getElementById('card-teddy');
 
-//Création de la fiche produit des teddies
+      var ficheTeddy = document.createElement("article");
+      cardTeddy.appendChild(ficheTeddy);
+      ficheTeddy.classList.add("col-12", "col-md-12", "col-xl-8", "page-product", "mx-auto", "my-3");
 
-var cardTeddy = document.getElementById('card-teddy');
-cardTeddy.innerHTML = "<div><article><figure><img></img><figcaption><div><h2></h2><p></p><p></p><label></label><select><option></option><option></option><option></option><option></option></select><div><button><i></i></button></div></div></figcaption></figure></article></div>";
+      var figureTeddy = document.createElement("figure");
+      ficheTeddy.appendChild(figureTeddy);
+      figureTeddy.classList.add("card", "rounded-3", "col-md-12", "my-1", "shadow-sm");
 
-var rowTeddy = document.querySelector("#card-teddy > div");
-rowTeddy.setAttribute("class", "row ");
+      var imageTeddy = document.createElement("img");
+      figureTeddy.appendChild(imageTeddy);
+      imageTeddy.classList.add("card-img-top", "h-100");
+      imageTeddy.setAttribute("alt", "ours en peluche teddy");
+      imageTeddy.src = card.imageUrl;
 
-var ficheTeddy = document.querySelector("#card-teddy > div >article");
-ficheTeddy.setAttribute("class", "col-12 col-md-12 col-xl-8 page-product  mx-auto my-3");
-ficheTeddy.setAttribute("id", "");
+      var captionTeddy = document.createElement("figcaption");
+      figureTeddy.appendChild(captionTeddy);
+      captionTeddy.classList.add("card-body");
 
-var figureTeddy = document.querySelector("#card-teddy > div >article > figure");
-figureTeddy.setAttribute("class", "card rounded-3 flex-md-row col-md-12 my-1 shadow-sm");
+      var textTeddy = document.createElement("div");
+      captionTeddy.appendChild(textTeddy);
+      textTeddy.classList.add("row");
 
-var imageTeddy = document.querySelector("article > figure > img");
-imageTeddy.setAttribute("class", "card-img-top ");
-imageTeddy.setAttribute("id", "image");
-imageTeddy.setAttribute("alt", "");
+      var nomTeddy = document.createElement("h2");
+      textTeddy.appendChild(nomTeddy);
+      nomTeddy.innerHTML = card.name;
+      nomTeddy.setAttribute("id", "name");
 
-var captionTeddy = document.querySelector(" figure > figcaption");
-captionTeddy.setAttribute("class", "card-body");
+      var prixTeddy = document.createElement("p");
+      textTeddy.appendChild(prixTeddy);
+      prixTeddy.innerHTML = "Prix : " + card.price / 100 + ' €';
+      prixTeddy.classList.add("card-text");
+      prixTeddy.setAttribute("id", "price");
 
-var textTeddy = document.querySelector("figcaption > div");
-textTeddy.setAttribute("class", "row title-price");
+      var descriptionTeddy = document.createElement("p");
+      textTeddy.appendChild(descriptionTeddy);
+      descriptionTeddy.innerHTML = "Description : " + card.description;
+      descriptionTeddy.setAttribute("id", "description");
 
-var nomTeddy = document.querySelector("figcaption > div > h2");
-nomTeddy.setAttribute("id", "name");
+      var choixTeddy = document.createElement("div");
+      textTeddy.appendChild(choixTeddy);
+      choixTeddy.classList.add("d-flex", "mt-2", "align-baseline");
 
-var prixTeddy = document.querySelector("figcaption > div > p:nth-of-type(1)");
-prixTeddy.setAttribute("class", "card-text");
-prixTeddy.setAttribute("id", "price");
+      var labelTeddy = document.createElement("label");
+      choixTeddy.appendChild(labelTeddy);
+      labelTeddy.setAttribute("for", "c");
 
-var descriptionTeddy = document.querySelector("figcaption > div > p:nth-of-type(2)");
-descriptionTeddy.setAttribute("id", "description");
+      var selectTeddy = document.createElement("select");
+      choixTeddy.appendChild(selectTeddy);
+      selectTeddy.classList.add("form-select");
+      selectTeddy.setAttribute("aria-label", "default select example");
 
-var labelTeddy = document.querySelector(" figcaption > div > label");
-labelTeddy.setAttribute("for", "c");
+      var optionTeddy = document.createElement("option");
+      selectTeddy.appendChild(optionTeddy);
+      optionTeddy.innerHTML = "Choisir une couleur";
 
-var selectTeddy = document.querySelector(" figcaption > div > select");
-selectTeddy.setAttribute("class", "form-select");
-selectTeddy.setAttribute("name", "c");
-selectTeddy.setAttribute("aria-label", "default select example");
+      var colorTeddy = document.getElementById("colors");
+      for (let i = 0; i < card.colors.length; i++) {
+        var optionTeddy = document.createElement("option");
+        selectTeddy.appendChild(optionTeddy);
+        optionTeddy.innerHTML = card.colors[i];
+      }
 
-var optionTeddy = document.querySelector("select > option");
-optionTeddy.setAttribute("selected","");
-optionTeddy.innerHTML = "Choisir une couleur";
+      var textTeddy2 = document.createElement("div");
+      textTeddy.appendChild(textTeddy2);
+      textTeddy2.classList.add("d-flex", "mt-4", "align-baseline");
 
-var optionTeddy1 = document.querySelector("select > option:nth-of-type(2)");
-optionTeddy1.setAttribute("value", "1");
-optionTeddy1.setAttribute("id", "colors")
+      var labelTeddy = document.createElement("label");
+      textTeddy2.appendChild(labelTeddy);
+      labelTeddy.setAttribute("for", "nombre");
 
-var optionTeddy2 = document.querySelector("select > option:nth-of-type(3)");
-optionTeddy2.setAttribute("value", "2");
-optionTeddy2.setAttribute("id", "colors")
+      var quantiteTeddy = document.createElement("p");
+      textTeddy2.appendChild(quantiteTeddy);
+      quantiteTeddy.innerHTML = "Quantité :";
+      quantiteTeddy.classList.add("my-auto");
 
-var divTeddy = document.querySelector("figcaption > div > div");
-divTeddy.setAttribute("class", "col-12 text-center mt-4");
+      var numberOfTeddy = document.createElement("input")
+      textTeddy2.appendChild(numberOfTeddy);
+      numberOfTeddy.classList.add("ms-1", "h-auto", "w-25");
+      numberOfTeddy.setAttribute("type", "number");
+      numberOfTeddy.setAttribute("name", "nombre");
+      numberOfTeddy.setAttribute("id", "quantite");
 
-var buttonTeddy = document.querySelector("div > button");
-buttonTeddy.setAttribute("class", "btn btn-outline-light rounded-3 shadow");
-buttonTeddy.setAttribute("type", "submit")
-buttonTeddy.setAttribute("id", "btn");;
-buttonTeddy.setAttribute("data-id", "");
-buttonTeddy.setAttribute("data-name", "");
-buttonTeddy.setAttribute("data-price", "");
-buttonTeddy.setAttribute("data-url", "");
-document.querySelector("#btn").innerHTML = "<i class='fas fa-shopping-cart me-2'></i> Ajouter au panier";
+      var divTeddy = document.createElement("div");
+      textTeddy.appendChild(divTeddy);
+      divTeddy.classList.add("col-12", "text-center", "mt-4");
 
+      var buttonTeddy = document.createElement("button");
+      divTeddy.appendChild(buttonTeddy);
+      buttonTeddy.classList.add("btn", "btn-outline-light", "rounded-3", "shadow");
+      buttonTeddy.setAttribute("type", "submit")
+      buttonTeddy.setAttribute("id", "btn");;
+      buttonTeddy.setAttribute("data-id", "");
+      buttonTeddy.setAttribute("data-name", "");
+      buttonTeddy.setAttribute("data-price", "");
+      buttonTeddy.setAttribute("data-url", "");
+      buttonTeddy.innerHTML = "<i class='fas fa-shopping-cart me-2'></i> Ajouter au panier";
 
+    });
+}

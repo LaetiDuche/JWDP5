@@ -58,6 +58,8 @@ a .card:hover{
     object-fit: cover;
     transition: transform .2s;
 }
+  
+}
 .btn-outline-light{
     color: #9960e3;
     border-color: #9960e3;

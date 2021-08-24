@@ -7,6 +7,7 @@ body();
 
 function body() {
   getTeddies();
+  /* ajoutPanier(); */
 }
 
 //Fonction pour récupérer l'ID du teddy sélectionné venant de la page index et pour afficher sa fiche produit
@@ -17,7 +18,7 @@ function getTeddies() {
     })
     .catch((err) => {
     })
-    .then(function (insertDataTeddies) {  //Mise en iaison de l'ID venant de l'index
+    .then(function (insertDataTeddies) {  //Mise en liaison de l'ID venant de l'index
       card = insertDataTeddies;
       console.log(card);
 
@@ -52,12 +53,14 @@ function getTeddies() {
       var nomTeddy = document.createElement("h2");
       textTeddy.appendChild(nomTeddy);
       nomTeddy.innerHTML = card.name;    //Appel data
+      nomTeddy.setAttribute("id", "nom")
 
       //Insertion du prix d'un teddy en euro
       var prixTeddy = document.createElement("p");
       textTeddy.appendChild(prixTeddy);
       prixTeddy.innerHTML = "Prix : " + card.price / 100 + ' €';  //Appel data
       prixTeddy.classList.add("card-text");
+      prixTeddy.setAttribute("id", "prix");
 
       //Insertion de la description d'un teddy
       var descriptionTeddy = document.createElement("p");
@@ -71,20 +74,23 @@ function getTeddies() {
       //Insertion des éléments du formulaire pour choisir une couleur
       var labelTeddy = document.createElement("label");
       choixTeddy.appendChild(labelTeddy);
-      labelTeddy.setAttribute("for", "c");
+      labelTeddy.setAttribute("for", "colorteddy");
 
       var selectTeddy = document.createElement("select");
       choixTeddy.appendChild(selectTeddy);
       selectTeddy.classList.add("form-select");
+      selectTeddy.setAttribute("id","colorteddy");
+      selectTeddy.setAttribute("name","color");
 
       var optionTeddy = document.createElement("option");
       selectTeddy.appendChild(optionTeddy);
       optionTeddy.innerHTML = "Choisir une couleur";
 
-      var colorTeddy = document.getElementById("colors");
-      for (let i = 0; i < card.colors.length; i++) {    //Fonction boucle pour générer la liste des différentes couleurs
+      var colorTeddy = document.getElementById("colorteddy");
+      //Fonction boucle pour générer la liste des différentes couleurs
+      for (let i = 0; i < card.colors.length; i++) {    
         var optionTeddy = document.createElement("option");
-        selectTeddy.appendChild(optionTeddy);
+        colorTeddy.appendChild(optionTeddy);
         optionTeddy.innerHTML = card.colors[i];  //Appel data des couleurs
       }
 
@@ -95,7 +101,7 @@ function getTeddies() {
 
       var labelTeddy = document.createElement("label");
       textTeddy2.appendChild(labelTeddy);
-      labelTeddy.setAttribute("for", "nombre");
+      labelTeddy.setAttribute("for", "quantite");
 
       var quantiteTeddy = document.createElement("p");
       textTeddy2.appendChild(quantiteTeddy);
@@ -108,8 +114,10 @@ function getTeddies() {
       numberOfTeddy.setAttribute("type", "number");
       numberOfTeddy.setAttribute("name", "nombre");
       numberOfTeddy.setAttribute("id", "quantite");
+      numberOfTeddy.setAttribute("value", "1");
+      numberOfTeddy.setAttribute("min", "1");
 
-      //Insertion du bouton ajouter au panier
+      //Insertion du bouton pour ajouter au panier
       var divTeddy = document.createElement("div");
       textTeddy.appendChild(divTeddy);
       divTeddy.classList.add("col-12", "text-center", "mt-4");
@@ -117,13 +125,90 @@ function getTeddies() {
       var buttonTeddy = document.createElement("button");
       divTeddy.appendChild(buttonTeddy);
       buttonTeddy.classList.add("btn", "btn-outline-light", "rounded-3", "shadow");
-      buttonTeddy.setAttribute("type", "submit")
-      buttonTeddy.setAttribute("id", "btn");;
-      buttonTeddy.setAttribute("data-id", "");
-      buttonTeddy.setAttribute("data-name", "");
-      buttonTeddy.setAttribute("data-price", "");
-      buttonTeddy.setAttribute("data-url", "");
+      buttonTeddy.setAttribute("id", "bouton");
+      buttonTeddy.setAttribute("type", "submit");
       buttonTeddy.innerHTML = "<i class='fas fa-shopping-cart me-2'></i> Ajouter au panier";
-
+      
+      ajoutPanier();
+      
     });
 }
+
+
+
+function ajoutPanier(){
+  const localTeddy = JSON.parse(localStorage.getItem("produitTeddy"));
+
+if (localTeddy != null){
+
+  bouton.onclick = () => {
+    const produitTeddy = {
+        nom: nom.value,
+        price: prix.value,
+        quantity: quantite.value
+    };
+    localStorage.setItem("produitTeddy",JSON.stringify(produitTeddy))
+    
+}
+}}
+//Tableau objet
+/* function ajoutPanier(){
+  bouton.onclick = () => {
+    var user = {
+      name: nom.innerHTML,
+      price: parseFloat(prix.innerHTML),
+      quantity: parseFloat(document.querySelector("#quantite").value),
+      _id: id,
+
+    }
+    localStorage.setItem("number",quantite.value);
+    localStorage.setItem("color", colorteddy.value);
+    
+
+  if (localStorage.getItem("number") != null );
+  (localStorage.getItem("color") != null); */
+      /* h1.textContent = `${localStorage.getItem("quantite")}`; */
+
+  
+    
+  /* }}; */
+
+
+
+
+
+
+
+
+//Ca marche pour localstorage quantité
+/* function ajoutPanier(){
+  bouton.onclick = () => {
+    localStorage.setItem("number",quantite.value);
+    if (localStorage.getItem("number") != null );
+  }}; */
+
+  
+
+    /* if (numberOfTeddy.value > 0 && numberOfTeddy.value < 50){
+      var ajoutTeddy = {
+        name: nomTeddy.innerHTML,
+        price: parseFloat(prixTeddy.innerHTML),
+        quantity: parseFloat(document.querySelector("#quantite").value),
+        _id: id,
+      }
+  } */
+
+
+/* function ajoutPanier(){
+  const buttonTeddy = document.querySelector("#bouton");
+  bouton.onclick = (bouton) => {
+    if (numberOfTeddy.value > 0 && numberOfTeddy.value < 50){
+      var ajoutTeddy = {
+        name: nomTeddy.innerHTML,
+        price: parseFloat(prixTeddy.innerHTML),
+        quantity: parseFloat(document.querySelector("#quantite").value),
+        _id: id,
+      }
+    }
+  });
+} */

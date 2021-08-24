@@ -56,6 +56,7 @@
     
     <div class="container">
         <div class="row  mx-1 my-3 pb-3">
+          
             <div class="col-12 bg-white p-4 rounded-3 my-2">
                 <div class="col-12">
                     <h2>Mon panier</h2>
@@ -64,8 +65,8 @@
                     <thead>
                         <tr>
                             <th>Article</th>
-                            <th>Prix</th>
                             <th>Quantité</th>
+                            <th>Prix</th>
                         </tr>
                     </thead>
                     <tbody id="cart-tablebody"></tbody>
@@ -80,21 +81,21 @@
                 </div>
                 <form class="row g-3 needs-validation" novalidate>
                     <div class="col-md-4">
-                        <label for="validationCustom01" class="form-label">Prénom</label>
+                        <label for="validationCustom01" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="validationCustom01" value="" required>
                         <div class="invalid-feedback">
                             Veuillez entrer votre prénom.
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="validationCustom02" class="form-label">Nom</label>
+                        <label for="validationCustom02" class="form-label">Prénom</label>
                         <input type="text" class="form-control" id="validationCustom02" value="" required>
                         <div class="invalid-feedback">
                             Veuillez entrer votre nom.
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="validationCustomUsername" class="form-label">Adresse e-mail</label>
+                        <label for="validationCustomUsername" class="form-label">Email</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
                             <input type="text" class="form-control" id="validationCustomUsername"
@@ -105,20 +106,20 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="validationCustom03" class="form-label">Ville</label>
+                        <label for="validationCustom03" class="form-label">Adresse postale</label>
                         <input type="text" class="form-control" id="validationCustom03" required>
                         <div class="invalid-feedback">
-                            Veuillez fournir une ville valide.
+                            Veuillez fournir une adresse valide.
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <label for="validationCustom04" class="form-label">Pays</label>
+                        <label for="validationCustom04" class="form-label">Ville</label>
                         <select class="form-select" id="validationCustom04" required>
                             <option selected disabled value="">Choisir...</option>
                             <option>...</option>
                         </select>
                         <div class="invalid-feedback">
-                            Veuillez sélectionner un pays valide.
+                            Veuillez sélectionner une ville valide.
                         </div>
                     </div>
                     <div class="col-12">

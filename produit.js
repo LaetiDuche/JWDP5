@@ -7,7 +7,6 @@ body();
 
 function body() {
   getTeddies();
-  /* ajoutPanier(); */
 }
 
 //Fonction pour récupérer l'ID du teddy sélectionné venant de la page index et pour afficher sa fiche produit dans la page produit
@@ -72,7 +71,7 @@ function getTeddies() {
       textTeddy.appendChild(choixTeddy);
       choixTeddy.classList.add("d-flex", "mt-2", "align-baseline");
 
-      //Insertion des éléments du formulaire pour choisir une couleur
+      //Insertion des éléments du menu déroulant pour choisir une couleur
       var labelTeddy = document.createElement("label");
       choixTeddy.appendChild(labelTeddy);
       labelTeddy.setAttribute("for", "colorteddy");
@@ -138,165 +137,28 @@ function getTeddies() {
 //Fonction pour ajouter dans le localstorage un ou plusieurs teddy avec la quantité et la couleur pour chacun
 
 function ajoutPanier() {
+  //Actions sur le bouton
   const bouton = document.querySelector('#bouton');
   bouton.addEventListener('click', () => {
+    //Création du tableau json pour chaque teddy personnalisé
     if (quantite.value > 0 && quantite.value < 100) {
       let productPanier = {
         name: card.name,
-        price: parseFloat(card.price),
+        price: card.price / 100 + '€',
         color: colorteddy.value,
         quantity: quantite.value,
         _id: id
       };
+      //Pour ajouter Teddy au localstorage
       let localPanier = [];
       if (localStorage.getItem("product") !== null) {
         localPanier = JSON.parse(localStorage.getItem("product"));
       }
       localPanier.push(productPanier);
       localStorage.setItem("product", JSON.stringify(localPanier));
+
+      //Message de confirmation d'ajout au panier
+      alert('Vous avez ajouté teddy dans votre panier !');
     }
   });
 }
-
-  //Pour ajouter un produit en cliquant sur le bouton et enregistrer les options du teddy
-/* bouton.onclick = () => {
-  let product = {
-    nom: card.name,
-    prix: card.price / 100 + ' €',
-    couleur: colorteddy.value,
-    quantité: quantite.value
-  } */
-    //Pour créer la liste du produit sélectionné lisible au format json
-/* localStorage.setItem("product", JSON.stringify(product));
-console.log(product); */
-
-    //Pour confirmer via un message qu'un produit a été ajouté
-/*  if (local == null);
- alert('Ajouté au panier');
-}
-}; */
-
-
-
-
-/* let product = document.querySelectorAll('#bouton');
-for (let i=0; i< product.length; i++){
-  product [i].addEventListener('click', () => {
-    console.log("Ajouté au panier");
-  })
-} */
-
-/* function colorteddy(){
-}
-function ajoutPanier(){
-
-  if (colorteddy()) {
-    if (localStorage.getItem('card')) {
-      products = JSON.parse(localStorage.getItem('card'));
-    }
-    bouton.onclick = () => {
-      let products = {
-      nom : card.name,
-      color : colorteddy.value,
-      price: card.price / 100 + ' €',
-      quantity: quantite.value
-    }
-    localStorage.setItem('card', JSON.stringify(products));
-    alert('Ajouté au panier');
-    window.location.reload();
-
-  }
-};
-} */
-
-
-//fonction 4
-/* let numberOfTeddy = document.querySelector('#bouton');
-
-for (let i=0; i < numberOfTeddy; i++){
-  numberOfTeddy[i].addEventListener('click', () => {
-    cartNumber();
-  })
-}
-function cartNumber(){
-  let productNumber = localStorage.getItem('#quantite');
-  console.log(productNumber);
-  localStorage.setItem('quantite', 1);
-} */
-
-
-//fonction 3
-//Ca marche 
-
-/* bouton();
-for (let i=0; i < bouton.length; i++) {
-  bouton[i].addEventListener('click', () => {
-    ajoutPanier();
-  })
-} */
-
-
-
-//fonction 5
-/* const local = JSON.parse(localStorage.getItem('card'));
-function ajoutPanier(){
-  bouton.onclick = () => {
-    localStorage.setItem("quantity",quantite.value);
-    localStorage.setItem("color",colorteddy.value);
-    localStorage.setItem("id", JSON.stringify(card));
-    console.log(card);
-    if (local != null );
-    (localStorage.getItem("color") != null );
-    (localStorage.getItem("id") != null );
-  }}; */
-
-
-//Fonction 1
-/* const numberOfTeddy = document.querySelector("#quantite");
-
-function ajoutPanier() {
-  const boutonPanier = document.querySelector("#bouton");
-
-  boutonPanier.addEventListener('click', () => {
-    if (quantite.value > 0 && quantite.value < 50) {
-      var ajoutTeddy = {
-        name: nom.innerHTML,
-        price: parseFloat(prix.innerHTML),
-        quantity: parseFloat(document.querySelector("#quantite").value),
-        _id: id,
-      };
-    }
-  });
-} */
-
-
-
-
-
-
-//fonction 2
-//Tableau objet
-/* function ajoutPanier(){
-  bouton.onclick = () => {
-    var user = {
-      name: nom.innerHTML,
-      price: parseFloat(prix.innerHTML),
-      quantity: parseFloat(document.querySelector("#quantite").value),
-      _id: id,
-
-    }
-    localStorage.setItem("number",quantite.value);
-    localStorage.setItem("color", colorteddy.value);
-
-  if (localStorage.getItem("number") != null );
-  (localStorage.getItem("color") != null); */
-/* h1.textContent = `${localStorage.getItem("quantite")}`; */
-
-/* }}; */
-
-
-
-
-
-
-

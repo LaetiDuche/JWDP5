@@ -1,6 +1,6 @@
 //Pour accéder à  l'url de chaque id des teddies
-let params = new URL(document.location).searchParams;
-let id = params.get("id");
+var params = new URL(document.location).searchParams;
+var id = params.get("id");
 
 //Pour préciser dans le DOM où l'on veut inserer la fiche produit
 body();
@@ -142,7 +142,7 @@ function ajoutPanier() {
   bouton.addEventListener('click', () => {
     //Création du tableau json pour chaque teddy personnalisé
     if (quantite.value > 0 && quantite.value < 100) {
-      let productPanier = {
+      var productPanier = {
         name: card.name,
         price: card.price / 100 + '€',
         color: colorteddy.value,
@@ -150,7 +150,7 @@ function ajoutPanier() {
         _id: id
       };
       //Pour ajouter Teddy au localstorage
-      let localPanier = [];
+      var localPanier = [];
       if (localStorage.getItem("product") !== null) {
         localPanier = JSON.parse(localStorage.getItem("product"));
       }

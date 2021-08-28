@@ -3,13 +3,12 @@ body();
 function body() {
   monPanier();
   formCommand();
-
 }
 
 //Création de Mon panier
 
 function monPanier() {
-  //Selection de l'élément pour afficher le tableau
+  //Selection de l'élément pour afficher mon panier
   var monPanier = document.getElementById('panier-teddy');
 
   //Eléments responsives
@@ -38,24 +37,50 @@ function monPanier() {
   theadPanier.appendChild(trPanier);
 
   //Colonne article
-  var thPanier1 = document.createElement('th');
-  trPanier.appendChild(thPanier1);
-  thPanier1.textContent = "Article";
+  var thArticle = document.createElement('th');
+  trPanier.appendChild(thArticle);
+  thArticle.textContent = "Article";
 
   //Colonne quantité
-  var thPanier2 = document.createElement('th');
-  trPanier.appendChild(thPanier2);
-  thPanier2.textContent = "Quantité";
+  var thQuantite = document.createElement('th');
+  trPanier.appendChild(thQuantite);
+  thQuantite.textContent = "Quantité";
 
   //Colonne prix
-  var thPanier3 = document.createElement('th');
-  trPanier.appendChild(thPanier3);
-  thPanier3.textContent = "Prix";
+  var thPrix = document.createElement('th');
+  trPanier.appendChild(thPrix);
+  thPrix.textContent = "Prix";
 
-  //Lignes pour insérer les produits 
-  var tbodyPanier = document.createElement('tbody');
-  tableauPanier.appendChild(tbodyPanier);
-  tbodyPanier.setAttribute("id", "products-list");
+  //Eléments pour insérer les produits dans le tableau
+  var tbodyProduits = document.createElement('tbody');
+  tableauPanier.appendChild(tbodyProduits);
+  tbodyProduits.setAttribute("id", "products-list");
+
+  //Fonction boucle pour générer les produits du localstorage dans le tableau du panier
+  var getLocalPanier = JSON.parse(localStorage.getItem("product"));
+
+  for (var produitTeddy in getLocalPanier) {
+    var trProduit = document.getElementById('tableau');
+
+    var trProduit = document.createElement('tr');
+    tbodyProduits.appendChild(trProduit);
+    trProduit.setAttribute("id", "tableau");
+
+    var tdNom = document.createElement('td');
+    trProduit.appendChild(tdNom);
+    tdNom.setAttribute("id", "nom");
+    tdNom.innerHTML = getLocalPanier[produitTeddy].name;
+
+    var tdNombre = document.createElement('td');
+    trProduit.appendChild(tdNombre);
+    tdNombre.setAttribute("id", "nombre");
+    tdNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
+
+    var tdPrix = document.createElement('td');
+    trProduit.appendChild(tdPrix);
+    tdPrix.setAttribute("id", "prix");
+    tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + '€';
+  }
 
   //Prix total
   var totalPanier = document.createElement('p');
@@ -66,7 +91,19 @@ function monPanier() {
   var spanPanier = document.createElement('span');
   totalPanier.appendChild(spanPanier);
   spanPanier.classList.add('subtotal');
+
+
 }
+
+//Récupérer les produits dans le localstorage
+
+
+
+
+
+
+
+
 
 
 //Création du formulaire de commande

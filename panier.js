@@ -2,8 +2,11 @@
 body();
 function body() {
   monPanier();
-  formCommand();
+  totalPrice();
+  formCommand()
+
 }
+
 
 //Création de Mon panier
 
@@ -39,7 +42,7 @@ function monPanier() {
   //Colonne article
   var thArticle = document.createElement('th');
   trPanier.appendChild(thArticle);
-  thArticle.textContent = "Article";
+  thArticle.textContent = "Articles";
 
   //Colonne quantité
   var thQuantite = document.createElement('th');
@@ -49,6 +52,7 @@ function monPanier() {
   //Colonne prix
   var thPrix = document.createElement('th');
   trPanier.appendChild(thPrix);
+  thPrix.classList.add('pe-4');
   thPrix.textContent = "Prix";
 
   //Eléments pour insérer les produits dans le tableau
@@ -76,32 +80,44 @@ function monPanier() {
     tdNombre.setAttribute("id", "nombre");
     tdNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
 
+    //Calcul du prix d'un produit avec sa quantité
     var tdPrix = document.createElement('td');
     trProduit.appendChild(tdPrix);
     tdPrix.setAttribute("id", "prix");
-    tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + '€';
+    tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + ' €';
   }
 
   //Prix total
-  var totalPanier = document.createElement('p');
-  divPanier.appendChild(totalPanier);
-  totalPanier.textContent = "Total :";
+  var titrePanier = document.createElement('p');
+  divPanier.appendChild(titrePanier);
+  titrePanier.style.fontWeight = "bold";
+  titrePanier.textContent = "Total : ";
 
   //Ajout et calcul du prix total
-  var spanPanier = document.createElement('span');
-  totalPanier.appendChild(spanPanier);
-  spanPanier.classList.add('subtotal');
+  var totalPanier = document.createElement('span');
+  titrePanier.appendChild(totalPanier);
+  totalPanier.setAttribute('id', 'subtotal');
+
+  totalPrice();
+};
 
 
+//Fonction pour calculer le prix total du panier
+function totalPrice() {
+  var total = [];
+  var productsPriceList = document.querySelectorAll('#prix');
+  productsPriceList.forEach(function (productsPrice) {
+    total.push(parseFloat(productsPrice.textContent));
+  })
+  console.log(total);
+
+  var totalMoney = total.reduce(function (total, productsPrice) {
+    total += productsPrice;
+    return total;
+  }, 0)
+  console.log(totalMoney);
+  document.getElementById('subtotal').textContent = totalMoney + ' €';
 }
-
-//Récupérer les produits dans le localstorage
-
-
-
-
-
-
 
 
 

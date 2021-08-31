@@ -80,20 +80,19 @@ function monPanier() {
     tdNombre.setAttribute("id", "nombre");
     tdNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
 
-    //Calcul du prix d'un produit avec sa quantité
+    //Calcul du prix, multiplication du prix d'un produit avec sa quantité
     var tdPrix = document.createElement('td');
     trProduit.appendChild(tdPrix);
     tdPrix.setAttribute("id", "prix");
     tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + ' €';
   }
 
-  //Prix total
+  //Eléments pour insérer le prix total du panier
   var titrePanier = document.createElement('p');
   divPanier.appendChild(titrePanier);
   titrePanier.style.fontWeight = "bold";
   titrePanier.textContent = "Total : ";
 
-  //Ajout et calcul du prix total
   var totalPanier = document.createElement('span');
   titrePanier.appendChild(totalPanier);
   totalPanier.setAttribute('id', 'subtotal');
@@ -105,17 +104,19 @@ function monPanier() {
 //Fonction pour calculer le prix total du panier
 function totalPrice() {
   var total = [];
+  //On récupère tous les prix de la colonne prix
   var productsPriceList = document.querySelectorAll('#prix');
   productsPriceList.forEach(function (productsPrice) {
     total.push(parseFloat(productsPrice.textContent));
   })
   console.log(total);
-
+  //On additionne tous les prix
   var totalMoney = total.reduce(function (total, productsPrice) {
     total += productsPrice;
     return total;
   }, 0)
   console.log(totalMoney);
+  //On sélectionne l'endroit où l'on veut inscrire le prix total
   document.getElementById('subtotal').textContent = totalMoney + ' €';
 }
 
@@ -152,6 +153,7 @@ function formCommand() {
   divForm.appendChild(formElement);
   formElement.classList.add('row', 'g-3', 'needs-validation');
   formElement.setAttribute('tag', "novalidate");
+  formElement.setAttribute('method', "post");
 
   //Eléments pour le Nom
   var divNom = document.createElement('div');

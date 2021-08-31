@@ -134,13 +134,13 @@ function getTeddies() {
     })
 }
 
-//Fonction pour ajouter dans le localstorage un ou plusieurs teddy avec la quantité et la couleur pour chacun
+//Fonction pour ajouter dans le localstorage un ou plusieurs teddy personnalisé
 
 function ajoutPanier() {
-  //Actions sur le bouton
+  //Evènements sur le bouton
   const bouton = document.querySelector('#bouton');
   bouton.addEventListener('click', () => {
-    //Création du tableau json pour chaque teddy personnalisé
+    //Création du tableau pour chaque teddy personnalisé
     if (quantite.value > 0 && quantite.value < 100) {
       var productPanier = {
         name: card.name,
@@ -149,12 +149,13 @@ function ajoutPanier() {
         quantity: quantite.value,
         _id: id
       };
-      //Pour ajouter Teddy au localstorage
+      //Pour ajouter le tableau Teddy au localstorage
       var localPanier = [];
       if (localStorage.getItem("product") !== null) {
         localPanier = JSON.parse(localStorage.getItem("product"));
       }
       localPanier.push(productPanier);
+      //Pour transformer le tableau au format json
       localStorage.setItem("product", JSON.stringify(localPanier));
 
       //Message de confirmation d'ajout au panier

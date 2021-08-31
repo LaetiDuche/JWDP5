@@ -32,6 +32,7 @@ function getTeddies() {
         //Chaque carte est cliquable et mène à la page produit grâce à l'ID de chaque teddie
         let lienTeddy = document.createElement('a');
         articleTeddy.appendChild(lienTeddy);
+        lienTeddy.classList.add('text-dark','text-decoration-none');
         lienTeddy.href =`produit.html?id=${insertDataTeddies[card]._id}`; //Appel data 
         
         let figureTeddy = document.createElement('figure');

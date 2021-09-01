@@ -4,7 +4,6 @@ function body() {
   monPanier();
   totalPrice();
   formCommand()
-
 }
 
 
@@ -122,7 +121,6 @@ function totalPrice() {
 
 
 
-
 //Création du formulaire de commande
 
 function formCommand() {
@@ -140,8 +138,8 @@ function formCommand() {
   //Titre du formulaire
   var titreForm = document.createElement('h3');
   titreDiv.appendChild(titreForm);
-  titreForm.textContent = "Confirmer ma commande";
   titreForm.classList.add('titre-command', 'text-start');
+  titreForm.textContent = "Confirmer ma commande";
 
   //Sous-titre du formulaire
   var subTitleForm = document.createElement('p');
@@ -152,8 +150,8 @@ function formCommand() {
   var formElement = document.createElement('form');
   divForm.appendChild(formElement);
   formElement.classList.add('row', 'g-3', 'needs-validation');
-  formElement.setAttribute('tag', "novalidate");
   formElement.setAttribute('method', "post");
+  formElement.setAttribute('id', 'formulaire');
 
   //Eléments pour le Nom
   var divNom = document.createElement('div');
@@ -162,20 +160,16 @@ function formCommand() {
 
   var labelNom = document.createElement('label');
   divNom.appendChild(labelNom);
-  labelNom.setAttribute('for', 'validationCustom01');
   labelNom.classList.add('form-label');
-  labelNom.textContent = 'Nom';
+  labelNom.setAttribute('for', 'firstName');
 
   var inputNom = document.createElement('input');
   divNom.appendChild(inputNom);
-  inputNom.setAttribute('id', 'validationCustom01');
-  inputNom.setAttribute('type', 'text');
-  inputNom.setAttribute('tag', 'required');
   inputNom.classList.add('form-control');
-
-  var validNom = document.createElement('div');
-  divNom.appendChild(validNom);
-  validNom.textContent = "Veuillez entrer votre nom.";
+  inputNom.setAttribute('name', 'firstName');
+  inputNom.setAttribute('type', 'text');
+  inputNom.setAttribute('placeholder', 'Nom');
+  inputNom.setAttribute('required','required');
 
   //Eléments pour le Prénom
   var divPrenom = document.createElement('div');
@@ -184,20 +178,16 @@ function formCommand() {
 
   var labelPrenom = document.createElement('label');
   divPrenom.appendChild(labelPrenom);
-  labelPrenom.setAttribute('for', 'validationCustom02');
   labelPrenom.classList.add('form-label');
-  labelPrenom.textContent = 'Prénom';
+  labelPrenom.setAttribute('for', 'lastName');
 
   var inputPrenom = document.createElement('input');
   divPrenom.appendChild(inputPrenom);
-  inputPrenom.setAttribute('id', 'validationCustom02');
-  inputPrenom.setAttribute('type', 'text');
-  inputPrenom.setAttribute('tag', 'required');
   inputPrenom.classList.add('form-control');
-
-  var validPrenom = document.createElement('div');
-  divPrenom.appendChild(validPrenom);
-  validPrenom.textContent = "Veuillez entrer votre prénom.";
+  inputPrenom.setAttribute('name', 'lastName');
+  inputPrenom.setAttribute('type', 'text');
+  inputPrenom.setAttribute('placeholder', 'Prénom');
+  inputPrenom.setAttribute('required', 'required');
 
   //Eléments pour l'email
   var divMail = document.createElement('div');
@@ -206,32 +196,16 @@ function formCommand() {
 
   var labelMail = document.createElement('label');
   divMail.appendChild(labelMail);
-  labelMail.setAttribute('for', 'validationCustomUsername');
   labelMail.classList.add('form-label');
-  labelMail.textContent = 'Email';
-
-  var divMail2 = document.createElement('div');
-  divMail.appendChild(divMail2);
-  divMail2.classList.add('input-group', 'has-validation');
-
-  var spanMail = document.createElement('span');
-  divMail2.appendChild(spanMail);
-  spanMail.setAttribute('id', 'inputGroupPrepend');
-  spanMail.classList.add('input-group-text');
-  spanMail.textContent = "@";
+  labelMail.setAttribute('for', 'email');
 
   var inputMail = document.createElement('input');
-  divMail2.appendChild(inputMail);
-  inputMail.setAttribute('id', 'validationCustomUsername');
-  inputMail.setAttribute('type', 'text');
-  inputMail.setAttribute('tag', 'required');
-  inputMail.setAttribute('aria-describedby', 'inputGroupPrepend');
+  divMail.appendChild(inputMail);
   inputMail.classList.add('form-control');
-
-  var validMail = document.createElement('div');
-  divMail2.appendChild(validMail);
-  validMail.classList.add('invalid-feedback');
-  validMail.textContent = "Veuillez choisir une adresse e-mail valide.";
+  inputMail.setAttribute('name', 'email');
+  inputMail.setAttribute('type', 'email');
+  inputMail.setAttribute('placeholder', 'Email');
+  inputMail.setAttribute('required', 'required');
 
   //Eléments pour l'adresse
   var divAdresse = document.createElement('div');
@@ -240,21 +214,16 @@ function formCommand() {
 
   var labelAdresse = document.createElement('label');
   divAdresse.appendChild(labelAdresse);
-  labelAdresse.setAttribute('for', 'validationCustom03');
   labelAdresse.classList.add('form-label');
-  labelAdresse.textContent = "Adresse postale";
+  labelAdresse.setAttribute('for', 'address');
 
   var inputAdresse = document.createElement('input');
   divAdresse.appendChild(inputAdresse);
-  inputAdresse.setAttribute('id', 'validationCustom03');
-  inputAdresse.setAttribute('type', 'text');
-  inputAdresse.setAttribute('tag', 'required');
   inputAdresse.classList.add('form-control');
-
-  var validAdresse = document.createElement('div');
-  divAdresse.appendChild(validAdresse);
-  validAdresse.classList.add('invalid-feedback');
-  validAdresse.textContent = "Veuillez fournir une adresse valide.";
+  inputAdresse.setAttribute('name', 'address');
+  inputAdresse.setAttribute('type', 'text');
+  inputAdresse.setAttribute('placeholder', 'Adresse postale');
+  inputAdresse.setAttribute('required', 'required');
 
   //Eléments pour la ville
   var divVille = document.createElement('div');
@@ -263,48 +232,22 @@ function formCommand() {
 
   var labelVille = document.createElement('label');
   divVille.appendChild(labelVille);
-  labelVille.setAttribute('for', 'validationCustom04');
   labelVille.classList.add('form-label');
-  labelVille.textContent = "Ville";
+  labelVille.setAttribute('for', 'city');
 
   var inputVille = document.createElement('input');
   divVille.appendChild(inputVille);
-  inputVille.setAttribute('id', 'validationCustom04');
-  inputVille.setAttribute('type', 'text');
-  inputVille.setAttribute('tag', 'required');
   inputVille.classList.add('form-control');
+  inputVille.setAttribute('name', 'city');
+  inputVille.setAttribute('type', 'text');
+  inputVille.setAttribute('placeholder', 'Ville');
+  inputVille.setAttribute('required', 'required');
 
-  var validVille = document.createElement('div');
-  divVille.appendChild(validVille);
-  validVille.classList.add('invalid-feedback');
-  validVille.textContent = "Veuillez fournir une ville valide.";
-
-  //Eléments pour les conditions
-  var divCondition = document.createElement('div');
-  formElement.appendChild(divCondition);
-  divCondition.classList.add('col-12');
-
-  var divCheck = document.createElement('div');
-  divCondition.appendChild(divCheck);
-  divCheck.classList.add('form-check');
-
-  var inputCheck = document.createElement('input');
-  divCheck.appendChild(inputCheck);
-  inputCheck.setAttribute('id', 'invalidCheck');
-  inputCheck.setAttribute('tag', 'required');
-  inputCheck.setAttribute('type', 'checkbox');
-  inputCheck.classList.add('form-check-input');
-
-  var labelCheck = document.createElement('label');
-  divCheck.appendChild(labelCheck);
-  labelCheck.setAttribute('for', 'invalidCheck');
-  labelCheck.classList.add('form-check-label');
-  labelCheck.textContent = " Accepter les termes et conditions";
-
-  var validCondition = document.createElement('div');
-  divCheck.appendChild(validCondition);
-  validCondition.classList.add('invalid-feedback');
-  validCondition.textContent = "Vous devez accepter avant de soumettre.";
+  //Eléments pour le message d'erreur pour remplir tous les champs
+  var messageChamp = document.createElement('p');
+  formElement.appendChild(messageChamp);
+  messageChamp.style.color = 'red';
+  messageChamp.setAttribute('id', 'erreur');
 
   //Eléments pour le bouton commander
   var divBouton = document.createElement('div');
@@ -313,38 +256,31 @@ function formCommand() {
 
   var boutonCommand = document.createElement('button');
   divBouton.appendChild(boutonCommand);
-  boutonCommand.setAttribute('type', 'submit');
   boutonCommand.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
+  boutonCommand.setAttribute('type', 'submit');
+  boutonCommand.setAttribute('value', 'Commander');
+  boutonCommand.setAttribute('required','required');
   boutonCommand.textContent = "Commander";
 
-  //Validation formulaire Bootstrap
-
-  (function () {
-    'use strict'
-
-    var forms = document.querySelectorAll('.needs-validation')
-
-    Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-  })()
+  validation();
 }
 
 
+//Fonction de validation du formulaire
+function validation() {
+  document.getElementById("formulaire").addEventListener('submit', function (e) {
+    var erreur;
+   
+    if (erreur) {
+      e.preventDefault();
+      document.getElementById("erreur").innerHTML = erreur;
+      return false;
+    }
+     
+    //Message de confirmation si tous les champs sont remplis
+    else {
+      alert('Votre commande a été envoyé !');
+    }
 
-
-
-
-
-
-
-
-
+  });
+}

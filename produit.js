@@ -37,8 +37,6 @@ function getTeddies() {
       var imageTeddy = document.createElement("img");
       figureTeddy.appendChild(imageTeddy);
       imageTeddy.classList.add("card-img-top", "h-100");
-      imageTeddy.setAttribute("alt", "ours en peluche teddy");
-      imageTeddy.setAttribute("id", "image");
       imageTeddy.src = card.imageUrl;     //Appel url de l'image
 
       var captionTeddy = document.createElement("figcaption");
@@ -58,14 +56,14 @@ function getTeddies() {
       //Insertion du prix d'un teddy en euro
       var prixTeddy = document.createElement("p");
       textTeddy.appendChild(prixTeddy);
-      prixTeddy.innerHTML = "Prix : " + card.price / 100 + ' €';  //Appel data
       prixTeddy.classList.add("card-text");
       prixTeddy.setAttribute("id", "prix");
+      prixTeddy.innerHTML = "Prix : " + card.price / 100 + ' €';  //Appel data
 
       //Insertion de la description d'un teddy
       var descriptionTeddy = document.createElement("p");
       textTeddy.appendChild(descriptionTeddy);
-      descriptionTeddy.innerHTML = "Description : " + card.description; //Appel data
+      descriptionTeddy.innerHTML = "Description : <br>" + card.description; //Appel data
 
       var choixTeddy = document.createElement("div");
       textTeddy.appendChild(choixTeddy);
@@ -94,7 +92,7 @@ function getTeddies() {
         optionTeddy.innerHTML = card.colors[i];  //Appel data des couleurs
       }
 
-      //Insertion des éléments pour selectionner une quantité de teddy
+      //Insertion des éléments pour sélectionner une quantité de teddy
       var textTeddy2 = document.createElement("div");
       textTeddy.appendChild(textTeddy2);
       textTeddy2.classList.add("d-flex", "mt-4", "align-baseline");
@@ -114,7 +112,6 @@ function getTeddies() {
       numberOfTeddy.setAttribute("type", "number");
       numberOfTeddy.setAttribute("name", "quantite");
       numberOfTeddy.setAttribute("id", "quantite");
-      numberOfTeddy.setAttribute("value", "0");
       numberOfTeddy.setAttribute("min", "0");
 
       //Insertion du bouton pour ajouter au panier
@@ -127,7 +124,7 @@ function getTeddies() {
       buttonTeddy.classList.add("btn", "btn-outline-light", "rounded-3", "shadow");
       buttonTeddy.setAttribute("id", "bouton");
       buttonTeddy.setAttribute("type", "submit");
-      buttonTeddy.innerHTML = "<i class='fas fa-shopping-cart me-2'></i> Ajouter au panier";  //Appel data des couleurs
+      buttonTeddy.innerHTML = "Ajouter au panier";  //Appel data des couleurs
 
       ajoutPanier();  //Mis en relation avec la fonction ajoutPanier
 
@@ -149,6 +146,7 @@ function ajoutPanier() {
         quantity: quantite.value,
         _id: id
       };
+      console.log(productPanier);
       //Pour ajouter le tableau Teddy au localstorage
       var localPanier = [];
       if (localStorage.getItem("product") !== null) {

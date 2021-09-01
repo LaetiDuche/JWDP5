@@ -44,7 +44,6 @@ function getTeddies() {
         figureTeddy.appendChild(imageTeddy);
         imageTeddy.src = insertDataTeddies[card].imageUrl;//Appel data
         imageTeddy.classList.add('card-img-top');
-        imageTeddy.setAttribute("alt", "ours en peluche orinours");
 
         let captionTeddy = document.createElement('figcaption');
         figureTeddy.appendChild(captionTeddy);
@@ -62,9 +61,9 @@ function getTeddies() {
         //Insertion du prix en euro 
         let prixTeddy = document.createElement('p');
         textTeddy.appendChild(prixTeddy);
-        prixTeddy.innerHTML = insertDataTeddies[card].price/100 + ' €'; //Prix en centimes traduit en euro avec la division + appel data
         prixTeddy.classList.add("card-text", "my-auto");
-
+        prixTeddy.innerHTML = insertDataTeddies[card].price/100 + ' €'; //Prix en centimes traduit en euro avec la division + appel data
+        
         //Insertion de la description des teddies
         let descriptionTeddy = document.createElement('p');
         captionTeddy.append(descriptionTeddy);

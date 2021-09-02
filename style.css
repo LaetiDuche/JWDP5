@@ -8,27 +8,19 @@ a, a:hover, button{
 h3, .fas, .far, .fab, .btn-outline-light{
     color: #9960e3;
 }
+h1{
+  color: orange;
+  font-style: italic;
+}
 h2{
     margin-right: auto;
 }
-.titre-command{
-    font-size: calc(1.325rem + .9vw);
-}
-
-/*Header*/
 .fas, .far, .fab{
     font-size: 1.2rem;
 }
-
 .jumbotron{
     box-shadow: inset 0px 4px 4px -3px rgb(53 53 53 / 20%);
 }
-.display-4, .titre-command, h2{
-    font-family: 'Kaushan Script', cursive;
-    color: #e68b01;
-}
-
-/* Style pour la Page produit*/
 .card{
     transition: ease-in-out;
 } 

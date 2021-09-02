@@ -25,6 +25,8 @@ function monPanier() {
   //Titre Mon panier
   var titrePanier = document.createElement('h2');
   divPanier2.appendChild(titrePanier);
+  titrePanier.style.color ='orange';
+  titrePanier.style.fontStyle ='italic';
   titrePanier.textContent = "Mon panier";
 
   //Tableau pour insérer mes produits
@@ -136,9 +138,11 @@ function formCommand() {
   divForm.appendChild(titreDiv);
 
   //Titre du formulaire
-  var titreForm = document.createElement('h3');
+  var titreForm = document.createElement('h2');
   titreDiv.appendChild(titreForm);
-  titreForm.classList.add('titre-command', 'text-start');
+  titreForm.style.color ='orange';
+  titreForm.style.fontStyle ='italic';
+  titreForm.classList.add( 'text-start');
   titreForm.textContent = "Confirmer ma commande";
 
   //Sous-titre du formulaire

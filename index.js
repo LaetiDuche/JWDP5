@@ -56,7 +56,7 @@ function getTeddies() {
         //Insertion du nom des teddies
         let nomTeddy = document.createElement('h2');
         textTeddy.appendChild(nomTeddy);
-        nomTeddy.style.color ='orange';
+        nomTeddy.style.color ='DarkOrange';
         nomTeddy.style.fontStyle ='italic';
         nomTeddy.innerHTML = insertDataTeddies[card].name;//Appel data 
 

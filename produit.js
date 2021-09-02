@@ -50,7 +50,7 @@ function getTeddies() {
       //Insertion du nom d'un teddy
       var nomTeddy = document.createElement("h2");
       textTeddy.appendChild(nomTeddy);
-      nomTeddy.style.color ='orange';
+      nomTeddy.style.color ='DarkOrange';
       nomTeddy.style.fontStyle ='italic';
       nomTeddy.setAttribute("id", "nom");
       nomTeddy.innerHTML = card.name;    //Appel data
@@ -124,6 +124,7 @@ function getTeddies() {
       var buttonTeddy = document.createElement("button");
       divTeddy.appendChild(buttonTeddy);
       buttonTeddy.classList.add("btn", "btn-outline-light", "shadow");
+      buttonTeddy.style.color = 'BlueViolet';
       buttonTeddy.setAttribute("id", "bouton");
       buttonTeddy.setAttribute("type", "submit");
       buttonTeddy.innerHTML = "Ajouter au panier";  //Appel data des couleurs

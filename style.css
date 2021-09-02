@@ -3,13 +3,13 @@ body{
     background-color:#f3e9f1;
 }
 a, a:hover, button{
-    outline-color: #9960e3;
+    outline-color: BlueViolet;
 }
 h3, .fas, .far, .fab, .btn-outline-light{
-    color: #9960e3;
+    color: BlueViolet;
 }
 h1{
-  color: orange;
+  color: DarkOrange;
   font-style: italic;
 }
 h2{
@@ -33,5 +33,5 @@ a .card:hover{
     transition: transform .2s;
 }
 .btn-outline-light{
-    border-color: #9960e3;
+    border-color: BlueViolet;
 }

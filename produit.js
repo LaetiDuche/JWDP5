@@ -85,6 +85,7 @@ function getTeddies() {
       var optionTeddy = document.createElement("option");
       selectTeddy.appendChild(optionTeddy);
       optionTeddy.innerHTML = "Choisir une couleur";
+      optionTeddy.setAttribute('value', '0');
 
       var colorTeddy = document.getElementById("colorteddy");
       //Fonction boucle pour générer la liste des différentes couleurs

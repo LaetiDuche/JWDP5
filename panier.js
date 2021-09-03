@@ -4,6 +4,7 @@ function body() {
   monPanier();
   totalPrice();
   formCommand()
+  /* validation() */
 }
 
 
@@ -25,7 +26,7 @@ function monPanier() {
   //Titre Mon panier
   var titrePanier = document.createElement('h2');
   divPanier2.appendChild(titrePanier);
-  titrePanier.style.color ='orange';
+  titrePanier.style.color ='DarkOrange';
   titrePanier.style.fontStyle ='italic';
   titrePanier.textContent = "Mon panier";
 
@@ -101,23 +102,23 @@ function monPanier() {
   totalPrice();
 };
 
-
 //Fonction pour calculer le prix total du panier
+
 function totalPrice() {
   var total = [];
-  //On récupère tous les prix de la colonne prix
+  //Récupération de tous les prix de la colonne prix
   var productsPriceList = document.querySelectorAll('#prix');
   productsPriceList.forEach(function (productsPrice) {
     total.push(parseFloat(productsPrice.textContent));
   })
   console.log(total);
-  //On additionne tous les prix
+  //Addition de tous les prix
   var totalMoney = total.reduce(function (total, productsPrice) {
     total += productsPrice;
     return total;
   }, 0)
   console.log(totalMoney);
-  //On sélectionne l'endroit où l'on veut inscrire le prix total
+  //Sélection de l'endroit où l'on veut inscrire le prix total
   document.getElementById('subtotal').textContent = totalMoney + ' €';
 }
 
@@ -140,7 +141,7 @@ function formCommand() {
   //Titre du formulaire
   var titreForm = document.createElement('h2');
   titreDiv.appendChild(titreForm);
-  titreForm.style.color ='orange';
+  titreForm.style.color ='DarkOrange';
   titreForm.style.fontStyle ='italic';
   titreForm.classList.add( 'text-start');
   titreForm.textContent = "Confirmer ma commande";
@@ -154,8 +155,9 @@ function formCommand() {
   var formElement = document.createElement('form');
   divForm.appendChild(formElement);
   formElement.classList.add('row', 'g-3', 'needs-validation');
-  formElement.setAttribute('method', "post");
+  /* formElement.setAttribute('method', "post"); */
   formElement.setAttribute('id', 'formulaire');
+  formElement.setAttribute('action', 'commande.html');
 
   //Eléments pour le Nom
   var divNom = document.createElement('div');
@@ -171,9 +173,11 @@ function formCommand() {
   divNom.appendChild(inputNom);
   inputNom.classList.add('form-control');
   inputNom.setAttribute('name', 'firstName');
+  inputNom.setAttribute('id','Nom');
   inputNom.setAttribute('type', 'text');
   inputNom.setAttribute('placeholder', 'Nom');
   inputNom.setAttribute('required','required');
+  inputNom.setAttribute('pattern','[A-Za-z-\s]+');
 
   //Eléments pour le Prénom
   var divPrenom = document.createElement('div');
@@ -189,9 +193,11 @@ function formCommand() {
   divPrenom.appendChild(inputPrenom);
   inputPrenom.classList.add('form-control');
   inputPrenom.setAttribute('name', 'lastName');
+  inputPrenom.setAttribute('id', 'Prenom');
   inputPrenom.setAttribute('type', 'text');
   inputPrenom.setAttribute('placeholder', 'Prénom');
   inputPrenom.setAttribute('required', 'required');
+  inputPrenom.setAttribute('pattern','[A-Za-z-]+');
 
   //Eléments pour l'email
   var divMail = document.createElement('div');
@@ -207,6 +213,7 @@ function formCommand() {
   divMail.appendChild(inputMail);
   inputMail.classList.add('form-control');
   inputMail.setAttribute('name', 'email');
+  inputMail.setAttribute('id', 'Mail');
   inputMail.setAttribute('type', 'email');
   inputMail.setAttribute('placeholder', 'Email');
   inputMail.setAttribute('required', 'required');
@@ -225,6 +232,7 @@ function formCommand() {
   divAdresse.appendChild(inputAdresse);
   inputAdresse.classList.add('form-control');
   inputAdresse.setAttribute('name', 'address');
+  inputAdresse.setAttribute('id', 'Adresse');
   inputAdresse.setAttribute('type', 'text');
   inputAdresse.setAttribute('placeholder', 'Adresse postale');
   inputAdresse.setAttribute('required', 'required');
@@ -243,15 +251,11 @@ function formCommand() {
   divVille.appendChild(inputVille);
   inputVille.classList.add('form-control');
   inputVille.setAttribute('name', 'city');
+  inputVille.setAttribute('id', 'Ville');
   inputVille.setAttribute('type', 'text');
   inputVille.setAttribute('placeholder', 'Ville');
   inputVille.setAttribute('required', 'required');
-
-  //Eléments pour le message d'erreur pour remplir tous les champs
-  var messageChamp = document.createElement('p');
-  formElement.appendChild(messageChamp);
-  messageChamp.style.color = 'red';
-  messageChamp.setAttribute('id', 'erreur');
+  inputVille.setAttribute('pattern','[A-Za-z- ]+');
 
   //Eléments pour le bouton commander
   var divBouton = document.createElement('div');
@@ -262,29 +266,59 @@ function formCommand() {
   divBouton.appendChild(boutonCommand);
   boutonCommand.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
   boutonCommand.setAttribute('type', 'submit');
+  boutonCommand.setAttribute('id', 'bouton');
   boutonCommand.setAttribute('value', 'Commander');
   boutonCommand.setAttribute('required','required');
   boutonCommand.textContent = "Commander";
 
-  validation();
+  /* validation(); */
 }
+
+
+
+
+
+
 
 
 //Fonction de validation du formulaire
-function validation() {
+/* var getLocalPanier = JSON.parse(localStorage.getItem("product"));
+
+function validation() { */
+  /* var boutonCommand = document.getElementById('#bouton'); */
+ /*  var inputNom = document.getElementById('#Nom');
+  var inputPrenom = document.getElementById('#Prenom');
+  
   document.getElementById("formulaire").addEventListener('submit', function (e) {
     var erreur;
-   
-    if (erreur) {
+    var regex = /^[(a-z)(A-Z)-\s]+$/;
+    if (regex) {
+      
       e.preventDefault();
       document.getElementById("erreur").innerHTML = erreur;
       return false;
-    }
-     
-    //Message de confirmation si tous les champs sont remplis
-    else {
-      alert('Votre commande a été envoyé !');
-    }
+    }else{
+      (regex.test(inputNom.value+ inputPrenom.value ) = true)
+      var listPanier = [];
+      listPanier.push(getLocalPanier); */
 
-  });
-}
+      /* var order = {
+        userContact: {
+          firstName: Nom.value,
+          lastName: Prenom.value,
+          email: Mail.value,
+          address: Adresse.value,
+          city: Ville.value
+        },
+        product: listPanier,
+      } */
+     /*  var postUserData = {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: { "Content-Type": "application/json"},
+      }; */
+
+   /*  }
+  })
+
+} */

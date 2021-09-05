@@ -153,12 +153,12 @@ function ajoutPanier() {
       console.log(productPanier);
       //Pour ajouter le tableau Teddy au localstorage
       var localPanier = [];
-      if (localStorage.getItem("product") !== null) {
-        localPanier = JSON.parse(localStorage.getItem("product"));
+      if (localStorage.getItem("products") !== null) {
+        localPanier = JSON.parse(localStorage.getItem("products"));
       }
       localPanier.push(productPanier);
       //Pour transformer le tableau au format json
-      localStorage.setItem("product", JSON.stringify(localPanier));
+      localStorage.setItem("products", JSON.stringify(localPanier));
 
       //Message de confirmation d'ajout au panier
       alert('Vous avez ajouté teddy dans votre panier !');

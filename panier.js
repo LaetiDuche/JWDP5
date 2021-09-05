@@ -3,14 +3,16 @@ body();
 function body() {
   monPanier();
   totalPrice();
-  formCommand()
-  /* validation() */
+  formCommand();
+  objetContact()
 }
+var localPanier = JSON.parse(localStorage.getItem("products"));
+var listProduits = document.querySelectorAll('#products-list');
 
 
-//Création de Mon panier
+//CREATION DE MON PANIER
 
-function monPanier() {
+function monPanier(produitTeddy) {
   //Selection de l'élément pour afficher mon panier
   var monPanier = document.getElementById('panier-teddy');
 
@@ -26,8 +28,8 @@ function monPanier() {
   //Titre Mon panier
   var titrePanier = document.createElement('h2');
   divPanier2.appendChild(titrePanier);
-  titrePanier.style.color ='DarkOrange';
-  titrePanier.style.fontStyle ='italic';
+  titrePanier.style.color = 'DarkOrange';
+  titrePanier.style.fontStyle = 'italic';
   titrePanier.textContent = "Mon panier";
 
   //Tableau pour insérer mes produits
@@ -63,7 +65,7 @@ function monPanier() {
   tbodyProduits.setAttribute("id", "products-list");
 
   //Fonction boucle pour générer les produits du localstorage dans le tableau du panier
-  var getLocalPanier = JSON.parse(localStorage.getItem("product"));
+  var getLocalPanier = JSON.parse(localStorage.getItem("products"));
 
   for (var produitTeddy in getLocalPanier) {
     var trProduit = document.getElementById('tableau');
@@ -87,6 +89,7 @@ function monPanier() {
     trProduit.appendChild(tdPrix);
     tdPrix.setAttribute("id", "prix");
     tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + ' €';
+
   }
 
   //Eléments pour insérer le prix total du panier
@@ -99,10 +102,12 @@ function monPanier() {
   titrePanier.appendChild(totalPanier);
   totalPanier.setAttribute('id', 'subtotal');
 
+
   totalPrice();
 };
 
-//Fonction pour calculer le prix total du panier
+
+//FONCTION POUR CALCULER LE PRIX TOTAL DU PANIER
 
 function totalPrice() {
   var total = [];
@@ -120,11 +125,11 @@ function totalPrice() {
   console.log(totalMoney);
   //Sélection de l'endroit où l'on veut inscrire le prix total
   document.getElementById('subtotal').textContent = totalMoney + ' €';
+
 }
 
 
-
-//Création du formulaire de commande
+//CREATION DU FORMULAIRE DE COMMANDE
 
 function formCommand() {
   //Selection de l'élément pour afficher le formulaire 
@@ -141,9 +146,9 @@ function formCommand() {
   //Titre du formulaire
   var titreForm = document.createElement('h2');
   titreDiv.appendChild(titreForm);
-  titreForm.style.color ='DarkOrange';
-  titreForm.style.fontStyle ='italic';
-  titreForm.classList.add( 'text-start');
+  titreForm.style.color = 'DarkOrange';
+  titreForm.style.fontStyle = 'italic';
+  titreForm.classList.add('text-start');
   titreForm.textContent = "Confirmer ma commande";
 
   //Sous-titre du formulaire
@@ -157,7 +162,7 @@ function formCommand() {
   formElement.classList.add('row', 'g-3', 'needs-validation');
   /* formElement.setAttribute('method', "post"); */
   formElement.setAttribute('id', 'formulaire');
-  formElement.setAttribute('action', 'commande.html');
+  /* formElement.setAttribute('action', 'commande.html'); */
 
   //Eléments pour le Nom
   var divNom = document.createElement('div');
@@ -173,11 +178,11 @@ function formCommand() {
   divNom.appendChild(inputNom);
   inputNom.classList.add('form-control');
   inputNom.setAttribute('name', 'firstName');
-  inputNom.setAttribute('id','Nom');
+  inputNom.setAttribute('id', 'Nom');
   inputNom.setAttribute('type', 'text');
   inputNom.setAttribute('placeholder', 'Nom');
-  inputNom.setAttribute('required','required');
-  inputNom.setAttribute('pattern','[A-Za-z-\s]+');
+  inputNom.setAttribute('required', 'required');
+  inputNom.setAttribute('pattern', '[A-Za-z-\s]+');
 
   //Eléments pour le Prénom
   var divPrenom = document.createElement('div');
@@ -197,7 +202,7 @@ function formCommand() {
   inputPrenom.setAttribute('type', 'text');
   inputPrenom.setAttribute('placeholder', 'Prénom');
   inputPrenom.setAttribute('required', 'required');
-  inputPrenom.setAttribute('pattern','[A-Za-z-]+');
+  inputPrenom.setAttribute('pattern', '[A-Za-z-]+');
 
   //Eléments pour l'email
   var divMail = document.createElement('div');
@@ -255,7 +260,7 @@ function formCommand() {
   inputVille.setAttribute('type', 'text');
   inputVille.setAttribute('placeholder', 'Ville');
   inputVille.setAttribute('required', 'required');
-  inputVille.setAttribute('pattern','[A-Za-z- ]+');
+  inputVille.setAttribute('pattern', '[A-Za-z- ]+');
 
   //Eléments pour le bouton commander
   var divBouton = document.createElement('div');
@@ -268,57 +273,94 @@ function formCommand() {
   boutonCommand.setAttribute('type', 'submit');
   boutonCommand.setAttribute('id', 'bouton');
   boutonCommand.setAttribute('value', 'Commander');
-  boutonCommand.setAttribute('required','required');
+  boutonCommand.setAttribute('required', 'required');
   boutonCommand.textContent = "Commander";
 
-  /* validation(); */
+}
+
+//FONCTION 2
+
+function objetContact(){
+  let inputNom = document.getElementById('Nom');
+  let inputPrenom = document.getElementById('Prenom');
+  let inputAdresse = document.getElementById('Adresse');
+  let inputVille = document.getElementById('Ville');
+  let inputMail = document.getElementById('Mail');
+
+  const bouton = document.querySelector('#bouton');
+  bouton.addEventListener('click', () => {
+    if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
+      var userData = {
+        contact: {
+          firstName: inputNom.value,
+          lastName: inputPrenom.value,
+          email: inputMail.value,
+          address: inputAdresse.value,
+          city: inputVille.value,
+        },
+      };
+      console.log(userData);
+      var localUserData = [];
+      if (localStorage.getItem("contactData") !== null) {
+        localUserData = JSON.parse(localStorage.getItem("contactData"));
+      }
+      localUserData.push(userData);
+      localStorage.setItem("contactData", JSON.stringify(localUserData));
+    }
+  });
 }
 
 
 
 
 
+//FONCTION 1
+//Fonction validation du formulaire
 
+/* function validForm() {
+  const bouton = document.querySelector("#bouton");
+  var inputNom = document.querySelector('#Nom');
+  var inputPrenom = document.querySelector('#Prenom');
+  var inputMail = document.querySelector('#Mail');
+  var inputAdresse = document.querySelector('#Adresse');
+  var inputVille = document.querySelector('#Ville');
 
+  bouton.addEventListener("click", (e) => {
+    if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
 
-//Fonction de validation du formulaire
-/* var getLocalPanier = JSON.parse(localStorage.getItem("product"));
+    }
+    else {
+      var productsTeddies = [];
+      productsTeddies.push(localPanier);
 
-function validation() { */
-  /* var boutonCommand = document.getElementById('#bouton'); */
- /*  var inputNom = document.getElementById('#Nom');
-  var inputPrenom = document.getElementById('#Prenom');
-  
-  document.getElementById("formulaire").addEventListener('submit', function (e) {
-    var erreur;
-    var regex = /^[(a-z)(A-Z)-\s]+$/;
-    if (regex) {
-      
-      e.preventDefault();
-      document.getElementById("erreur").innerHTML = erreur;
-      return false;
-    }else{
-      (regex.test(inputNom.value+ inputPrenom.value ) = true)
-      var listPanier = [];
-      listPanier.push(getLocalPanier); */
-
-      /* var order = {
-        userContact: {
-          firstName: Nom.value,
-          lastName: Prenom.value,
-          email: Mail.value,
-          address: Adresse.value,
-          city: Ville.value
+      const userData = {
+        contact: {
+          firstName: inputNom.value,
+          lastName: inputPrenom.value,
+          email: inputMail.value,
+          address: inputAdresse.value,
+          city: inputVille.value
         },
-        product: listPanier,
-      } */
-     /*  var postUserData = {
-        method: "POST",
+        products: productsTeddies,
+      };
+      const sentForm = {
+        method: 'POST',
         body: JSON.stringify(order),
-        headers: { "Content-Type": "application/json"},
-      }; */
+        headers: { "Content-Type": "application/json" },
+      };
+      var sentTotalPrice = document.querySelector('#subtotal').innerText;
+      sentTotalPrice = sentTotalPrice.split(" :");
 
-   /*  }
-  })
+      fetch("http://localhost:3000/api/teddies/order", sentForm)
+        .then((response) => response.json())
+        .then((data) => {
+          localStorage.clear();
+          console.log(data)
+          localStorage.setItem("orderId", data.orderId);
+          localStorage.setItem("subtotal", sentTotalPrice[1]);
+          window.location.href = "commande.html";
+        })
 
+    }
+  });
 } */

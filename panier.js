@@ -7,7 +7,7 @@ function body() {
   objetContact()
 }
 var localPanier = JSON.parse(localStorage.getItem("products"));
-var listProduits = document.querySelectorAll('#products-list');
+/* var listProduits = document.querySelectorAll('#products-list'); */
 
 
 //CREATION DE MON PANIER
@@ -279,7 +279,7 @@ function formCommand() {
 }
 
 //FONCTION 2
-
+//FONCTION CREATION DE L'OBJET CONTACT
 function objetContact(){
   let inputNom = document.getElementById('Nom');
   let inputPrenom = document.getElementById('Prenom');
@@ -290,6 +290,8 @@ function objetContact(){
   const bouton = document.querySelector('#bouton');
   bouton.addEventListener('click', () => {
     if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
+      var productPanier = [];
+      productPanier.push(localPanier);
       var userData = {
         contact: {
           firstName: inputNom.value,
@@ -298,14 +300,15 @@ function objetContact(){
           address: inputAdresse.value,
           city: inputVille.value,
         },
+        products: productPanier,
       };
       console.log(userData);
       var localUserData = [];
-      if (localStorage.getItem("contactData") !== null) {
-        localUserData = JSON.parse(localStorage.getItem("contactData"));
+      if (localStorage.getItem("localPanier") !== null) {
+        localUserData = JSON.parse(localStorage.getItem("localPanier"));
       }
       localUserData.push(userData);
-      localStorage.setItem("contactData", JSON.stringify(localUserData));
+      localStorage.setItem("localPanier", JSON.stringify(localUserData));
     }
   });
 }

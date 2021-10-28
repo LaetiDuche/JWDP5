@@ -60,7 +60,6 @@ function monPanier(produitTeddy) {
   //Colonne prix
   let thPrix = document.createElement('th');
   trPanier.appendChild(thPrix);
-  thPrix.classList.add('pe-4');
   thPrix.textContent = "Prix";
 
   //Eléments pour insérer les produits dans le tableau
@@ -88,7 +87,6 @@ function monPanier(produitTeddy) {
     tdColor.setAttribute('id', 'couleur');
     tdColor.innerHTML = getLocalPanier[produitTeddy].color;
 
-
     let tdNombre = document.createElement('td');
     trProduit.appendChild(tdNombre);
     tdNombre.setAttribute("id", "nombre");
@@ -103,15 +101,20 @@ function monPanier(produitTeddy) {
   }
 
   //Eléments pour insérer le prix total du panier
-  let titrePanier2 = document.createElement('p');
-  divPanier.appendChild(titrePanier2);
-  titrePanier2.classList.add('m-0');
-  titrePanier2.style.fontWeight = "bold";
-  titrePanier2.textContent = "Total : ";
 
-  let totalPanier = document.createElement('span');
-  titrePanier2.appendChild(totalPanier);
-  totalPanier.setAttribute('id', 'subtotal');
+  let tfTotal = document.createElement('tfoot');
+  tableauPanier.appendChild(tfTotal);
+  tfTotal.style.borderBottomColor = 'transparent';
+  let trTotal = document.createElement('tr');
+  tfTotal.appendChild(trTotal);
+  let thTotal = document.createElement('th');
+  trTotal.appendChild(thTotal);
+  thTotal.textContent = "Total : ";
+  thTotal.setAttribute('colspan','3');
+  let tdTotal = document.createElement('td');
+  trTotal.appendChild(tdTotal);
+  tdTotal.setAttribute('id','subtotal');
+  tdTotal.setAttribute('colspan','3');
 
   console.log(getLocalPanier);
   totalPrice();
@@ -135,8 +138,8 @@ function totalPrice() {
   }, 0)
   console.log(totalMoney);
   //Sélection de l'endroit où l'on veut inscrire le prix total
-  document.getElementById('subtotal').textContent = totalMoney + ' €';
-  localStorage.setItem("Total", JSON.stringify(totalMoney + ' €'));
+  document.getElementById('subtotal').textContent = totalMoney + '€';
+  localStorage.setItem("Total", JSON.stringify(totalMoney + '€'));
 }
 
 

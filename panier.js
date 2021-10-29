@@ -9,7 +9,7 @@ function body() {
 
 let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
 
-//CREATION DE MON PANIER
+//-----------------------------------CREATION DE MON PANIER---------------------------------------
 
 function monPanier(produitTeddy) {
   //Selection de l'élément pour afficher mon panier
@@ -18,11 +18,11 @@ function monPanier(produitTeddy) {
   //Eléments responsives
   let divPanier = document.createElement('div');
   monPanier.appendChild(divPanier);
-  divPanier.classList.add('col-12', 'bg-white', 'p-4' ,'rounded-3', 'my-2');
+  divPanier.classList.add('col-12', 'bg-white', 'p-4', 'rounded-3', 'my-2');
 
   let divPanier2 = document.createElement('div');
   divPanier.appendChild(divPanier2);
-  divPanier2.classList.add('col-12' );
+  divPanier2.classList.add('col-12');
 
   //Titre Mon panier
   let titrePanier = document.createElement('h2');
@@ -67,7 +67,7 @@ function monPanier(produitTeddy) {
   tableauPanier.appendChild(tbodyProduits);
   tbodyProduits.setAttribute("id", "products-list");
 
-  //Fonction boucle pour générer les produits du localstorage dans le tableau du panier
+  //Boucle pour générer les produits du localstorage dans le tableau du panier
   let getLocalPanier = JSON.parse(localStorage.getItem("products"));
 
   for (let produitTeddy in getLocalPanier) {
@@ -76,6 +76,7 @@ function monPanier(produitTeddy) {
     let trProduit = document.createElement('tr');
     tbodyProduits.appendChild(trProduit);
     trProduit.setAttribute("id", "tableau");
+
 
     let tdNom = document.createElement('td');
     trProduit.appendChild(tdNom);
@@ -98,6 +99,20 @@ function monPanier(produitTeddy) {
     tdPrix.setAttribute("id", "prix");
     tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + '€';
 
+    //Bouton supprimer un article
+    let tdDelete = document.createElement('button');
+    trProduit.appendChild(tdDelete);
+    tdDelete.setAttribute("id", "supprimer");
+    tdDelete.style = 'none'; 
+    tdDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+
+    let deleteItem = document.querySelector('#supprimer');
+    deleteItem.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem('tableau');
+      document.location.reload();
+    });
+
   }
 
   //Eléments pour insérer le prix total du panier
@@ -105,23 +120,26 @@ function monPanier(produitTeddy) {
   let tfTotal = document.createElement('tfoot');
   tableauPanier.appendChild(tfTotal);
   tfTotal.style.borderBottomColor = 'transparent';
+
   let trTotal = document.createElement('tr');
   tfTotal.appendChild(trTotal);
+
   let thTotal = document.createElement('th');
   trTotal.appendChild(thTotal);
   thTotal.textContent = "Total : ";
-  thTotal.setAttribute('colspan','3');
+  thTotal.setAttribute('colspan', '3');
+
   let tdTotal = document.createElement('td');
   trTotal.appendChild(tdTotal);
-  tdTotal.setAttribute('id','subtotal');
-  tdTotal.setAttribute('colspan','3');
+  tdTotal.setAttribute('id', 'subtotal');
+  tdTotal.setAttribute('colspan', '3');
 
   console.log(getLocalPanier);
   totalPrice();
 };
 
 
-//FONCTION POUR CALCULER LE PRIX TOTAL DU PANIER
+//CALCUL DU PRIX TOTAL DU PANIER
 
 function totalPrice() {
   let total = [];
@@ -143,7 +161,7 @@ function totalPrice() {
 }
 
 
-//CREATION DU FORMULAIRE DE COMMANDE
+//-----------------------------------CREATION DU FORMULAIRE DE COMMANDE----------------------------------
 
 function formCommand() {
   //Selection de l'élément pour afficher le formulaire 
@@ -295,7 +313,7 @@ function formCommand() {
   objetContact();
 }
 
-function objetContact(){
+function objetContact() {
   let inputNom = document.getElementById('Nom');
   let inputPrenom = document.getElementById('Prenom');
   let inputAdresse = document.getElementById('Adresse');
@@ -333,78 +351,78 @@ function objetContact(){
 //FONCTION CREATION DE L'OBJET CONTACT ET ENVOIE 
 /* function objetContact() { */
   //Récupération des données du formulaire 
- /*  let inputNom = document.getElementById('Nom');
-  let inputPrenom = document.getElementById('Prenom');
-  let inputAdresse = document.getElementById('Adresse');
-  let inputVille = document.getElementById('Ville');
-  let inputMail = document.getElementById('Mail'); */
+/*  let inputNom = document.getElementById('Nom');
+ let inputPrenom = document.getElementById('Prenom');
+ let inputAdresse = document.getElementById('Adresse');
+ let inputVille = document.getElementById('Ville');
+ let inputMail = document.getElementById('Mail'); */
 
   //Evènement sur le bouton commander
- /*  const bouton = document.querySelector('#bouton');
-  bouton.addEventListener('click', (e) => {
-    e.preventDefault(); */
+/*  const bouton = document.querySelector('#bouton');
+ bouton.addEventListener('click', (e) => {
+   e.preventDefault(); */
 
     //Union de l'objet contact avec le tableau products
-    /* if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
+/* if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
 
 
-    } else {
+} else {
 
-      var productPanier = [];
-      productPanier.push(localPanier); */
-      /* var userData = [];
-      userData.push(localPanier); */
+  var productPanier = [];
+  productPanier.push(localPanier); */
+/* var userData = [];
+userData.push(localPanier); */
 
       //Objet contact
-      /* var userData = {
-        contact: {
-          firstName: inputNom.value,
-          lastName: inputPrenom.value,
-          email: inputMail.value,
-          address: inputAdresse.value,
-          city: inputVille.value,
-        }, */
+/* var userData = {
+  contact: {
+    firstName: inputNom.value,
+    lastName: inputPrenom.value,
+    email: inputMail.value,
+    address: inputAdresse.value,
+    city: inputVille.value,
+  }, */
         //Tableau products
-       /*  products: productPanier,
-      };
-      console.log(userData); */
+/*  products: productPanier,
+};
+console.log(userData); */
 
       //Envoie de l'objet contact au localstorage (localPanier)
-      /* var localPanier = []; */
-      /* if (localStorage.getItem("contact") !==null){
-        localPanier = JSON.parse(localStorage.getItem("contact"));
-    }
+/* var localPanier = []; */
+/* if (localStorage.getItem("contact") !==null){
+  localPanier = JSON.parse(localStorage.getItem("contact"));
+}
 
-      localUserData.push(userData);
-      localStorage.setItem("contactData", JSON.stringify(localUserData));
-      console.log(localUserData);
+localUserData.push(userData);
+localStorage.setItem("contactData", JSON.stringify(localUserData));
+console.log(localUserData);
 
-      const localPanier = {
-        method: "POST",
-        body: JSON.stringify(userData),
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      console.log(localPanier);
-    }
-    let priceConfirm = document.querySelector("#Total");
+const localPanier = {
+  method: "POST",
+  body: JSON.stringify(userData),
+  headers: {
+    "Content-type": "application/json",
+  },
+};
+console.log(localPanier);
+}
+let priceConfirm = document.querySelector("#Total");
 
-    fetch("http://localhost:3000/api/teddies/order",)
-      .then((response) => response.json())
-      .then((data) => { 
-        localStorage.clear();
-         console.log(localPanier)
-        localStorage.setItem("orderId", data.orderId);
-        localStorage.setItem("Total", priceConfirm);
-        document.location.href = "commande.html";
-      })
-      .catch((err) => {
-        alert("Il y a eu une erreur : " + err);
-      });
- */
-   /*  }
-  })
+fetch("http://localhost:3000/api/teddies/order",)
+.then((response) => response.json())
+.then((data) => {
+  localStorage.clear();
+   console.log(localPanier)
+  localStorage.setItem("orderId", data.orderId);
+  localStorage.setItem("Total", priceConfirm);
+  document.location.href = "commande.html";
+})
+.catch((err) => {
+  alert("Il y a eu une erreur : " + err);
+});
+*/
+/*  }
+})
 } */
 
 

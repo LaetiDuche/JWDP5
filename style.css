@@ -35,3 +35,6 @@ a .card:hover{
 .btn-outline-light{
     border-color: BlueViolet;
 }
+button {
+  border: none;
+}

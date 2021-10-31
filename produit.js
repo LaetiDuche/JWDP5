@@ -120,15 +120,22 @@ function getOneTeddy() {
       //Insertion du bouton pour ajouter au panier
       let divTeddy = document.createElement("div");
       textTeddy.appendChild(divTeddy);
-      divTeddy.classList.add("col-12", "text-center", "mt-4");
+      divTeddy.classList.add("col-12", "text-center", "mt-4", 'd-flex', 'justify-content-around');
 
       let buttonTeddy = document.createElement("button");
       divTeddy.appendChild(buttonTeddy);
-      buttonTeddy.classList.add("btn", "btn-outline-light", "shadow", 'btn-sm');
+      buttonTeddy.classList.add("btn", "btn-outline-light", 'rounded-3',"shadow", 'btn-sm');
       buttonTeddy.style.color = 'BlueViolet';
       buttonTeddy.setAttribute("id", "bouton");
       buttonTeddy.setAttribute("type", "submit");
       buttonTeddy.innerHTML = "Ajouter au panier";  //Appel data des couleurs
+
+      //Insertion bouton voir mon panier
+      let buttonVoirPanier = document.createElement('a');
+      divTeddy.appendChild(buttonVoirPanier);
+      buttonVoirPanier.classList.add("btn", "btn-outline-light", "shadow", 'rounded-3','btn-sm');
+      buttonVoirPanier.innerHTML = 'Voir mon panier';
+      buttonVoirPanier.href="panier.html";
 
       ajoutPanier();  //Mis en relation avec la fonction ajoutPanier
 

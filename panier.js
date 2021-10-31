@@ -71,7 +71,7 @@ function monPanier() {
   //Colonne quantité
   let thQuantite = document.createElement('th');
   trPanier.appendChild(thQuantite);
-  thQuantite.textContent = "Quantité";
+  thQuantite.textContent = "Qtt";
 
   //Colonne prix
   let thPrix = document.createElement('th');
@@ -104,15 +104,8 @@ function monPanier() {
 
     let tdNombre = document.createElement('td');
     trProduit.appendChild(tdNombre);
-
-    let inputNombre = document.createElement('input');
-    tdNombre.appendChild(inputNombre);
-    inputNombre.classList.add("ms-1", "h-auto", "w-25");
-    inputNombre.setAttribute("id", "nombre");
-    inputNombre.setAttribute("min", "0");
-    inputNombre.setAttribute("type", "number");
-    inputNombre.setAttribute("name", "quantite");
-    inputNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
+    tdNombre.setAttribute("id", "nombre");
+    tdNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
 
     //Calcul du prix, multiplication du prix d'un produit avec sa quantité
     let tdPrix = document.createElement('td');

@@ -5,9 +5,11 @@ function body() {
   totalPrice();
   formCommand();
   objetContact()
+
 };
 
 let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
+
 
 //-----------------------------------CREATION DE MON PANIER---------------------------------------
 
@@ -90,8 +92,15 @@ function monPanier(produitTeddy) {
 
     let tdNombre = document.createElement('td');
     trProduit.appendChild(tdNombre);
-    tdNombre.setAttribute("id", "nombre");
-    tdNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
+
+    let inputNombre = document.createElement('input');
+    tdNombre.appendChild(inputNombre);
+    inputNombre.classList.add("ms-1", "h-auto", "w-25");
+    inputNombre.setAttribute("id", "nombre");
+    inputNombre.setAttribute("min", "0");
+    inputNombre.setAttribute("type", "number");
+    inputNombre.setAttribute("name", "quantite");
+    inputNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
 
     //Calcul du prix, multiplication du prix d'un produit avec sa quantité
     let tdPrix = document.createElement('td');
@@ -99,21 +108,34 @@ function monPanier(produitTeddy) {
     tdPrix.setAttribute("id", "prix");
     tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + '€';
 
-    //Bouton supprimer un article
+    //Eléments bouton supprimer un article
     let tdDelete = document.createElement('button');
     trProduit.appendChild(tdDelete);
     tdDelete.setAttribute("id", "supprimer");
-    tdDelete.style = 'none'; 
+    tdDelete.classList.add('btnDelete');
+    tdDelete.style = 'none';
     tdDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
-    let deleteItem = document.querySelector('#supprimer');
-    deleteItem.addEventListener("click", (e) => {
-      e.preventDefault();
-      localStorage.removeItem('tableau');
-      document.location.reload();
-    });
 
   }
+
+  //Supprimer un article 
+  let deleteItem = document.getElementsByClassName('btnDelete');
+    for(let i = 0; i < deleteItem.length; i++){
+      let button = deleteItem[i]
+      button.addEventListener('click', function (event){
+        let buttonClicked = event.target
+        buttonClicked.parentElement.parentElement.remove()
+        let idProductDelete = getLocalPanier[i]._id;
+        getLocalPanier = getLocalPanier.filter((el) => el._id !== idProductDelete);
+        localStorage.setItem(
+          "products",JSON.stringify(getLocalPanier)
+        );
+        alert("Cet article a été supprimé de votre panier !");
+        window.location.href ='panier.html';
+
+      })
+    }
 
   //Eléments pour insérer le prix total du panier
 
@@ -136,6 +158,22 @@ function monPanier(produitTeddy) {
 
   console.log(getLocalPanier);
   totalPrice();
+
+
+  //Bouton vider le panier
+ /*  let tdDelete = document.createElement('button');
+  divPanier2.appendChild(tdDelete);
+  tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
+  tdDelete.setAttribute("id", "supprimer");
+  tdDelete.style = 'none';
+  tdDelete.innerHTML = 'Vider le panier';
+  let buttonDelete = document.querySelector('#supprimer');
+  buttonDelete.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    document.location.reload();
+
+  }); */
 };
 
 
@@ -159,6 +197,8 @@ function totalPrice() {
   document.getElementById('subtotal').textContent = totalMoney + '€';
   localStorage.setItem("Total", JSON.stringify(totalMoney + '€'));
 }
+
+
 
 
 //-----------------------------------CREATION DU FORMULAIRE DE COMMANDE----------------------------------

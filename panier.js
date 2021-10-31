@@ -8,12 +8,11 @@ function body() {
 
 };
 
-let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
-
-
 //-----------------------------------CREATION DE MON PANIER---------------------------------------
 
-function monPanier(produitTeddy) {
+let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
+
+function monPanier() {
   //Selection de l'élément pour afficher mon panier
   let monPanier = document.getElementById('panier-teddy');
 
@@ -68,7 +67,6 @@ function monPanier(produitTeddy) {
   let tbodyProduits = document.createElement('tbody');
   tableauPanier.appendChild(tbodyProduits);
   tbodyProduits.setAttribute("id", "products-list");
-
 
   //Générer les produits du localstorage vers le panier
   let getLocalPanier = JSON.parse(localStorage.getItem("products"));
@@ -146,29 +144,31 @@ function monPanier(produitTeddy) {
       buttonClicked.parentElement.parentElement.remove()
       let productDelete = getLocalPanier[i]._id;
       getLocalPanier = getLocalPanier.filter((el) => el._id !== productDelete);
-      localStorage.setItem(
-        "products", JSON.stringify(getLocalPanier)
+      localStorage.setItem("products", JSON.stringify(getLocalPanier)
       );
       alert("Cet article a été supprimé de votre panier !");
-      window.location.href = 'panier.html';
+      document.location.reload();
 
     })
   }
-  //Bouton vider le panier
-  /*  let tdDelete = document.createElement('button');
-   divPanier2.appendChild(tdDelete);
-   tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
-   tdDelete.setAttribute("id", "supprimer");
-   tdDelete.style = 'none';
-   tdDelete.innerHTML = 'Vider le panier';
-   let buttonDelete = document.querySelector('#supprimer');
-   buttonDelete.addEventListener('click', (e) => {
-     e.preventDefault();
-     localStorage.clear();
-     document.location.reload();
- 
-   }); */
+  //Vider le panier
+  let divBoutonPanier = document.createElement('div');
+  divPanier2.appendChild(divBoutonPanier);
+  divBoutonPanier.classList.add('col-12', 'text-center');
 
+  let tdDelete = document.createElement('button');
+  divBoutonPanier.appendChild(tdDelete);
+  tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
+  tdDelete.setAttribute("id", "supprimer");
+  tdDelete.innerHTML = 'Vider le panier';
+
+  tdDelete.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    alert('Mon panier est vide !');
+    document.location.reload();
+
+  });
 }
 
 

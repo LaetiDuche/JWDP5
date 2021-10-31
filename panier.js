@@ -12,7 +12,7 @@ function body() {
 
 let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
 
-//Si le panier est vide
+//--------SI LE PANIER EST VIDE
 let selectPanier = document.querySelector('#mon-panier');
 if(localPanier === null){
   let panierVide = `<div class='col-12 bg-white rounded-3 text-center'><p class='m-auto'>Panier vide</p></div>`;
@@ -22,6 +22,7 @@ if(localPanier === null){
   console.log('je ne suis pas vide')
 }
 
+//-------- MON PANIER
 function monPanier() {
   //Selection de l'élément pour afficher mon panier
   let monPanier = document.getElementById('panier-teddy');
@@ -83,7 +84,7 @@ function monPanier() {
   tableauPanier.appendChild(tbodyProduits);
   tbodyProduits.setAttribute("id", "products-list");
 
-  //Générer les produits du localstorage vers le panier
+  //-------Générer les produits du localstorage vers le panier
   let getLocalPanier = JSON.parse(localStorage.getItem("products"));
   for (let produitTeddy in getLocalPanier) {
     let tableList = document.getElementById('tableau');
@@ -122,7 +123,7 @@ function monPanier() {
     tdDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
   }
-  //Eléments pour insérer le prix total du panier
+  //-------Eléments pour insérer le prix total du panier
   let tfTotal = document.createElement('tfoot');
   tableauPanier.appendChild(tfTotal);
   tfTotal.style.borderBottomColor = 'transparent';
@@ -142,7 +143,7 @@ function monPanier() {
 
   console.log(getLocalPanier);
 
-  //Supprimer un article du panier
+  //------Supprimer un article du panier
   let deleteItem = document.getElementsByClassName('btnDelete');
   for (let i = 0; i < deleteItem.length; i++) {
     let button = deleteItem[i]
@@ -158,7 +159,7 @@ function monPanier() {
 
     })
   }
-  //Vider le panier
+  //------Vider le panier
   //Bouton supprimer panier
   let divBoutonPanier = document.createElement('div');
   divTableau.append(divBoutonPanier);
@@ -186,9 +187,7 @@ function monPanier() {
 }
 
 
-
-
-//CALCUL DU PRIX TOTAL DU PANIER
+//--------CALCUL DU PRIX TOTAL DU PANIER
 
 function totalPrice() {
   let total = [];
@@ -217,6 +216,7 @@ function totalPrice() {
 
 //-----------------------------------CREATION DU FORMULAIRE DE COMMANDE----------------------------------
 
+//--------FORMULAIRE
 function formCommand() {
   //Selection de l'élément pour afficher le formulaire 
   let confirmCommand = document.getElementById('panier-teddy');
@@ -367,6 +367,7 @@ function formCommand() {
   objetContact();
 }
 
+//---------USERDATA A ENVOYER AU SERVER
 function objetContact() {
   let inputNom = document.getElementById('Nom');
   let inputPrenom = document.getElementById('Prenom');

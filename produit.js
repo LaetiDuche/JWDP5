@@ -124,7 +124,7 @@ function getOneTeddy() {
 
       let buttonTeddy = document.createElement("button");
       divTeddy.appendChild(buttonTeddy);
-      buttonTeddy.classList.add("btn", "btn-outline-light", "shadow");
+      buttonTeddy.classList.add("btn", "btn-outline-light", "shadow", 'btn-sm');
       buttonTeddy.style.color = 'BlueViolet';
       buttonTeddy.setAttribute("id", "bouton");
       buttonTeddy.setAttribute("type", "submit");

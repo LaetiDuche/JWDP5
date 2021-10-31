@@ -12,6 +12,16 @@ function body() {
 
 let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
 
+//Si le panier est vide
+let selectPanier = document.querySelector('#mon-panier');
+if(localPanier === null){
+  let panierVide = `<div class='col-12 bg-white rounded-3 text-center'><p class='m-auto'>Panier vide</p></div>`;
+  selectPanier.innerHTML = panierVide
+  console.log('je suis vide')
+}else{
+  console.log('je ne suis pas vide')
+}
+
 function monPanier() {
   //Selection de l'élément pour afficher mon panier
   let monPanier = document.getElementById('panier-teddy');
@@ -33,8 +43,13 @@ function monPanier() {
   titrePanier.textContent = "Mon panier";
 
   //Tableau pour insérer mes produits
+  let divTableau = document.createElement('div');
+  divPanier2.appendChild(divTableau);
+  divTableau.setAttribute('id','mon-panier');
+  divTableau.classList.add('col-12');
+
   let tableauPanier = document.createElement('table');
-  divPanier2.appendChild(tableauPanier);
+  divTableau.appendChild(tableauPanier);
   tableauPanier.classList.add('table', 'table-sm');
 
   let theadPanier = document.createElement('thead');
@@ -76,7 +91,6 @@ function monPanier() {
     let trProduit = document.createElement('tr');
     tbodyProduits.appendChild(trProduit);
     trProduit.setAttribute("id", "tableau");
-
 
     let tdNom = document.createElement('td');
     trProduit.appendChild(tdNom);
@@ -152,13 +166,14 @@ function monPanier() {
     })
   }
   //Vider le panier
+  //Bouton supprimer panier
   let divBoutonPanier = document.createElement('div');
-  divPanier2.appendChild(divBoutonPanier);
-  divBoutonPanier.classList.add('col-12', 'text-center');
+  divTableau.append(divBoutonPanier);
+  divBoutonPanier.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex');
 
   let tdDelete = document.createElement('button');
   divBoutonPanier.appendChild(tdDelete);
-  tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
+  tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
   tdDelete.setAttribute("id", "supprimer");
   tdDelete.innerHTML = 'Vider le panier';
 
@@ -167,9 +182,17 @@ function monPanier() {
     localStorage.clear();
     alert('Mon panier est vide !');
     document.location.reload();
-
   });
+
+  //Bouton continuer mes achats
+  let tdContinue = document.createElement('a');
+  divBoutonPanier.appendChild(tdContinue);
+  tdContinue.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+  tdContinue.innerHTML = 'Continuer mes achats';
+  tdContinue.href="index.html";
 }
+
+
 
 
 //CALCUL DU PRIX TOTAL DU PANIER
@@ -341,7 +364,7 @@ function formCommand() {
 
   let boutonCommand = document.createElement('button');
   divBouton.appendChild(boutonCommand);
-  boutonCommand.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
+  boutonCommand.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
   boutonCommand.setAttribute('type', 'submit');
   boutonCommand.setAttribute('id', 'bouton');
   boutonCommand.setAttribute('value', 'Commander');

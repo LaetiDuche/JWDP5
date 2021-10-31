@@ -69,9 +69,9 @@ function monPanier(produitTeddy) {
   tableauPanier.appendChild(tbodyProduits);
   tbodyProduits.setAttribute("id", "products-list");
 
-  //Boucle pour générer les produits du localstorage dans le tableau du panier
-  let getLocalPanier = JSON.parse(localStorage.getItem("products"));
 
+  //Générer les produits du localstorage vers le panier
+  let getLocalPanier = JSON.parse(localStorage.getItem("products"));
   for (let produitTeddy in getLocalPanier) {
     let tableList = document.getElementById('tableau');
 
@@ -108,7 +108,7 @@ function monPanier(produitTeddy) {
     tdPrix.setAttribute("id", "prix");
     tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + '€';
 
-    //Eléments bouton supprimer un article
+    //Eléments bouton pour supprimer un article
     let tdDelete = document.createElement('button');
     trProduit.appendChild(tdDelete);
     tdDelete.setAttribute("id", "supprimer");
@@ -116,29 +116,8 @@ function monPanier(produitTeddy) {
     tdDelete.style = 'none';
     tdDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
-
   }
-
-  //Supprimer un article 
-  let deleteItem = document.getElementsByClassName('btnDelete');
-    for(let i = 0; i < deleteItem.length; i++){
-      let button = deleteItem[i]
-      button.addEventListener('click', function (event){
-        let buttonClicked = event.target
-        buttonClicked.parentElement.parentElement.remove()
-        let idProductDelete = getLocalPanier[i]._id;
-        getLocalPanier = getLocalPanier.filter((el) => el._id !== idProductDelete);
-        localStorage.setItem(
-          "products",JSON.stringify(getLocalPanier)
-        );
-        alert("Cet article a été supprimé de votre panier !");
-        window.location.href ='panier.html';
-
-      })
-    }
-
   //Eléments pour insérer le prix total du panier
-
   let tfTotal = document.createElement('tfoot');
   tableauPanier.appendChild(tfTotal);
   tfTotal.style.borderBottomColor = 'transparent';
@@ -157,44 +136,63 @@ function monPanier(produitTeddy) {
   tdTotal.setAttribute('colspan', '3');
 
   console.log(getLocalPanier);
-  totalPrice();
 
+  //Supprimer un article du panier
+  let deleteItem = document.getElementsByClassName('btnDelete');
+  for (let i = 0; i < deleteItem.length; i++) {
+    let button = deleteItem[i]
+    button.addEventListener('click', function (event) {
+      let buttonClicked = event.target
+      buttonClicked.parentElement.parentElement.remove()
+      let productDelete = getLocalPanier[i]._id;
+      getLocalPanier = getLocalPanier.filter((el) => el._id !== productDelete);
+      localStorage.setItem(
+        "products", JSON.stringify(getLocalPanier)
+      );
+      alert("Cet article a été supprimé de votre panier !");
+      window.location.href = 'panier.html';
 
+    })
+  }
   //Bouton vider le panier
- /*  let tdDelete = document.createElement('button');
-  divPanier2.appendChild(tdDelete);
-  tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
-  tdDelete.setAttribute("id", "supprimer");
-  tdDelete.style = 'none';
-  tdDelete.innerHTML = 'Vider le panier';
-  let buttonDelete = document.querySelector('#supprimer');
-  buttonDelete.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    document.location.reload();
+  /*  let tdDelete = document.createElement('button');
+   divPanier2.appendChild(tdDelete);
+   tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow');
+   tdDelete.setAttribute("id", "supprimer");
+   tdDelete.style = 'none';
+   tdDelete.innerHTML = 'Vider le panier';
+   let buttonDelete = document.querySelector('#supprimer');
+   buttonDelete.addEventListener('click', (e) => {
+     e.preventDefault();
+     localStorage.clear();
+     document.location.reload();
+ 
+   }); */
 
-  }); */
-};
+}
 
 
 //CALCUL DU PRIX TOTAL DU PANIER
 
 function totalPrice() {
   let total = [];
+
   //Récupération de tous les prix de la colonne prix
   let productsPriceList = document.querySelectorAll('#prix');
   productsPriceList.forEach(function (productsPrice) {
     total.push(parseFloat(productsPrice.textContent));
   })
   console.log(total);
+
   //Addition de tous les prix
   let totalMoney = total.reduce(function (total, productsPrice) {
     total += productsPrice;
     return total;
   }, 0)
   console.log(totalMoney);
+
   //Sélection de l'endroit où l'on veut inscrire le prix total
-  document.getElementById('subtotal').textContent = totalMoney + '€';
+  document.getElementById('subtotal').textContent = totalMoney + ' €';
   localStorage.setItem("Total", JSON.stringify(totalMoney + '€'));
 }
 

@@ -4,7 +4,7 @@ function body() {
   monPanier();
   totalPrice();
   formCommand();
-  /* validChamps() */
+  validChamps();
   objetContact()
 
 };
@@ -269,7 +269,11 @@ function formCommand() {
   inputNom.setAttribute('type', 'text');
   inputNom.setAttribute('placeholder', 'Nom');
   inputNom.setAttribute('required', 'required');
-  /* inputNom.setAttribute('pattern', '[A-Za-z-\s]+'); */
+
+  let spanNom = document.createElement('span');
+  divNom.appendChild(spanNom);
+  spanNom.classList.add('d-block');
+  spanNom.style.fontSize ='small';
 
   //Eléments pour le Prénom
   let divPrenom = document.createElement('div');
@@ -289,8 +293,12 @@ function formCommand() {
   inputPrenom.setAttribute('type', 'text');
   inputPrenom.setAttribute('placeholder', 'Prénom');
   inputPrenom.setAttribute('required', 'required');
-  /* inputPrenom.setAttribute('pattern', '[A-Za-z-]+'); */
 
+  let spanPrenom = document.createElement('span');
+  divPrenom.appendChild(spanPrenom);
+  spanPrenom.classList.add('d-block');
+  spanPrenom.style.fontSize ='small';
+  
   //Eléments pour l'email
   let divMail = document.createElement('div');
   formElement.appendChild(divMail);
@@ -309,7 +317,11 @@ function formCommand() {
   inputMail.setAttribute('type', 'email');
   inputMail.setAttribute('placeholder', 'Email');
   inputMail.setAttribute('required', 'required');
-  /* inputMail.setAttribute('pattern', '/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'); */
+
+  let spanMail = document.createElement('span');
+  divMail.appendChild(spanMail);
+  spanMail.classList.add('d-block');
+  spanMail.style.fontSize ='small';
 
   //Eléments pour l'adresse
   let divAdresse = document.createElement('div');
@@ -330,6 +342,11 @@ function formCommand() {
   inputAdresse.setAttribute('placeholder', 'Adresse postale');
   inputAdresse.setAttribute('required', 'required');
 
+  let spanAdresse = document.createElement('span');
+  divAdresse.appendChild(spanAdresse);
+  spanAdresse.classList.add('d-block');
+  spanAdresse.style.fontSize ='small';
+
   //Eléments pour la ville
   let divVille = document.createElement('div');
   formElement.appendChild(divVille);
@@ -348,7 +365,11 @@ function formCommand() {
   inputVille.setAttribute('type', 'text');
   inputVille.setAttribute('placeholder', 'Ville');
   inputVille.setAttribute('required', 'required');
-  /* inputVille.setAttribute('pattern', '[A-Za-z- ]+'); */
+
+  let spanVille = document.createElement('span');
+  divVille.appendChild(spanVille);
+  spanVille.classList.add('d-block');
+  spanVille.style.fontSize ='small';
 
   //Eléments pour le bouton commander
   let divBouton = document.createElement('div');
@@ -361,40 +382,75 @@ function formCommand() {
   boutonCommand.setAttribute('type', 'submit');
   boutonCommand.setAttribute('id', 'btn-command');
   boutonCommand.setAttribute('value', 'Commander');
-  /* boutonCommand.setAttribute('required', 'required'); */
   boutonCommand.textContent = "Commander";
 
 
-  objetContact();
+  /* objetContact(); */
 }
 
-//---------USERDATA A ENVOYER AU SERVER
+//----------------------USERDATA A ENVOYER AU SERVER
 
 //Validation des champs avec Regex
-/* function validChamps() {
-  let inputNom = Nom.value;
-  let inputPrenom = Prenom.value;
-  let inputVille = Ville.value;
-  if (/^[A-Za-z-\s]+'$/.test(inputNom, inputPrenom, inputVille)) {
-    console.log("ok");
-    return true;
+function validChamps() {
+  let nom = document.getElementById('Nom');
+  let prenom = document.getElementById('Prenom');
+  let email = document.getElementById('Mail');
+  let adresse = document.getElementById('Adresse');
+  let ville = document.getElementById('Ville');
+  let span = document.getElementsByTagName('span');
+
+  nom.onkeydown = function () {
+    let regex = /^[A-Za-z]{3,20}$/;
+    if (regex.test(Nom.value)) {
+      span[0].innerText = 'Valide !';
+      span[0].style.color = 'MediumSeaGreen';
+    } else {
+      span[0].innerText = 'Nom invalide !';
+      span[0].style.color = 'red';
+    }
   }
-  let inputAdresse = Adresse.value;
-  if (/^[A-Za-z][0-9]+'$/.test(inputAdresse)) {
-    console.log("ok");
-    return true;
+  prenom.onkeydown = function () {
+    let regex = /^[A-Za-z]{3,20}$/;
+    if (regex.test(Prenom.value)) {
+      span[1].innerText = 'Valide !';
+      span[1].style.color = 'MediumSeaGreen';
+    } else {
+      span[1].innerText = 'Prenom invalide !';
+      span[1].style.color = 'red';
+    }
   }
-  let inputMail = Mail.value;
-  if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputMail)) {
-    console.log("ok");
-    return true;
+  email.onkeydown = function () {
+    let regex = /^([\.\_a-zA-Z0-9]+)@([a-zA-Z]+)\.([a-zA-Z]){2,8}$/;
+    if (regex.test(email.value)) {
+      span[2].innerText = 'Valide !';
+      span[2].style.color = 'MediumSeaGreen';
+    } else {
+      span[2].innerText = 'Email invalide !';
+      span[2].style.color = 'red';
+    }
   }
-  else {
-    console.log('ko');
-    alert('Champs incorrectes !');
-    return false;
+  adresse.onkeydown = function () {
+    let regex = /^[A-Za-z0-9\s]{10,20}$/;
+    if (regex.test(Adresse.value)) {
+      span[3].innerText = 'Valide !';
+      span[3].style.color = 'MediumSeaGreen';
+    } else {
+      span[3].innerText = 'Adresse invalide !';
+      span[3].style.color = 'red';
+    }
   }
-} */
+  ville.onkeydown = function () {
+    let regex = /^[A-Za-z]{3,20}$/;
+    if (regex.test(Ville.value)) {
+      span[4].innerText = 'Valide !';
+      span[4].style.color = 'MediumSeaGreen';
+    } else {
+      span[4].innerText = 'Ville invalide !';
+      span[4].style.color = 'red';
+    }
+  }
+}
+
 
 //Envoyer les coordonnées de contact  au localstorage
 function objetContact() {
@@ -402,8 +458,9 @@ function objetContact() {
   bouton.addEventListener('click', (e) => {
     e.preventDefault();
 
-    class formulaire{
-      constructor(){
+    //Création de l'objet contact
+    class formulaire {
+      constructor() {
         this.firstname = document.querySelector("#Nom").value;
         this.lastname = document.querySelector("#Prenom").value;
         this.email = document.querySelector("#Mail").value;
@@ -415,11 +472,82 @@ function objetContact() {
 
     console.log('contact');
 
+    //--------------
+    //VALIDATION DES CHAMPS AVEC REGEX
+
+    //Regex
+    /* let reGex1 = (value) => {
+      return /^[A-Za-z]{3,20}$/.test(value);
+    }
+
+    let regexEmail = (value) => {
+      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value);
+    } */
+
+    //Validation pour chaque champ
+   /*  function validNom() {
+      let appelNom = contact.firstname;
+      if (reGex1(appelNom)) {
+        console.log('ok');
+        return true;
+      } else {
+        console.log('ko');
+        alert('Nom invalide !');
+        return false;
+      }
+    };
+
+    function validPrenom() {
+      let appelPrenom = contact.lastname;
+      if (reGex1(appelPrenom)) {
+        console.log('ok');
+        return true;
+      } else {
+        console.log('ko');
+        alert('Prénom invalide !');
+        return false;
+      }
+    };
+
+    function validEmail() {
+      let appelEmail = contact.email;
+      if (regexEmail(appelEmail)) {
+        console.log('ok');
+        return true;
+      } else {
+        console.log('ko');
+        alert('Email invalide !');
+        return false;
+      }
+    }
+
+    function validVille() {
+      let appelVille = contact.city;
+      if (reGex1(appelVille)) {
+        console.log('ok');
+        return true;
+      } else {
+        console.log('ko');
+        alert('Ville invalide !');
+        return false;
+      }
+    }
+
+    if (validNom() && validPrenom() && validVille() && validEmail()) {
+      localStorage.setItem("contact", JSON.stringify(contact));
+    } else {
+      alert('Veuillez bien remplir le formulaire !');
+    }; */
+    //-----------------
+
+
+    //Envoyer l'objet contact dans le localstorage
     localStorage.setItem("contact", JSON.stringify(contact));
     let products = JSON.parse(localStorage.getItem("products"));
 
     let sendData = {
-      contact, products
+      contact,
+      products
     }
     console.log(sendData);
     console.log('sendData');

@@ -24,7 +24,7 @@ h2{
 .card{
     transition: ease-in-out;
 } 
-a .card:hover{
+ .card:hover{
     transform: scale(1.05);
 }
 .card-img-top {

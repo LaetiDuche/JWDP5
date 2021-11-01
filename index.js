@@ -4,7 +4,8 @@ function body(){
   getTeddies();
 }
 
-//Création de la carte pour accueillir tous les teddies
+
+//----------------------CREATION DE LA CARTE POUR ACCUEILLIR TOUS LES TEDDIES
 
 //Fonction d'appel fetch API pour récupérer les datas des teddies
 function getTeddies() {
@@ -28,16 +29,10 @@ function getTeddies() {
         let articleTeddy = document.createElement('article');
         firstDiv.appendChild(articleTeddy);
         articleTeddy.classList.add('col-12', 'col-md-6', 'col-xl-4', 'my-3');
-
-        //Chaque carte est cliquable et mène à la page produit grâce à l'ID de chaque teddie
-        let lienTeddy = document.createElement('a');
-        articleTeddy.appendChild(lienTeddy);
-        lienTeddy.classList.add('text-dark','text-decoration-none');
-        lienTeddy.href =`produit.html?id=${insertDataTeddies[card]._id}`; //Appel data 
         
         let figureTeddy = document.createElement('figure');
-        lienTeddy.appendChild(figureTeddy);
-        figureTeddy.classList.add('card', 'rounded-3', 'my-1', 'shadow');
+        articleTeddy.appendChild(figureTeddy);
+        figureTeddy.classList.add('card', 'rounded-3', 'my-1', 'shadow', 'px-0');
 
         //Insertion de l'image
         let imageTeddy = document.createElement('img');
@@ -51,25 +46,41 @@ function getTeddies() {
 
         let textTeddy = document.createElement('div');
         captionTeddy.appendChild(textTeddy);
-        textTeddy.classList.add("title-price", "d-flex");
+        textTeddy.classList.add("title-price", "d-flex-row");
+
+        //Insertion des éléments
+        let divTitle = document.createElement('div');
+        textTeddy.appendChild(divTitle);
+        divTitle.classList.add('col-12', 'd-flex');
 
         //Insertion du nom des teddies
         let nomTeddy = document.createElement('h2');
-        textTeddy.appendChild(nomTeddy);
+        divTitle.appendChild(nomTeddy);
         nomTeddy.style.color ='DarkOrange';
         nomTeddy.style.fontStyle ='italic';
         nomTeddy.innerHTML = insertDataTeddies[card].name;//Appel data 
 
         //Insertion du prix en euro 
         let prixTeddy = document.createElement('p');
-        textTeddy.appendChild(prixTeddy);
+        divTitle.appendChild(prixTeddy);
         prixTeddy.classList.add("card-text", "my-auto");
         prixTeddy.innerHTML = insertDataTeddies[card].price/100 + ' €'; //Prix en centimes traduit en euro avec la division + appel data
         
         //Insertion de la description des teddies
         let descriptionTeddy = document.createElement('p');
-        captionTeddy.append(descriptionTeddy);
+        textTeddy.appendChild(descriptionTeddy);
         descriptionTeddy.innerHTML = insertDataTeddies[card].description;//Appel data
+
+        //Insertion du bouton voir le produit
+        let divButton = document.createElement('div');
+        textTeddy.appendChild(divButton);
+        divButton.classList.add('col-12', 'text-center');
+
+        let buttonTeddy = document.createElement('a');
+        divButton.appendChild(buttonTeddy); 
+        buttonTeddy.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+        buttonTeddy.innerHTML = 'Voir le produit';
+        buttonTeddy.href =`produit.html?id=${insertDataTeddies[card]._id}`; //Appel data
       }
     });
   }

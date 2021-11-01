@@ -4,6 +4,7 @@ function body() {
   monPanier();
   totalPrice();
   formCommand();
+  /* validChamps() */
   objetContact()
 
 };
@@ -14,12 +15,12 @@ let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
 
 //--------SI LE PANIER EST VIDE
 let selectPanier = document.querySelector('#mon-panier');
-if(localPanier === null){
+if (localPanier === null) {
   let panierVide = `<div class='col-12 bg-white rounded-3 text-center'><p class='m-auto'>Panier vide</p></div>`;
   selectPanier.innerHTML = panierVide
-  console.log('je suis vide')
-}else{
-  console.log('je ne suis pas vide')
+  console.log('Panier vide')
+} else {
+  console.log('Panier plein')
 }
 
 //-------- MON PANIER
@@ -46,7 +47,7 @@ function monPanier() {
   //Tableau pour insérer mes produits
   let divTableau = document.createElement('div');
   divPanier2.appendChild(divTableau);
-  divTableau.setAttribute('id','mon-panier');
+  divTableau.setAttribute('id', 'mon-panier');
   divTableau.classList.add('col-12');
 
   let tableauPanier = document.createElement('table');
@@ -72,7 +73,7 @@ function monPanier() {
   //Colonne quantité
   let thQuantite = document.createElement('th');
   trPanier.appendChild(thQuantite);
-  thQuantite.textContent = "Qtt";
+  thQuantite.textContent = "Quantité";
 
   //Colonne prix
   let thPrix = document.createElement('th');
@@ -159,8 +160,7 @@ function monPanier() {
 
     })
   }
-  //------Vider le panier
-  //Bouton supprimer panier
+  //------Bouton vider le panier
   let divBoutonPanier = document.createElement('div');
   divTableau.append(divBoutonPanier);
   divBoutonPanier.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex');
@@ -178,12 +178,12 @@ function monPanier() {
     document.location.reload();
   });
 
-  //Bouton continuer mes achats
+  //-----Bouton continuer mes achats
   let tdContinue = document.createElement('a');
   divBoutonPanier.appendChild(tdContinue);
   tdContinue.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
   tdContinue.innerHTML = 'Continuer mes achats';
-  tdContinue.href="index.html";
+  tdContinue.href = "index.html";
 }
 
 
@@ -246,7 +246,7 @@ function formCommand() {
   let formElement = document.createElement('form');
   divForm.appendChild(formElement);
   formElement.classList.add('row', 'g-3', 'needs-validation');
-  formElement.setAttribute('method', 'post');
+  /* formElement.setAttribute('method', 'post'); */
   /* formElement.setAttribute('action', "http://localhost:3000/api/teddies/order"); */
   formElement.setAttribute('id', 'formulaire');
   /* formElement.setAttribute('action', 'commande.html') */;
@@ -321,7 +321,7 @@ function formCommand() {
   labelAdresse.classList.add('form-label');
   labelAdresse.setAttribute('for', 'address');
 
-  let inputAdresse = document.createElement('input');
+  let inputAdresse = document.createElement('textarea');
   divAdresse.appendChild(inputAdresse);
   inputAdresse.classList.add('form-control');
   inputAdresse.setAttribute('name', 'address');
@@ -359,26 +359,86 @@ function formCommand() {
   divBouton.appendChild(boutonCommand);
   boutonCommand.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
   boutonCommand.setAttribute('type', 'submit');
-  boutonCommand.setAttribute('id', 'bouton');
+  boutonCommand.setAttribute('id', 'btn-command');
   boutonCommand.setAttribute('value', 'Commander');
-  boutonCommand.setAttribute('required', 'required');
+  /* boutonCommand.setAttribute('required', 'required'); */
   boutonCommand.textContent = "Commander";
+
 
   objetContact();
 }
 
 //---------USERDATA A ENVOYER AU SERVER
+
+//Validation des champs avec Regex
+/* function validChamps() {
+  let inputNom = Nom.value;
+  let inputPrenom = Prenom.value;
+  let inputVille = Ville.value;
+  if (/^[A-Za-z-\s]+'$/.test(inputNom, inputPrenom, inputVille)) {
+    console.log("ok");
+    return true;
+  }
+  let inputAdresse = Adresse.value;
+  if (/^[A-Za-z][0-9]+'$/.test(inputAdresse)) {
+    console.log("ok");
+    return true;
+  }
+  let inputMail = Mail.value;
+  if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputMail)) {
+    console.log("ok");
+    return true;
+  }
+  else {
+    console.log('ko');
+    alert('Champs incorrectes !');
+    return false;
+  }
+} */
+
+//Envoyer les coordonnées de contact  au localstorage
 function objetContact() {
+  let bouton = document.querySelector('#btn-command');
+  bouton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    class formulaire{
+      constructor(){
+        this.firstname = document.querySelector("#Nom").value;
+        this.lastname = document.querySelector("#Prenom").value;
+        this.email = document.querySelector("#Mail").value;
+        this.address = document.querySelector("#Adresse").value;
+        this.city = document.querySelector("#Ville").value;
+      }
+    }
+    let contact = new formulaire();
+
+    console.log('contact');
+
+    localStorage.setItem("contact", JSON.stringify(contact));
+    let products = JSON.parse(localStorage.getItem("products"));
+
+    let sendData = {
+      contact, products
+    }
+    console.log(sendData);
+    console.log('sendData');
+
+  })
+}
+
+
+/* function objetContact() {
   let inputNom = document.getElementById('Nom');
   let inputPrenom = document.getElementById('Prenom');
   let inputAdresse = document.getElementById('Adresse');
   let inputVille = document.getElementById('Ville');
   let inputMail = document.getElementById('Mail');
 
-  const bouton = document.querySelector('#bouton');
+  const bouton = document.querySelector('#btn-command');
   bouton.addEventListener('click', () => {
     if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
-      let product = [];
+      let productsTeddies = [];
       let localpanier = [];
       product.push(localpanier);
       let userData = {
@@ -389,7 +449,7 @@ function objetContact() {
           address: inputAdresse.value,
           city: inputVille.value,
         },
-        products: product,
+        products: productsTeddies,
       };
       console.log(userData);
       let localUserData = [];
@@ -400,7 +460,7 @@ function objetContact() {
       localStorage.setItem("contact", JSON.stringify(localUserData));
     }
   });
-}
+} */
 
 
 //FONCTION CREATION DE L'OBJET CONTACT ET ENVOIE 

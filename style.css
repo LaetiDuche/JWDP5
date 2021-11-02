@@ -21,12 +21,9 @@ h2{
 .jumbotron{
     box-shadow: inset 0px 4px 4px -3px rgb(53 53 53 / 20%);
 }
-.card{
-    transition: ease-in-out;
-} 
- .card:hover{
-    transform: scale(1.05);
-}
+ /* .card:hover{
+    transform: scale(1.015);
+} */
 .card-img-top {
     height: 16rem;
     object-fit: cover;

@@ -6,7 +6,6 @@ function body() {
   formCommand();
   validChamps();
   objetContact()
-
 };
 
 //-----------------------------------CREATION DE MON PANIER---------------------------------------
@@ -246,7 +245,7 @@ function formCommand() {
   let formElement = document.createElement('form');
   divForm.appendChild(formElement);
   formElement.classList.add('row', 'g-3', 'needs-validation');
-  /* formElement.setAttribute('method', 'post'); */
+  formElement.setAttribute('method', 'post');
   /* formElement.setAttribute('action', "http://localhost:3000/api/teddies/order"); */
   formElement.setAttribute('id', 'formulaire');
   /* formElement.setAttribute('action', 'commande.html') */;
@@ -258,8 +257,9 @@ function formCommand() {
 
   let labelNom = document.createElement('label');
   divNom.appendChild(labelNom);
-  labelNom.classList.add('form-label');
+  labelNom.classList.add('form-label','mb-0');
   labelNom.setAttribute('for', 'firstName');
+  labelNom.textContent = 'Nom';
 
   let inputNom = document.createElement('input');
   divNom.appendChild(inputNom);
@@ -267,7 +267,6 @@ function formCommand() {
   inputNom.setAttribute('name', 'firstName');
   inputNom.setAttribute('id', 'Nom');
   inputNom.setAttribute('type', 'text');
-  inputNom.setAttribute('placeholder', 'Nom');
   inputNom.setAttribute('required', 'required');
 
   let spanNom = document.createElement('span');
@@ -282,8 +281,9 @@ function formCommand() {
 
   let labelPrenom = document.createElement('label');
   divPrenom.appendChild(labelPrenom);
-  labelPrenom.classList.add('form-label');
+  labelPrenom.classList.add('form-label','mb-0');
   labelPrenom.setAttribute('for', 'lastName');
+  labelPrenom.textContent = 'Prénom';
 
   let inputPrenom = document.createElement('input');
   divPrenom.appendChild(inputPrenom);
@@ -291,7 +291,6 @@ function formCommand() {
   inputPrenom.setAttribute('name', 'lastName');
   inputPrenom.setAttribute('id', 'Prenom');
   inputPrenom.setAttribute('type', 'text');
-  inputPrenom.setAttribute('placeholder', 'Prénom');
   inputPrenom.setAttribute('required', 'required');
 
   let spanPrenom = document.createElement('span');
@@ -306,8 +305,9 @@ function formCommand() {
 
   let labelMail = document.createElement('label');
   divMail.appendChild(labelMail);
-  labelMail.classList.add('form-label');
+  labelMail.classList.add('form-label','mb-0');
   labelMail.setAttribute('for', 'email');
+  labelMail.textContent = 'Email';
 
   let inputMail = document.createElement('input');
   divMail.appendChild(inputMail);
@@ -315,7 +315,6 @@ function formCommand() {
   inputMail.setAttribute('name', 'email');
   inputMail.setAttribute('id', 'Mail');
   inputMail.setAttribute('type', 'email');
-  inputMail.setAttribute('placeholder', 'Email');
   inputMail.setAttribute('required', 'required');
 
   let spanMail = document.createElement('span');
@@ -330,8 +329,9 @@ function formCommand() {
 
   let labelAdresse = document.createElement('label');
   divAdresse.appendChild(labelAdresse);
-  labelAdresse.classList.add('form-label');
+  labelAdresse.classList.add('form-label','mb-0');
   labelAdresse.setAttribute('for', 'address');
+  labelAdresse.textContent = 'Adresse';
 
   let inputAdresse = document.createElement('textarea');
   divAdresse.appendChild(inputAdresse);
@@ -339,7 +339,6 @@ function formCommand() {
   inputAdresse.setAttribute('name', 'address');
   inputAdresse.setAttribute('id', 'Adresse');
   inputAdresse.setAttribute('type', 'text');
-  inputAdresse.setAttribute('placeholder', 'Adresse postale');
   inputAdresse.setAttribute('required', 'required');
 
   let spanAdresse = document.createElement('span');
@@ -354,8 +353,9 @@ function formCommand() {
 
   let labelVille = document.createElement('label');
   divVille.appendChild(labelVille);
-  labelVille.classList.add('form-label');
+  labelVille.classList.add('form-label','mb-0');
   labelVille.setAttribute('for', 'city');
+  labelVille.textContent = 'Ville';
 
   let inputVille = document.createElement('input');
   divVille.appendChild(inputVille);
@@ -363,7 +363,6 @@ function formCommand() {
   inputVille.setAttribute('name', 'city');
   inputVille.setAttribute('id', 'Ville');
   inputVille.setAttribute('type', 'text');
-  inputVille.setAttribute('placeholder', 'Ville');
   inputVille.setAttribute('required', 'required');
 
   let spanVille = document.createElement('span');
@@ -385,7 +384,7 @@ function formCommand() {
   boutonCommand.textContent = "Commander";
 
 
-  /* objetContact(); */
+ /*  objetContact(); */
 }
 
 //----------------------USERDATA A ENVOYER AU SERVER
@@ -400,8 +399,8 @@ function validChamps() {
   let span = document.getElementsByTagName('span');
 
   nom.onkeydown = function () {
-    let regex = /^[A-Za-z]{3,20}$/;
-    if (regex.test(Nom.value)) {
+    let regex = /^[A-Za-z]{2,20}$/;
+    if (regex.test(nom.value)) {
       span[0].innerText = 'Valide !';
       span[0].style.color = 'MediumSeaGreen';
     } else {
@@ -410,7 +409,7 @@ function validChamps() {
     }
   }
   prenom.onkeydown = function () {
-    let regex = /^[A-Za-z]{3,20}$/;
+    let regex = /^[A-Za-z]{2,20}$/;
     if (regex.test(Prenom.value)) {
       span[1].innerText = 'Valide !';
       span[1].style.color = 'MediumSeaGreen';
@@ -420,7 +419,7 @@ function validChamps() {
     }
   }
   email.onkeydown = function () {
-    let regex = /^([\.\_a-zA-Z0-9]+)@([a-zA-Z]+)\.([a-zA-Z]){2,8}$/;
+    let regex = /\S+@\S+\.\S+/;
     if (regex.test(email.value)) {
       span[2].innerText = 'Valide !';
       span[2].style.color = 'MediumSeaGreen';
@@ -470,10 +469,35 @@ function objetContact() {
     }
     let contact = new formulaire();
 
-    console.log('contact');
+    console.log('contact crée');
+
+    //Envoie de l'objet contact dans le localstorage
+    localStorage.setItem("contact", JSON.stringify(contact));
+    let products = JSON.parse(localStorage.getItem("products"));
+
+    let sendData = {
+      contact,
+      products
+    }
+    console.log('contact dans localstorage');
+
+      //Envoie de l'objet sendData au server
+    let envoieData = fetch ("http://localhost:3000/api/teddies/order",{
+      method : 'POST',
+      body: JSON.stringify(sendData),
+      headers: {
+        "Content-Type" : "application/json",
+      },
+    });
+    console.log('envoyé au server');
+    
+  })
+}
+
+
 
     //--------------
-    //VALIDATION DES CHAMPS AVEC REGEX
+    //VALIDATION DES CHAMPS AVEC REGEX (fonctionne)
 
     //Regex
     /* let reGex1 = (value) => {
@@ -539,21 +563,6 @@ function objetContact() {
       alert('Veuillez bien remplir le formulaire !');
     }; */
     //-----------------
-
-
-    //Envoyer l'objet contact dans le localstorage
-    localStorage.setItem("contact", JSON.stringify(contact));
-    let products = JSON.parse(localStorage.getItem("products"));
-
-    let sendData = {
-      contact,
-      products
-    }
-    console.log(sendData);
-    console.log('sendData');
-
-  })
-}
 
 
 /* function objetContact() {

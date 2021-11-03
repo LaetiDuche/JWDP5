@@ -80,7 +80,7 @@ function getTeddies() {
         divButton.appendChild(buttonTeddy); 
         buttonTeddy.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
         buttonTeddy.innerHTML = 'Voir le produit';
-        buttonTeddy.href =`produit.html?id=${insertDataTeddies[card]._id}`; //Appel data
+        buttonTeddy.href =`front/produit.html?id=${insertDataTeddies[card]._id}`; //Appel data
       }
     });
   }

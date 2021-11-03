@@ -182,7 +182,7 @@ function monPanier() {
   divBoutonPanier.appendChild(tdContinue);
   tdContinue.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
   tdContinue.innerHTML = 'Continuer mes achats';
-  tdContinue.href = "../index.html";
+  tdContinue.href = "index.html";
 }
 
 

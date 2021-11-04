@@ -5,12 +5,15 @@ function body() {
   totalPrice();
   formCommand();
   validChamps();
-  objetContact()
+  objetContact();
+  sendDataServer()
+  /* getOrderConfirmationId() */
 };
+
 
 //-----------------------------------CREATION DE MON PANIER---------------------------------------
 
-let localPanier = JSON.parse(localStorage.getItem("products", "contact"));
+let localPanier = JSON.parse(localStorage.getItem("products", "contact", "Total", "orderId"));
 
 //--------SI LE PANIER EST VIDE
 let selectPanier = document.querySelector('#mon-panier');
@@ -173,7 +176,7 @@ function monPanier() {
   tdDelete.addEventListener('click', (e) => {
     e.preventDefault();
     localStorage.clear();
-    alert('Mon panier est vide !');
+    alert('Mon panier a été vidé !');
     document.location.reload();
   });
 
@@ -246,9 +249,7 @@ function formCommand() {
   divForm.appendChild(formElement);
   formElement.classList.add('row', 'g-3', 'needs-validation');
   formElement.setAttribute('method', 'post');
-  /* formElement.setAttribute('action', "http://localhost:3000/api/teddies/order"); */
   formElement.setAttribute('id', 'formulaire');
-  /* formElement.setAttribute('action', 'commande.html') */;
 
   //Eléments pour le Nom
   let divNom = document.createElement('div');
@@ -257,7 +258,7 @@ function formCommand() {
 
   let labelNom = document.createElement('label');
   divNom.appendChild(labelNom);
-  labelNom.classList.add('form-label','mb-0');
+  labelNom.classList.add('form-label', 'mb-0');
   labelNom.setAttribute('for', 'firstName');
   labelNom.textContent = 'Nom';
 
@@ -272,7 +273,7 @@ function formCommand() {
   let spanNom = document.createElement('span');
   divNom.appendChild(spanNom);
   spanNom.classList.add('d-block');
-  spanNom.style.fontSize ='small';
+  spanNom.style.fontSize = 'small';
 
   //Eléments pour le Prénom
   let divPrenom = document.createElement('div');
@@ -281,7 +282,7 @@ function formCommand() {
 
   let labelPrenom = document.createElement('label');
   divPrenom.appendChild(labelPrenom);
-  labelPrenom.classList.add('form-label','mb-0');
+  labelPrenom.classList.add('form-label', 'mb-0');
   labelPrenom.setAttribute('for', 'lastName');
   labelPrenom.textContent = 'Prénom';
 
@@ -296,8 +297,8 @@ function formCommand() {
   let spanPrenom = document.createElement('span');
   divPrenom.appendChild(spanPrenom);
   spanPrenom.classList.add('d-block');
-  spanPrenom.style.fontSize ='small';
-  
+  spanPrenom.style.fontSize = 'small';
+
   //Eléments pour l'email
   let divMail = document.createElement('div');
   formElement.appendChild(divMail);
@@ -305,7 +306,7 @@ function formCommand() {
 
   let labelMail = document.createElement('label');
   divMail.appendChild(labelMail);
-  labelMail.classList.add('form-label','mb-0');
+  labelMail.classList.add('form-label', 'mb-0');
   labelMail.setAttribute('for', 'email');
   labelMail.textContent = 'Email';
 
@@ -320,7 +321,7 @@ function formCommand() {
   let spanMail = document.createElement('span');
   divMail.appendChild(spanMail);
   spanMail.classList.add('d-block');
-  spanMail.style.fontSize ='small';
+  spanMail.style.fontSize = 'small';
 
   //Eléments pour l'adresse
   let divAdresse = document.createElement('div');
@@ -329,7 +330,7 @@ function formCommand() {
 
   let labelAdresse = document.createElement('label');
   divAdresse.appendChild(labelAdresse);
-  labelAdresse.classList.add('form-label','mb-0');
+  labelAdresse.classList.add('form-label', 'mb-0');
   labelAdresse.setAttribute('for', 'address');
   labelAdresse.textContent = 'Adresse';
 
@@ -344,7 +345,7 @@ function formCommand() {
   let spanAdresse = document.createElement('span');
   divAdresse.appendChild(spanAdresse);
   spanAdresse.classList.add('d-block');
-  spanAdresse.style.fontSize ='small';
+  spanAdresse.style.fontSize = 'small';
 
   //Eléments pour la ville
   let divVille = document.createElement('div');
@@ -353,7 +354,7 @@ function formCommand() {
 
   let labelVille = document.createElement('label');
   divVille.appendChild(labelVille);
-  labelVille.classList.add('form-label','mb-0');
+  labelVille.classList.add('form-label', 'mb-0');
   labelVille.setAttribute('for', 'city');
   labelVille.textContent = 'Ville';
 
@@ -368,7 +369,7 @@ function formCommand() {
   let spanVille = document.createElement('span');
   divVille.appendChild(spanVille);
   spanVille.classList.add('d-block');
-  spanVille.style.fontSize ='small';
+  spanVille.style.fontSize = 'small';
 
   //Eléments pour le bouton commander
   let divBouton = document.createElement('div');
@@ -384,7 +385,7 @@ function formCommand() {
   boutonCommand.textContent = "Commander";
 
 
- /*  objetContact(); */
+  /*  objetContact(); */
 }
 
 //----------------------USERDATA A ENVOYER AU SERVER
@@ -448,6 +449,7 @@ function validChamps() {
       span[4].style.color = 'red';
     }
   }
+  objetContact();
 }
 
 
@@ -469,135 +471,183 @@ function objetContact() {
     }
     let contact = new formulaire();
 
-    console.log('contact crée');
+    console.log('contact');
+    
+    if(validChamps){
+      localStorage.setItem("contact", JSON.stringify(contact)); 
+      let products =[];
 
-    //Envoie de l'objet contact dans le localstorage
-    localStorage.setItem("contact", JSON.stringify(contact));
-    let products = JSON.parse(localStorage.getItem("products"));
+      //Récupérer l'id des teddies du panier pour l'envoie au server
+      for(i = 0; i < localPanier.length; i++){
+        let productsId = localPanier[i]._id;
+        products.push(productsId);
+      }
+      console.log(products);
 
-    let sendData = {
-      contact,
-      products
+      let sendData = {
+        contact,
+        products,
+      };
+      sendDataServer(sendData);
+    }else{
+      console.log('formulaire erreur');
     }
-    console.log('contact dans localstorage');
+    
+  })}
 
-      //Envoie de l'objet sendData au server
-    let envoieData = fetch ("http://localhost:3000/api/teddies/order",{
-      method : 'POST',
+  //Envoie au server
+
+  function sendDataServer(sendData){
+
+    let envoieData = fetch("http://localhost:3000/api/teddies/order", {
+      method: 'POST',
       body: JSON.stringify(sendData),
       headers: {
-        "Content-Type" : "application/json",
+        "Content-Type": "application/json",
       },
-    });
-    console.log('envoyé au server');
-    
-  })
-}
 
+    });
+    /* console.log('envoyé au server'); */
+    /* window.location = "commande.html"; */
+
+    envoieData.then(async (response) => {
+      try {
+        let contenu = await response.json();
+        /* console.log("contenu"); */
+        console.log(contenu);
+        
+
+        if(response.ok){
+          console.log(`resultat reponse.ok: ${response.ok}`);
+
+          console.log('id response');
+          console.log(contenu.orderId);
+
+          localStorage.setItem('orderId', contenu.orderId);
+
+          window.location = "commande.html";
+        }else{
+          console.log(`reponse du server : ${response.status}`);
+          alert(`probleme avec le server : erreur ${response.status} `);
+        }
+      } catch (e) {
+        console.log("erreur du catch()");
+        console.log(e);
+        alert(`erreur du catch() ${e}`);
+      }
+     
+    });
+  }
+
+
+
+
+
+
+
+    //option 2
+   /*  let priceConfirmation = document.querySelector("#subtotal");
+    
+
+    fetch("http://localhost:3000/api/teddies/order", {
+      method: 'POST',
+      body: JSON.stringify(sendData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+
+        localStorage.clear();
+        console.log(data)
+
+        const total = insertTotal;
+
+        localStorage.setItem("orderId", data.orderId);
+        document.getElementById('subtotal');
+        
+        localStorage.setItem("Total", priceConfirmation[1]);
+        document.location.href = `commande.html?total=${insertTotal.total}`;
+        
+      })
+      .catch((err) => {
+        alert("Il y a eu une erreur : " + err);
+      });
+      totalPrice(); */
+  /* }) */
 
 
     //--------------
     //VALIDATION DES CHAMPS AVEC REGEX (fonctionne)
 
     //Regex
-    /* let reGex1 = (value) => {
-      return /^[A-Za-z]{3,20}$/.test(value);
-    }
+/* let reGex1 = (value) => {
+  return /^[A-Za-z]{3,20}$/.test(value);
+}
 
-    let regexEmail = (value) => {
-      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value);
-    } */
+let regexEmail = (value) => {
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value);
+} */
 
     //Validation pour chaque champ
-   /*  function validNom() {
-      let appelNom = contact.firstname;
-      if (reGex1(appelNom)) {
-        console.log('ok');
-        return true;
-      } else {
-        console.log('ko');
-        alert('Nom invalide !');
-        return false;
-      }
-    };
+/*  function validNom() {
+   let appelNom = contact.firstname;
+   if (reGex1(appelNom)) {
+     console.log('ok');
+     return true;
+   } else {
+     console.log('ko');
+     alert('Nom invalide !');
+     return false;
+   }
+ };
 
-    function validPrenom() {
-      let appelPrenom = contact.lastname;
-      if (reGex1(appelPrenom)) {
-        console.log('ok');
-        return true;
-      } else {
-        console.log('ko');
-        alert('Prénom invalide !');
-        return false;
-      }
-    };
+ function validPrenom() {
+   let appelPrenom = contact.lastname;
+   if (reGex1(appelPrenom)) {
+     console.log('ok');
+     return true;
+   } else {
+     console.log('ko');
+     alert('Prénom invalide !');
+     return false;
+   }
+ };
 
-    function validEmail() {
-      let appelEmail = contact.email;
-      if (regexEmail(appelEmail)) {
-        console.log('ok');
-        return true;
-      } else {
-        console.log('ko');
-        alert('Email invalide !');
-        return false;
-      }
-    }
+ function validEmail() {
+   let appelEmail = contact.email;
+   if (regexEmail(appelEmail)) {
+     console.log('ok');
+     return true;
+   } else {
+     console.log('ko');
+     alert('Email invalide !');
+     return false;
+   }
+ }
 
-    function validVille() {
-      let appelVille = contact.city;
-      if (reGex1(appelVille)) {
-        console.log('ok');
-        return true;
-      } else {
-        console.log('ko');
-        alert('Ville invalide !');
-        return false;
-      }
-    }
+ function validVille() {
+   let appelVille = contact.city;
+   if (reGex1(appelVille)) {
+     console.log('ok');
+     return true;
+   } else {
+     console.log('ko');
+     alert('Ville invalide !');
+     return false;
+   }
+ }
 
-    if (validNom() && validPrenom() && validVille() && validEmail()) {
-      localStorage.setItem("contact", JSON.stringify(contact));
-    } else {
-      alert('Veuillez bien remplir le formulaire !');
-    }; */
+ if (validNom() && validPrenom() && validVille() && validEmail()) {
+   localStorage.setItem("contact", JSON.stringify(contact));
+ } else {
+   alert('Veuillez bien remplir le formulaire !');
+ }; */
     //-----------------
 
 
-/* function objetContact() {
-  let inputNom = document.getElementById('Nom');
-  let inputPrenom = document.getElementById('Prenom');
-  let inputAdresse = document.getElementById('Adresse');
-  let inputVille = document.getElementById('Ville');
-  let inputMail = document.getElementById('Mail');
 
-  const bouton = document.querySelector('#btn-command');
-  bouton.addEventListener('click', () => {
-    if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
-      let productsTeddies = [];
-      let localpanier = [];
-      product.push(localpanier);
-      let userData = {
-        contact: {
-          firstName: inputNom.value,
-          lastName: inputPrenom.value,
-          email: inputMail.value,
-          address: inputAdresse.value,
-          city: inputVille.value,
-        },
-        products: productsTeddies,
-      };
-      console.log(userData);
-      let localUserData = [];
-      if (localStorage.getItem("contact") !== null) {
-        localUserData = JSON.parse(localStorage.getItem("contact"));
-      }
-      localUserData.push(userData);
-      localStorage.setItem("contact", JSON.stringify(localUserData));
-    }
-  });
-} */
 
 
 //FONCTION CREATION DE L'OBJET CONTACT ET ENVOIE 

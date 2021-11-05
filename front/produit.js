@@ -168,7 +168,7 @@ function ajoutPanier() {
       localStorage.setItem("products", JSON.stringify(localPanier));
 
       //Message de confirmation d'ajout au panier
-      alert('Vous avez ajouté teddy dans votre panier !');
+      alert(`Vous avez ajouté ${card.name} dans votre panier !`);
     }
   });
 }

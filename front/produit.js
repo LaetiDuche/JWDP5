@@ -88,6 +88,7 @@ function getOneTeddy() {
       optionTeddy.setAttribute('value', '0');
 
       let colorTeddy = document.getElementById("colorteddy");
+      
       //Fonction boucle pour générer la liste des différentes couleurs
       for (let i = 0; i < card.colors.length; i++) {
         let optionTeddy = document.createElement("option");
@@ -160,12 +161,12 @@ function ajoutPanier() {
       console.log(productPanier);
       //Pour ajouter le tableau Teddy au localstorage
       let localPanier = [];
-      if (localStorage.getItem("products") !== null) {
-        localPanier = JSON.parse(localStorage.getItem("products"));
+      if (localStorage.getItem("productsTeddy") !== null) {
+        localPanier = JSON.parse(localStorage.getItem("productsTeddy"));
       }
       localPanier.push(productPanier);
       //Pour transformer le tableau au format json
-      localStorage.setItem("products", JSON.stringify(localPanier));
+      localStorage.setItem("productsTeddy", JSON.stringify(localPanier));
 
       //Message de confirmation d'ajout au panier
       alert(`Vous avez ajouté ${card.name} dans votre panier !`);

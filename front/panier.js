@@ -1,21 +1,19 @@
-//Pour préciser dans le DOM où l'on veut inserer Mon panier et le formulaire de commande
+//---------------------APPEL DES FONCTIONS
+
 body();
 function body() {
   monPanier();
   totalPrice();
   formCommand();
   validChamps();
-  objetContact();
-  sendDataServer()
-  /* getOrderConfirmationId() */
+  objetContact()
 };
 
+let localPanier = JSON.parse(localStorage.getItem("productsTeddy", 'contact', "Total", "orderId"));
 
-//-----------------------------------CREATION DE MON PANIER---------------------------------------
 
-let localPanier = JSON.parse(localStorage.getItem("products", "contact", "Total", "orderId"));
+//--------------------------------SI LE PANIER EST VIDE
 
-//--------SI LE PANIER EST VIDE
 let selectPanier = document.querySelector('#mon-panier');
 if (localPanier === null) {
   let panierVide = `<div class='col-12 bg-white rounded-3 text-center'><p class='m-auto'>Panier vide</p></div>`;
@@ -25,7 +23,9 @@ if (localPanier === null) {
   console.log('Panier plein')
 }
 
-//-------- MON PANIER
+
+//-------------------------------- CREATION DU PANIER
+
 function monPanier() {
   //Selection de l'élément pour afficher mon panier
   let monPanier = document.getElementById('panier-teddy');
@@ -88,8 +88,8 @@ function monPanier() {
   tbodyProduits.setAttribute("id", "products-list");
 
   //-------Générer les produits du localstorage vers le panier
-  let getLocalPanier = JSON.parse(localStorage.getItem("products"));
-  for (let produitTeddy in getLocalPanier) {
+  let localPanier = JSON.parse(localStorage.getItem("productsTeddy"));
+  for (let produitTeddy in localPanier) {
     let tableList = document.getElementById('tableau');
 
     let trProduit = document.createElement('tr');
@@ -99,23 +99,23 @@ function monPanier() {
     let tdNom = document.createElement('td');
     trProduit.appendChild(tdNom);
     tdNom.setAttribute("id", "nom");
-    tdNom.innerHTML = getLocalPanier[produitTeddy].name;
+    tdNom.innerHTML = localPanier[produitTeddy].name;
 
     let tdColor = document.createElement('td');
     trProduit.appendChild(tdColor);
     tdColor.setAttribute('id', 'couleur');
-    tdColor.innerHTML = getLocalPanier[produitTeddy].color;
+    tdColor.innerHTML = localPanier[produitTeddy].color;
 
     let tdNombre = document.createElement('td');
     trProduit.appendChild(tdNombre);
     tdNombre.setAttribute("id", "nombre");
-    tdNombre.innerHTML = getLocalPanier[produitTeddy].quantity;
+    tdNombre.innerHTML = localPanier[produitTeddy].quantity;
 
     //Calcul du prix, multiplication du prix d'un produit avec sa quantité
     let tdPrix = document.createElement('td');
     trProduit.appendChild(tdPrix);
     tdPrix.setAttribute("id", "prix");
-    tdPrix.innerHTML = parseFloat(getLocalPanier[produitTeddy].price) * getLocalPanier[produitTeddy].quantity + '€';
+    tdPrix.innerHTML = parseFloat(localPanier[produitTeddy].price) * localPanier[produitTeddy].quantity + '€';
 
     //Eléments bouton pour supprimer un article
     let tdDelete = document.createElement('button');
@@ -144,7 +144,7 @@ function monPanier() {
   tdTotal.setAttribute('id', 'subtotal');
   tdTotal.setAttribute('colspan', '3');
 
-  console.log(getLocalPanier);
+  console.log(localPanier);
 
   //------Supprimer un article du panier
   let deleteItem = document.getElementsByClassName('btnDelete');
@@ -153,9 +153,9 @@ function monPanier() {
     button.addEventListener('click', function (event) {
       let buttonClicked = event.target
       buttonClicked.parentElement.parentElement.remove()
-      let productDelete = getLocalPanier[i]._id;
-      getLocalPanier = getLocalPanier.filter((el) => el._id !== productDelete);
-      localStorage.setItem("products", JSON.stringify(getLocalPanier)
+      let productDelete = localPanier[i]._id;
+      localPanier = localPanier.filter((el) => el._id !== productDelete);
+      localStorage.setItem("productsTeddy", JSON.stringify(localPanier)
       );
       alert("Cet article a été supprimé de votre panier !");
       document.location.reload();
@@ -189,7 +189,7 @@ function monPanier() {
 }
 
 
-//--------CALCUL DU PRIX TOTAL DU PANIER
+//----------------------------CALCUL DU PRIX TOTAL DU PANIER
 
 function totalPrice() {
   let total = [];
@@ -218,7 +218,6 @@ function totalPrice() {
 
 //-----------------------------------CREATION DU FORMULAIRE DE COMMANDE----------------------------------
 
-//--------FORMULAIRE
 function formCommand() {
   //Selection de l'élément pour afficher le formulaire 
   let confirmCommand = document.getElementById('panier-teddy');
@@ -371,6 +370,12 @@ function formCommand() {
   spanVille.classList.add('d-block');
   spanVille.style.fontSize = 'small';
 
+  let spanErreur = document.createElement('span');
+  divVille.appendChild(spanErreur);
+  spanErreur.classList.add('d-block');
+  spanErreur.style.fontSize = 'small';
+  spanErreur.innerHTML = "Vous devez renseigner tous les champs !";
+
   //Eléments pour le bouton commander
   let divBouton = document.createElement('div');
   formElement.appendChild(divBouton);
@@ -385,12 +390,12 @@ function formCommand() {
   boutonCommand.textContent = "Commander";
 
 
-  /*  objetContact(); */
+   objetContact();
 }
 
-//----------------------USERDATA A ENVOYER AU SERVER
 
-//Validation des champs avec Regex
+//---------------------------- VALIDATION DES CHAMPS AVEC REGEX
+
 function validChamps() {
   let nom = document.getElementById('Nom');
   let prenom = document.getElementById('Prenom');
@@ -411,7 +416,7 @@ function validChamps() {
   }
   prenom.onkeydown = function () {
     let regex = /^[A-Za-z]{2,20}$/;
-    if (regex.test(Prenom.value)) {
+    if (regex.test(prenom.value)) {
       span[1].innerText = 'Valide !';
       span[1].style.color = 'MediumSeaGreen';
     } else {
@@ -431,7 +436,7 @@ function validChamps() {
   }
   adresse.onkeydown = function () {
     let regex = /^[A-Za-z0-9\s]{10,20}$/;
-    if (regex.test(Adresse.value)) {
+    if (regex.test(adresse.value)) {
       span[3].innerText = 'Valide !';
       span[3].style.color = 'MediumSeaGreen';
     } else {
@@ -441,7 +446,7 @@ function validChamps() {
   }
   ville.onkeydown = function () {
     let regex = /^[A-Za-z]{3,20}$/;
-    if (regex.test(Ville.value)) {
+    if (regex.test(ville.value)) {
       span[4].innerText = 'Valide !';
       span[4].style.color = 'MediumSeaGreen';
     } else {
@@ -449,11 +454,12 @@ function validChamps() {
       span[4].style.color = 'red';
     }
   }
-  objetContact();
+
 }
 
 
-//Envoyer les coordonnées de contact  au localstorage
+//-----------------------------------ENVOIE DE L'OBJET DATA AU SERVER
+
 function objetContact() {
   let bouton = document.querySelector('#btn-command');
   bouton.addEventListener('click', (e) => {
@@ -471,79 +477,92 @@ function objetContact() {
     }
     let contact = new formulaire();
 
-    console.log('contact');
+    console.log('contact crée');
+      
+    localStorage.setItem("contact", JSON.stringify(contact));
     
-    if(validChamps){
-      localStorage.setItem("contact", JSON.stringify(contact)); 
-      let products =[];
-
-      //Récupérer l'id des teddies du panier pour l'envoie au server
-      for(i = 0; i < localPanier.length; i++){
-        let productsId = localPanier[i]._id;
+      let products = [];
+      
+      //Récupération des id des produits du panier
+      for (o = 0; o < localPanier.length; o++) {
+        let productsId = localPanier[o]._id;
         products.push(productsId);
       }
+
+      console.log("products");
       console.log(products);
 
-      let sendData = {
+      //Création de l'objet à envoyer au server
+      const sendData = {
         contact,
         products,
       };
+      console.log(sendData);
+
+      //Mettre en relation cette fonction avec le click du bouton commander
       sendDataServer(sendData);
-    }else{
-      console.log('formulaire erreur');
-    }
     
-  })}
+     
+      /* window.location = "commande.html"; */
+  });
 
-  //Envoie au server
 
-  function sendDataServer(sendData){
+  //--------------------------POST ET RETOUR ORDERID DE LA COMMANDE
 
-    let envoieData = fetch("http://localhost:3000/api/teddies/order", {
-      method: 'POST',
+  function sendDataServer(sendData) {
+    
+    //Envoie de l'objet "sendData" vers le serveur
+    const envoieData = fetch("http://localhost:3000/api/teddies/order", {
+      method: "POST",
       body: JSON.stringify(sendData),
       headers: {
         "Content-Type": "application/json",
       },
-
     });
-    /* console.log('envoyé au server'); */
-    /* window.location = "commande.html"; */
 
+    //Résultat du serveur dans la console
     envoieData.then(async (response) => {
+      
       try {
-        let contenu = await response.json();
-        /* console.log("contenu"); */
-        console.log(contenu);
-        
+        const idCommand = await response.json();
+        console.log("contenu de response");
+        console.log(idCommand);
 
-        if(response.ok){
-          console.log(`resultat reponse.ok: ${response.ok}`);
+        if (response.ok) {
+          console.log(`Resultat de response.ok : ${response.ok}`);
 
-          console.log('id response');
-          console.log(contenu.orderId);
+          //Récupération de l'id de la response du serveur
+          console.log("id de response");
+          console.log(idCommand.orderId);
 
-          localStorage.setItem('orderId', contenu.orderId);
+          //Mettre l'id dans le local storage
+          localStorage.setItem("orderId", idCommand.orderId);
 
+          //Redirige vers la page commande
           window.location = "commande.html";
-        }else{
-          console.log(`reponse du server : ${response.status}`);
-          alert(`probleme avec le server : erreur ${response.status} `);
+        } else {
+          console.log(`Réponse du serveur : ${response.status}`);
+          
         }
       } catch (e) {
-        console.log("erreur du catch()");
+        console.log("ERREUR qui vient du catch()");
         console.log(e);
-        alert(`erreur du catch() ${e}`);
+      
       }
-     
     });
   }
+}
+    
+     
+ //---------------------------------------- FIN ---------------------------------------------------  
+    
+    
 
 
+   
 
-
-
-
+//------------------------------TESTS
+ 
 
     //option 2
    /*  let priceConfirmation = document.querySelector("#subtotal");

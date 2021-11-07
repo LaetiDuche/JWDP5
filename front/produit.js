@@ -21,7 +21,7 @@ function getOneTeddy() {
     .catch((err) => {
     })
     //Mise en liaison de l'ID venant de l'index
-    .then(function (insertDataTeddies) {  
+    .then(function (insertDataTeddies) {
       card = insertDataTeddies;
       console.log(card);
 
@@ -54,8 +54,8 @@ function getOneTeddy() {
       //Insertion du nom d'un teddy
       let nomTeddy = document.createElement("h2");
       textTeddy.appendChild(nomTeddy);
-      nomTeddy.style.color ='DarkOrange';
-      nomTeddy.style.fontStyle ='italic';
+      nomTeddy.style.color = 'DarkOrange';
+      nomTeddy.style.fontStyle = 'italic';
       nomTeddy.setAttribute("id", "nom");
       nomTeddy.innerHTML = card.name;    //Appel data
 
@@ -92,7 +92,7 @@ function getOneTeddy() {
       optionTeddy.setAttribute('value', '0');
 
       let colorTeddy = document.getElementById("colorteddy");
-      
+
       //Fonction boucle pour générer la liste des différentes couleurs
       for (let i = 0; i < card.colors.length; i++) {
         let optionTeddy = document.createElement("option");
@@ -129,7 +129,7 @@ function getOneTeddy() {
 
       let buttonTeddy = document.createElement("button");
       divTeddy.appendChild(buttonTeddy);
-      buttonTeddy.classList.add("btn", "btn-outline-light", 'rounded-3',"shadow", 'btn-sm');
+      buttonTeddy.classList.add("btn", "btn-outline-light", 'rounded-3', "shadow", 'btn-sm');
       buttonTeddy.style.color = 'BlueViolet';
       buttonTeddy.setAttribute("id", "bouton");
       buttonTeddy.setAttribute("type", "submit");
@@ -138,13 +138,12 @@ function getOneTeddy() {
       //Insertion bouton voir mon panier
       let buttonVoirPanier = document.createElement('a');
       divTeddy.appendChild(buttonVoirPanier);
-      buttonVoirPanier.classList.add("btn", "btn-outline-light", "shadow", 'rounded-3','btn-sm');
+      buttonVoirPanier.classList.add("btn", "btn-outline-light", "shadow", 'rounded-3', 'btn-sm');
       buttonVoirPanier.innerHTML = 'Voir mon panier';
-      buttonVoirPanier.href="panier.html";
+      buttonVoirPanier.href = "panier.html";
 
       //Mis en relation avec la fonction ajoutPanier
-      ajoutPanier();  
-
+      ajoutPanier();
     })
 }
 

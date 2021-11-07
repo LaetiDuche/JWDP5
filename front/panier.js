@@ -398,7 +398,7 @@ function formCommand() {
 
 //---------------------------- VALIDATION DES CHAMPS AVEC REGEX ET ENVOIE VERS LE SERVER
 
-function validCommand(){
+function validCommand() {
 
   //-----------VALIDATION DES CHAMPS AVEC REGEX
 
@@ -406,17 +406,17 @@ function validCommand(){
   let span = document.getElementsByTagName('span');
 
   //VALIDATION NOM
-  form.firstName.addEventListener('change', function(){
+  form.firstName.addEventListener('change', function () {
     validNom(this);
   });
-  let validNom = function(inputNom){
+  let validNom = function (inputNom) {
     let regex = /^[A-Za-z]{2,20}$/;
 
-    if(regex.test(inputNom.value)){
+    if (regex.test(inputNom.value)) {
       span[0].innerText = 'Validé !';
       span[0].style.color = 'MediumSeaGreen';
       return true
-    }else{
+    } else {
       span[0].innerText = 'Nom incorrecte !';
       span[0].style.color = 'red';
       return false
@@ -424,17 +424,17 @@ function validCommand(){
   }
 
   //VALIDATION PRENOM
-  form.lastName.addEventListener('change', function(){
+  form.lastName.addEventListener('change', function () {
     validPrenom(this);
   });
-  let validPrenom = function(inputPrenom){
+  let validPrenom = function (inputPrenom) {
     let regex = /^[A-Za-z]{2,20}$/;
 
-    if(regex.test(inputPrenom.value)){
+    if (regex.test(inputPrenom.value)) {
       span[1].innerText = 'Validé !';
       span[1].style.color = 'MediumSeaGreen';
       return true
-    }else{
+    } else {
       span[1].innerText = 'Prénom incorrecte !';
       span[1].style.color = 'red';
       return false
@@ -442,17 +442,17 @@ function validCommand(){
   }
 
   //VALIDATION EMAIL
-  form.email.addEventListener('change', function(){
+  form.email.addEventListener('change', function () {
     validEmail(this);
   });
-  let validEmail = function(inputMail){
+  let validEmail = function (inputMail) {
     let regex = /\S+@\S+\.\S+/;
 
-    if(regex.test(inputMail.value)){
+    if (regex.test(inputMail.value)) {
       span[2].innerText = 'Validé !';
       span[2].style.color = 'MediumSeaGreen';
       return true
-    }else{
+    } else {
       span[2].innerText = 'Email incorrecte !';
       span[2].style.color = 'red';
       return false
@@ -460,17 +460,17 @@ function validCommand(){
   }
 
   //VALIDATION ADRESSE
-  form.address.addEventListener('change', function(){
+  form.address.addEventListener('change', function () {
     validAdresse(this);
   });
-  let validAdresse = function(inputAdresse){
+  let validAdresse = function (inputAdresse) {
     let regex = /^[A-Za-z0-9\s]{5,20}$/;
 
-    if(regex.test(inputAdresse.value)){
+    if (regex.test(inputAdresse.value)) {
       span[3].innerText = 'Validé !';
       span[3].style.color = 'MediumSeaGreen';
       return true
-    }else{
+    } else {
       span[3].innerText = 'Adresse incorrecte !';
       span[3].style.color = 'red';
       return false
@@ -478,96 +478,96 @@ function validCommand(){
   }
 
   //VALIDATION VILLE
-  form.city.addEventListener('change', function(){
+  form.city.addEventListener('change', function () {
     validVille(this);
   });
-  let validVille = function(inputVille){
+  let validVille = function (inputVille) {
     let regex = /^[A-Za-z]{2,20}$/;
 
-    if(regex.test(inputVille.value)){
+    if (regex.test(inputVille.value)) {
       span[4].innerText = 'Validé !';
       span[4].style.color = 'MediumSeaGreen';
       return true
-    }else{
+    } else {
       span[4].innerText = 'Ville incorrecte !';
       span[4].style.color = 'red';
       return false
     }
   }
- 
+
   //----------ENVOIE VERS LE SERVER
 
+  //Au click du bouton commander
   let bouton = document.querySelector('#btn-command');
-  bouton.addEventListener('click', function(e){
+  bouton.addEventListener('click', function (e) {
     e.preventDefault();
 
     //Si le formulaire est validé
-    if(validNom(form.firstName) && validPrenom(form.lastName) && validEmail(form.email) 
-        && validAdresse(form.address) && validVille(form.city)){
-        
-          console.log('validé');
+    if (validNom(form.firstName) && validPrenom(form.lastName) && validEmail(form.email)
+      && validAdresse(form.address) && validVille(form.city)) {
 
-    // => Création de l'objet contact
-    class formulaire {
-      constructor() {
-        this.firstName = document.querySelector("#Nom").value;
-        this.lastName = document.querySelector("#Prenom").value;
-        this.email = document.querySelector("#Mail").value;
-        this.address = document.querySelector("#Adresse").value;
-        this.city = document.querySelector("#Ville").value;
+      console.log('validé');
+
+      // => Création de l'objet contact
+      class formulaire {
+        constructor() {
+          this.firstName = document.querySelector("#Nom").value;
+          this.lastName = document.querySelector("#Prenom").value;
+          this.email = document.querySelector("#Mail").value;
+          this.address = document.querySelector("#Adresse").value;
+          this.city = document.querySelector("#Ville").value;
+        }
       }
-    }
-    let contact = new formulaire();
-    console.log('contact crée');
+      let contact = new formulaire();
+      console.log('contact crée');
 
-    // =>  Envoie de l'objet contact dans le localstorage
-    localStorage.setItem("contact", JSON.stringify(contact));
-    
-     // =>  Récupération des id dans le tableau des produits du panier
-    let products = [];
-    for (o = 0; o < localPanier.length; o++) {
-      let productsId = localPanier[o]._id;
-      products.push(productsId);
-    }
+      // =>  Envoie de l'objet contact dans le localstorage
+      localStorage.setItem("contact", JSON.stringify(contact));
+
+      // =>  Récupération des id des produits du panier
+      let products = [];
+      for (j = 0; j < localPanier.length; j++) {
+        let productsId = localPanier[j]._id;
+        products.push(productsId);
+      }
       console.log("products");
       console.log(products);
 
-      // =>  Création de l'objet contact + products à envoyer au server
+      // =>  Création de l'objet (contact + products) à envoyer au server
       const sendData = {
         contact,
         products,
       };
       console.log(sendData);
       console.log('sendData');
-   
-    
-    // =>  Envoie de l'objet "sendData" vers le serveur
-     fetch("http://localhost:3000/api/teddies/order", {
-      method: 'POST',
-      body: JSON.stringify(sendData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
 
-        // =>  Récupération de l'orderId du server sur le localstorage
-        localStorage.setItem("orderId", JSON.stringify(data.orderId));
-        console.log(data);
-
-        // =>  Redirection vers la page commande
-        document.location.href = "commande.html";
+      // =>  Envoie de l'objet "sendData" vers le serveur
+      fetch("http://localhost:3000/api/teddies/order", {
+        method: 'POST',
+        body: JSON.stringify(sendData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((err) => {
-        alert("Il y a eu une erreur : " + err);
-      });
-       
+        .then((response) => response.json())
+        .then((data) => {
+
+          // =>  Récupération de l'orderId du server et l'envoyer dans le localstorage
+          localStorage.setItem("orderId", JSON.stringify(data.orderId));
+          console.log(data);
+
+          // =>  Redirection vers la page commande
+          document.location.href = "commande.html";
+        })
+        .catch((err) => {
+          alert("Il y a eu une erreur : " + err);
+        });
+
       // Si le formulaire n'est pas rempli
-    }else{
+    } else {
       span[5].innerText = 'Veuillez remplir tous les champs !';
       span[5].style.color = 'red';
       console.log('formulaire non validé');
     }
-})  
+  })
 }

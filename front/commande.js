@@ -7,7 +7,7 @@ function body() {
 }
 
 function messageValidation() {
-  
+
   //Récupération du Total et de l'orderId dans le localstorage
   let orderId = localStorage.getItem("orderId");
   let Total = localStorage.getItem("Total");

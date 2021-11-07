@@ -5,11 +5,11 @@ function body() {
   monPanier();
   totalPrice();
   formCommand();
-  validChamps();
-  objetContact()
+  validCommand()
 };
 
-let localPanier = JSON.parse(localStorage.getItem("productsTeddy", 'contact', "Total", "orderId"));
+//APPEL DES OBJETS DU LOCALSTORAGE
+let localPanier = JSON.parse(localStorage.getItem("productsTeddy", "contact", "Total", "orderId"));
 
 
 //--------------------------------SI LE PANIER EST VIDE
@@ -24,7 +24,9 @@ if (localPanier === null) {
 }
 
 
-//-------------------------------- CREATION DU PANIER
+//-------------------------------- CREATION DU PANIER,  SI LE PANIER EST PLEIN
+
+//STRUCTURE DU PANIER
 
 function monPanier() {
   //Selection de l'élément pour afficher mon panier
@@ -87,7 +89,7 @@ function monPanier() {
   tableauPanier.appendChild(tbodyProduits);
   tbodyProduits.setAttribute("id", "products-list");
 
-  //-------Générer les produits du localstorage vers le panier
+  //-------Générer les produits du localstorage dans le panier
   let localPanier = JSON.parse(localStorage.getItem("productsTeddy"));
   for (let produitTeddy in localPanier) {
     let tableList = document.getElementById('tableau');
@@ -146,7 +148,7 @@ function monPanier() {
 
   console.log(localPanier);
 
-  //------Supprimer un article du panier
+  //------Supprimer un produit du panier
   let deleteItem = document.getElementsByClassName('btnDelete');
   for (let i = 0; i < deleteItem.length; i++) {
     let button = deleteItem[i]
@@ -218,6 +220,7 @@ function totalPrice() {
 
 //-----------------------------------CREATION DU FORMULAIRE DE COMMANDE----------------------------------
 
+//-----STRUCTURE DU FORMULAIRE
 function formCommand() {
   //Selection de l'élément pour afficher le formulaire 
   let confirmCommand = document.getElementById('panier-teddy');
@@ -246,8 +249,7 @@ function formCommand() {
   //Le formulaire
   let formElement = document.createElement('form');
   divForm.appendChild(formElement);
-  formElement.classList.add('row', 'g-3', 'needs-validation');
-  formElement.setAttribute('method', 'post');
+  formElement.classList.add('row', 'g-3');
   formElement.setAttribute('id', 'formulaire');
 
   //Eléments pour le Nom
@@ -333,7 +335,7 @@ function formCommand() {
   labelAdresse.setAttribute('for', 'address');
   labelAdresse.textContent = 'Adresse';
 
-  let inputAdresse = document.createElement('textarea');
+  let inputAdresse = document.createElement('input');
   divAdresse.appendChild(inputAdresse);
   inputAdresse.classList.add('form-control');
   inputAdresse.setAttribute('name', 'address');
@@ -370,11 +372,15 @@ function formCommand() {
   spanVille.classList.add('d-block');
   spanVille.style.fontSize = 'small';
 
+  //Eléments pour message erreur
+  let divErreur = document.createElement('div');
+  formElement.appendChild(divErreur);
+  divVille.classList.add('col-md-4');
+
   let spanErreur = document.createElement('span');
-  divVille.appendChild(spanErreur);
+  divErreur.appendChild(spanErreur);
   spanErreur.classList.add('d-block');
   spanErreur.style.fontSize = 'small';
-  spanErreur.innerHTML = "Vous devez renseigner tous les champs !";
 
   //Eléments pour le bouton commander
   let divBouton = document.createElement('div');
@@ -388,588 +394,180 @@ function formCommand() {
   boutonCommand.setAttribute('id', 'btn-command');
   boutonCommand.setAttribute('value', 'Commander');
   boutonCommand.textContent = "Commander";
-
-
-   objetContact();
 }
 
+//---------------------------- VALIDATION DES CHAMPS AVEC REGEX ET ENVOIE VERS LE SERVER
 
-//---------------------------- VALIDATION DES CHAMPS AVEC REGEX
+function validCommand() {
 
-function validChamps() {
-  let nom = document.getElementById('Nom');
-  let prenom = document.getElementById('Prenom');
-  let email = document.getElementById('Mail');
-  let adresse = document.getElementById('Adresse');
-  let ville = document.getElementById('Ville');
+  //-----------VALIDATION DES CHAMPS AVEC REGEX
+
+  let form = document.querySelector('#formulaire');
   let span = document.getElementsByTagName('span');
 
-  nom.onkeydown = function () {
+  //VALIDATION NOM
+  form.firstName.addEventListener('change', function () {
+    validNom(this);
+  });
+  let validNom = function (inputNom) {
     let regex = /^[A-Za-z]{2,20}$/;
-    if (regex.test(nom.value)) {
-      span[0].innerText = 'Valide !';
+
+    if (regex.test(inputNom.value)) {
+      span[0].innerText = 'Validé !';
       span[0].style.color = 'MediumSeaGreen';
+      return true
     } else {
-      span[0].innerText = 'Nom invalide !';
+      span[0].innerText = 'Nom incorrecte !';
       span[0].style.color = 'red';
+      return false
     }
   }
-  prenom.onkeydown = function () {
+
+  //VALIDATION PRENOM
+  form.lastName.addEventListener('change', function () {
+    validPrenom(this);
+  });
+  let validPrenom = function (inputPrenom) {
     let regex = /^[A-Za-z]{2,20}$/;
-    if (regex.test(prenom.value)) {
-      span[1].innerText = 'Valide !';
+
+    if (regex.test(inputPrenom.value)) {
+      span[1].innerText = 'Validé !';
       span[1].style.color = 'MediumSeaGreen';
+      return true
     } else {
-      span[1].innerText = 'Prenom invalide !';
+      span[1].innerText = 'Prénom incorrecte !';
       span[1].style.color = 'red';
+      return false
     }
   }
-  email.onkeydown = function () {
+
+  //VALIDATION EMAIL
+  form.email.addEventListener('change', function () {
+    validEmail(this);
+  });
+  let validEmail = function (inputMail) {
     let regex = /\S+@\S+\.\S+/;
-    if (regex.test(email.value)) {
-      span[2].innerText = 'Valide !';
+
+    if (regex.test(inputMail.value)) {
+      span[2].innerText = 'Validé !';
       span[2].style.color = 'MediumSeaGreen';
+      return true
     } else {
-      span[2].innerText = 'Email invalide !';
+      span[2].innerText = 'Email incorrecte !';
       span[2].style.color = 'red';
+      return false
     }
   }
-  adresse.onkeydown = function () {
-    let regex = /^[A-Za-z0-9\s]{10,20}$/;
-    if (regex.test(adresse.value)) {
-      span[3].innerText = 'Valide !';
+
+  //VALIDATION ADRESSE
+  form.address.addEventListener('change', function () {
+    validAdresse(this);
+  });
+  let validAdresse = function (inputAdresse) {
+    let regex = /^[A-Za-z0-9\s]{5,20}$/;
+
+    if (regex.test(inputAdresse.value)) {
+      span[3].innerText = 'Validé !';
       span[3].style.color = 'MediumSeaGreen';
+      return true
     } else {
-      span[3].innerText = 'Adresse invalide !';
+      span[3].innerText = 'Adresse incorrecte !';
       span[3].style.color = 'red';
+      return false
     }
   }
-  ville.onkeydown = function () {
-    let regex = /^[A-Za-z]{3,20}$/;
-    if (regex.test(ville.value)) {
-      span[4].innerText = 'Valide !';
+
+  //VALIDATION VILLE
+  form.city.addEventListener('change', function () {
+    validVille(this);
+  });
+  let validVille = function (inputVille) {
+    let regex = /^[A-Za-z]{2,20}$/;
+
+    if (regex.test(inputVille.value)) {
+      span[4].innerText = 'Validé !';
       span[4].style.color = 'MediumSeaGreen';
+      return true
     } else {
-      span[4].innerText = 'Ville invalide !';
+      span[4].innerText = 'Ville incorrecte !';
       span[4].style.color = 'red';
+      return false
     }
   }
 
-}
+  //----------ENVOIE DES DONNÉES AU SERVER
 
-
-//-----------------------------------ENVOIE DE L'OBJET DATA AU SERVER
-
-function objetContact() {
+  //Au click du bouton commander
   let bouton = document.querySelector('#btn-command');
-  bouton.addEventListener('click', (e) => {
+  bouton.addEventListener('click', function (e) {
     e.preventDefault();
 
-    //Création de l'objet contact
-    class formulaire {
-      constructor() {
-        this.firstname = document.querySelector("#Nom").value;
-        this.lastname = document.querySelector("#Prenom").value;
-        this.email = document.querySelector("#Mail").value;
-        this.address = document.querySelector("#Adresse").value;
-        this.city = document.querySelector("#Ville").value;
-      }
-    }
-    let contact = new formulaire();
+    //Si le formulaire est validé
+    if (validNom(form.firstName) && validPrenom(form.lastName) && validEmail(form.email)
+      && validAdresse(form.address) && validVille(form.city)) {
 
-    console.log('contact crée');
-      
-    localStorage.setItem("contact", JSON.stringify(contact));
-    
+      console.log('validé');
+
+      // => Création de l'objet contact
+      class formulaire {
+        constructor() {
+          this.firstName = document.querySelector("#Nom").value;
+          this.lastName = document.querySelector("#Prenom").value;
+          this.email = document.querySelector("#Mail").value;
+          this.address = document.querySelector("#Adresse").value;
+          this.city = document.querySelector("#Ville").value;
+        }
+      }
+      let contact = new formulaire();
+      console.log('contact crée');
+
+      // =>  Envoie de l'objet contact dans le localstorage
+      localStorage.setItem("contact", JSON.stringify(contact));
+
+      // =>  Récupération des id des produits du panier
       let products = [];
-      
-      //Récupération des id des produits du panier
-      for (o = 0; o < localPanier.length; o++) {
-        let productsId = localPanier[o]._id;
+      for (j = 0; j < localPanier.length; j++) {
+        let productsId = localPanier[j]._id;
         products.push(productsId);
       }
-
       console.log("products");
       console.log(products);
 
-      //Création de l'objet à envoyer au server
+      // =>  Création de l'objet (contact + products) à envoyer au server
       const sendData = {
         contact,
         products,
       };
       console.log(sendData);
+      console.log('sendData');
 
-      //Mettre en relation cette fonction avec le click du bouton commander
-      sendDataServer(sendData);
-    
-     
-      /* window.location = "commande.html"; */
-  });
-
-
-  //--------------------------POST ET RETOUR ORDERID DE LA COMMANDE
-
-  function sendDataServer(sendData) {
-    
-    //Envoie de l'objet "sendData" vers le serveur
-    const envoieData = fetch("http://localhost:3000/api/teddies/order", {
-      method: "POST",
-      body: JSON.stringify(sendData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    //Résultat du serveur dans la console
-    envoieData.then(async (response) => {
-      
-      try {
-        const idCommand = await response.json();
-        console.log("contenu de response");
-        console.log(idCommand);
-
-        if (response.ok) {
-          console.log(`Resultat de response.ok : ${response.ok}`);
-
-          //Récupération de l'id de la response du serveur
-          console.log("id de response");
-          console.log(idCommand.orderId);
-
-          //Mettre l'id dans le local storage
-          localStorage.setItem("orderId", idCommand.orderId);
-
-          //Redirige vers la page commande
-          window.location = "commande.html";
-        } else {
-          console.log(`Réponse du serveur : ${response.status}`);
-          
-        }
-      } catch (e) {
-        console.log("ERREUR qui vient du catch()");
-        console.log(e);
-      
-      }
-    });
-  }
-}
-    
-     
- //---------------------------------------- FIN ---------------------------------------------------  
-    
-    
-
-
-   
-
-//------------------------------TESTS
- 
-
-    //option 2
-   /*  let priceConfirmation = document.querySelector("#subtotal");
-    
-
-    fetch("http://localhost:3000/api/teddies/order", {
-      method: 'POST',
-      body: JSON.stringify(sendData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-
-        localStorage.clear();
-        console.log(data)
-
-        const total = insertTotal;
-
-        localStorage.setItem("orderId", data.orderId);
-        document.getElementById('subtotal');
-        
-        localStorage.setItem("Total", priceConfirmation[1]);
-        document.location.href = `commande.html?total=${insertTotal.total}`;
-        
-      })
-      .catch((err) => {
-        alert("Il y a eu une erreur : " + err);
-      });
-      totalPrice(); */
-  /* }) */
-
-
-    //--------------
-    //VALIDATION DES CHAMPS AVEC REGEX (fonctionne)
-
-    //Regex
-/* let reGex1 = (value) => {
-  return /^[A-Za-z]{3,20}$/.test(value);
-}
-
-let regexEmail = (value) => {
-  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value);
-} */
-
-    //Validation pour chaque champ
-/*  function validNom() {
-   let appelNom = contact.firstname;
-   if (reGex1(appelNom)) {
-     console.log('ok');
-     return true;
-   } else {
-     console.log('ko');
-     alert('Nom invalide !');
-     return false;
-   }
- };
-
- function validPrenom() {
-   let appelPrenom = contact.lastname;
-   if (reGex1(appelPrenom)) {
-     console.log('ok');
-     return true;
-   } else {
-     console.log('ko');
-     alert('Prénom invalide !');
-     return false;
-   }
- };
-
- function validEmail() {
-   let appelEmail = contact.email;
-   if (regexEmail(appelEmail)) {
-     console.log('ok');
-     return true;
-   } else {
-     console.log('ko');
-     alert('Email invalide !');
-     return false;
-   }
- }
-
- function validVille() {
-   let appelVille = contact.city;
-   if (reGex1(appelVille)) {
-     console.log('ok');
-     return true;
-   } else {
-     console.log('ko');
-     alert('Ville invalide !');
-     return false;
-   }
- }
-
- if (validNom() && validPrenom() && validVille() && validEmail()) {
-   localStorage.setItem("contact", JSON.stringify(contact));
- } else {
-   alert('Veuillez bien remplir le formulaire !');
- }; */
-    //-----------------
-
-
-
-
-
-//FONCTION CREATION DE L'OBJET CONTACT ET ENVOIE 
-/* function objetContact() { */
-  //Récupération des données du formulaire 
-/*  let inputNom = document.getElementById('Nom');
- let inputPrenom = document.getElementById('Prenom');
- let inputAdresse = document.getElementById('Adresse');
- let inputVille = document.getElementById('Ville');
- let inputMail = document.getElementById('Mail'); */
-
-  //Evènement sur le bouton commander
-/*  const bouton = document.querySelector('#bouton');
- bouton.addEventListener('click', (e) => {
-   e.preventDefault(); */
-
-    //Union de l'objet contact avec le tableau products
-/* if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
-
-
-} else {
-
-  var productPanier = [];
-  productPanier.push(localPanier); */
-/* var userData = [];
-userData.push(localPanier); */
-
-      //Objet contact
-/* var userData = {
-  contact: {
-    firstName: inputNom.value,
-    lastName: inputPrenom.value,
-    email: inputMail.value,
-    address: inputAdresse.value,
-    city: inputVille.value,
-  }, */
-        //Tableau products
-/*  products: productPanier,
-};
-console.log(userData); */
-
-      //Envoie de l'objet contact au localstorage (localPanier)
-/* var localPanier = []; */
-/* if (localStorage.getItem("contact") !==null){
-  localPanier = JSON.parse(localStorage.getItem("contact"));
-}
-
-localUserData.push(userData);
-localStorage.setItem("contactData", JSON.stringify(localUserData));
-console.log(localUserData);
-
-const localPanier = {
-  method: "POST",
-  body: JSON.stringify(userData),
-  headers: {
-    "Content-type": "application/json",
-  },
-};
-console.log(localPanier);
-}
-let priceConfirm = document.querySelector("#Total");
-
-fetch("http://localhost:3000/api/teddies/order",)
-.then((response) => response.json())
-.then((data) => {
-  localStorage.clear();
-   console.log(localPanier)
-  localStorage.setItem("orderId", data.orderId);
-  localStorage.setItem("Total", priceConfirm);
-  document.location.href = "commande.html";
-})
-.catch((err) => {
-  alert("Il y a eu une erreur : " + err);
-});
-*/
-/*  }
-})
-} */
-
-
-/* function getOrderId(idResponse) {
-  var orderId = idResponse.orderId;
-  console.log(orderId);
-  localStorage.setItem("orderIdConfirm", orderId);
-}
-
-async function postData(userData) {
-  try {
-    var response = await fetch("http://localhost:3000/api/teddies/order", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    if (response.ok) {
-      var idResponse = await response.json();
-      getOrderId(idResponse);
-      window.location.href = "commande.html";
-    } else {
-      console.error('Réponse du server: ', response.status);
-    }
-  } catch (e) {
-    console.log(e);
-  }
-} */
-
-
-
-
-
-
-
-
-/* const localUserData=localStorage.getItem('localPanier');
-const parselocalUserData = JSON.parse(localUserData);
-console.log("localUserData");
-console.log(localUserData); */
-
-//POURGARDE LES DONN2EES INPUT DANS LES CHAMPS DU FORMULAIRE
-/* function garderDonneesInput(input){
-  document.querySelector(`#${input}`).value = localUserData[input];
-};
-garderDonneesInput("#Nom"); */
-
-/* function envoieFormulaire(){} */
-/* var objectUserData = localStorage.getItem('localPanier'); */
-
-/* var contact = [];
-var products = []; */
-
-/* function sendObjectUserData(contact, products) {
-  fetch("http://localhost:3000/api/teddies/order", {
-    method: "POST",
-    body: contact, products,
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  })
-    .then(response => response.json())
-    .then(json => console.log(json));
-
-
-} */
-
-
-
-/* function envoieFormulaire(contact, products) {
-  fetch("http://localhost:3000/api/teddies/order",{
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-    method: "POST",
-    body: JSON.stringify({ contact, products }),
-  })
-  .then((response) => response.json())
-  .then((data) =>{
-    localStorage.setItem("order", JSON.stringify(data));
-    window.location.href = "commande.html";
-  })
-  .catch(function (err) {
-    displayErrorMessage(err);
-    console.log("Erreur Catch: " + err);
-  });
-} */
-
-
-
-
-
-
-
-
-
-
-/* var localUserData = {};
-fetch("http://localhost:3000/api/teddies/order",{
-  method: 'post',
-  body: JSON.stringify(localUserData)
-})
-.then(function(response){
-  return response.json()
-})
-.then (function(data){
-  console.log(data)
-}) */
-
-
-
-
-
-//Envoie au serveur
-/* function envoieFormulaire(){
-
-  var localUserData = [];
-  var promise =   fetch('http://localhost:3000/api/teddies/order' ,{
-    method: 'POST',
-    body: localUserData,
-    headers: {
-        'Content-Type': 'application/json'
-    }
-
-  });
-  promise.then(async(response) => {
-    try{
-      console.log(response);
-      const localPanier = await response.json();
-      console.log(localPanier);
-    }catch (e){
-      console.log(e);
-    }
-
-  });
-} */
-
-
-
-
-
-
-
-//Envoie au back end le tableau products et l'objet contact
-/* function getBackEnd(retourId) {
-  let orderId = retourId.orderId;
-  console.log(orderId);
-  localStorage.setItem("orderConfirmationId", orderId);
-} */
-
-/* async function envoieFormulaire(localUserData) {
-  try {
-      let response = await fetch("http://localhost:3000/api/teddies/order", {
-          method: 'POST',
-          body: localUserData,
-          headers: {
-              'content-type': 'application/json',
-          },
-
-      });
-      if (response.ok) {
-          let retourId = await response.json();
-          getBackEnd(retourId);
-          window.location.href = "commande.html";
-          console.log(retourId);
-      } else {
-          console.error('Retour du serveur : ', response.status);
-      }
-  } catch (e) {
-      console.log(e);
-  }
-} */
-
-
-
-
-//FONCTION 1
-//Fonction validation du formulaire
-
-/* function validForm() {
-  const bouton = document.querySelector("#bouton");
-  var inputNom = document.querySelector('#Nom');
-  var inputPrenom = document.querySelector('#Prenom');
-  var inputMail = document.querySelector('#Mail');
-  var inputAdresse = document.querySelector('#Adresse');
-  var inputVille = document.querySelector('#Ville');
-
-  bouton.addEventListener("click", (e) => {
-    if (inputNom.value || inputPrenom.value || inputMail.value || inputAdresse.value || inputVille.value) {
-
-    }
-    else {
-      var productsTeddies = [];
-      productsTeddies.push(localPanier);
-
-      const userData = {
-        contact: {
-          firstName: inputNom.value,
-          lastName: inputPrenom.value,
-          email: inputMail.value,
-          address: inputAdresse.value,
-          city: inputVille.value
-        },
-        products: productsTeddies,
-      };
-      const sentForm = {
+      // =>  Envoie de l'objet "sendData" vers le serveur
+      fetch("http://localhost:3000/api/teddies/order", {
         method: 'POST',
-        body: JSON.stringify(sentForm),
-        headers: { "Content-Type": "application/json" },
-      };
-      var sentTotalPrice = document.querySelector('#subtotal').innerText;
-      sentTotalPrice = sentTotalPrice.split(" :");
-
-      fetch("http://localhost:3000/api/teddies/order", sentForm)
+        body: JSON.stringify(sendData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
-          localStorage.clear();
-          console.log(data)
-          localStorage.setItem("orderId", data.orderId);
-          localStorage.setItem("subtotal", sentTotalPrice[1]);
+
+          // =>  Récupération de l'orderId du server et l'envoyer dans le localstorage
+          localStorage.setItem("orderId", JSON.stringify(data.orderId));
+          console.log(data);
+
+          // =>  Redirection vers la page commande
           document.location.href = "commande.html";
         })
         .catch((err) => {
-          alert("Il y a une erreur : " + err);
+          alert("Il y a eu une erreur : " + err);
         });
+
+      // Si le formulaire n'est pas rempli
+    } else {
+      span[5].innerText = 'Veuillez remplir tous les champs !';
+      span[5].style.color = 'red';
+      console.log('formulaire non validé');
     }
-  });
-} */
+  })
+}

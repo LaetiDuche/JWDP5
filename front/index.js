@@ -1,6 +1,6 @@
 //APPEL DES FONCTIONS
 body();
-function body(){
+function body() {
   getTeddies();
 }
 
@@ -31,7 +31,7 @@ function getTeddies() {
         let articleTeddy = document.createElement('article');
         firstDiv.appendChild(articleTeddy);
         articleTeddy.classList.add('col-12', 'col-md-6', 'col-xl-4', 'my-3');
-        
+
         let figureTeddy = document.createElement('figure');
         articleTeddy.appendChild(figureTeddy);
         figureTeddy.classList.add('card', 'rounded-3', 'my-1', 'shadow', 'px-0');
@@ -58,16 +58,16 @@ function getTeddies() {
         //Insertion du nom des teddies
         let nomTeddy = document.createElement('h2');
         divTitle.appendChild(nomTeddy);
-        nomTeddy.style.color ='DarkOrange';
-        nomTeddy.style.fontStyle ='italic';
+        nomTeddy.style.color = 'DarkOrange';
+        nomTeddy.style.fontStyle = 'italic';
         nomTeddy.innerHTML = insertDataTeddies[card].name;//Appel data 
 
         //Insertion du prix en euro 
         let prixTeddy = document.createElement('p');
         divTitle.appendChild(prixTeddy);
         prixTeddy.classList.add("card-text", "my-auto");
-        prixTeddy.innerHTML = insertDataTeddies[card].price/100 + ' €'; //Prix en centimes traduit en euro avec la division + appel data
-        
+        prixTeddy.innerHTML = insertDataTeddies[card].price / 100 + ' €'; //Prix en centimes traduit en euro avec la division + appel data
+
         //Insertion de la description des teddies
         let descriptionTeddy = document.createElement('p');
         textTeddy.appendChild(descriptionTeddy);
@@ -79,10 +79,10 @@ function getTeddies() {
         divButton.classList.add('col-12', 'text-center');
 
         let buttonTeddy = document.createElement('a');
-        divButton.appendChild(buttonTeddy); 
+        divButton.appendChild(buttonTeddy);
         buttonTeddy.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
         buttonTeddy.innerHTML = 'Voir le produit';
-        buttonTeddy.href =`produit.html?id=${insertDataTeddies[card]._id}`; //Appel data
+        buttonTeddy.href = `produit.html?id=${insertDataTeddies[card]._id}`; //Appel data
       }
     });
-  }
+}

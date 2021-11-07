@@ -1,4 +1,4 @@
-//Pour préciser dans le DOM où l'on veut inserer l'élément pour les articles
+//APPEL DES FONCTIONS
 body();
 function body(){
   getTeddies();
@@ -7,19 +7,21 @@ function body(){
 
 //----------------------CREATION DE LA CARTE POUR ACCUEILLIR TOUS LES TEDDIES
 
-//Fonction d'appel fetch API pour récupérer les datas des teddies
+//STRUCTURE DE LA CARTE
 function getTeddies() {
+
+  //Appel get pour récupérer tous les produits du server
   fetch("http://localhost:3000/api/teddies")
     .then(function (res) {
       return res.json();
     })
     .catch((err) => {
     })
-
-    //Fonction boucle pour créer chaque article automatiquement
     .then(function (insertDataTeddies) {
       const cartes = insertDataTeddies;
       console.log(cartes);
+
+      //Création des cartes automatiques
       for (let card in cartes) {
 
         //Selection de la div pour inserer les articles 

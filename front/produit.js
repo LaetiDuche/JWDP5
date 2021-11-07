@@ -1,23 +1,27 @@
-//Pour accéder à  l'url de chaque id des teddies
+//ACCÉS AUX URLS DES TEDDIES
 let params = new URL(document.location).searchParams;
 let id = params.get("id");
 
-//Pour préciser dans le DOM où l'on veut inserer la fiche produit
+//INSERTION DANS LE DOM
 body();
-
 function body() {
   getOneTeddy();
 }
 
-//Fonction pour récupérer l'ID du teddy sélectionné venant de la page index et pour afficher sa fiche produit dans la page produit
+//-----------------------------------------FICHE PRODUIT 
+
+//STRUCTURE DE LA FICHE PRRODUIT
 function getOneTeddy() {
-  fetch(`http://localhost:3000/api/teddies/${id}`)//Appel de l'ID d'un teddy venant de l'api
+
+  //Appel de l'ID d'un teddy venant de l'api
+  fetch(`http://localhost:3000/api/teddies/${id}`)
     .then(function (res) {
       return res.json();
     })
     .catch((err) => {
     })
-    .then(function (insertDataTeddies) {  //Mise en liaison de l'ID venant de l'index
+    //Mise en liaison de l'ID venant de l'index
+    .then(function (insertDataTeddies) {  
       card = insertDataTeddies;
       console.log(card);
 
@@ -138,18 +142,21 @@ function getOneTeddy() {
       buttonVoirPanier.innerHTML = 'Voir mon panier';
       buttonVoirPanier.href="panier.html";
 
-      ajoutPanier();  //Mis en relation avec la fonction ajoutPanier
+      //Mis en relation avec la fonction ajoutPanier
+      ajoutPanier();  
 
     })
 }
 
-//Fonction pour ajouter dans le localstorage un ou plusieurs teddy personnalisé
+//-------------------------AJOUTER LES PRODUITS DANS LE PANIER
 
 function ajoutPanier() {
+
   //Evènements sur le bouton
   const bouton = document.querySelector('#bouton');
   bouton.addEventListener('click', () => {
-    //Création du tableau pour chaque teddy personnalisé
+
+    //Création de l'objet products  
     if (quantite.value > 0 && quantite.value < 100) {
       let productPanier = {
         name: card.name,
@@ -159,13 +166,15 @@ function ajoutPanier() {
         _id: id
       };
       console.log(productPanier);
-      //Pour ajouter le tableau Teddy au localstorage
+
+      //Pour ajouter l'objet products dans le localstorage
       let localPanier = [];
       if (localStorage.getItem("productsTeddy") !== null) {
         localPanier = JSON.parse(localStorage.getItem("productsTeddy"));
       }
       localPanier.push(productPanier);
-      //Pour transformer le tableau au format json
+
+      //Pour transformer l'objet products au format json
       localStorage.setItem("productsTeddy", JSON.stringify(localPanier));
 
       //Message de confirmation d'ajout au panier

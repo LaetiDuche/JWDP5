@@ -495,7 +495,7 @@ function validCommand() {
     }
   }
 
-  //----------ENVOIE VERS LE SERVER
+  //----------ENVOIE DES DONNÉES AU SERVER
 
   //Au click du bouton commander
   let bouton = document.querySelector('#btn-command');

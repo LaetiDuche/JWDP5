@@ -502,7 +502,7 @@ function validCommand() {
   bouton.addEventListener('click', function (e) {
     e.preventDefault();
 
-    //Si le formulaire est validé
+    //Si le formulaire est validé...(=>)
     if (validNom(form.firstName) && validPrenom(form.lastName) && validEmail(form.email)
       && validAdresse(form.address) && validVille(form.city)) {
 
@@ -563,7 +563,7 @@ function validCommand() {
           alert("Il y a eu une erreur : " + err);
         });
 
-      // Si le formulaire n'est pas rempli
+      // ...Sinon message d'erreur
     } else {
       span[5].innerText = 'Veuillez remplir tous les champs !';
       span[5].style.color = 'red';

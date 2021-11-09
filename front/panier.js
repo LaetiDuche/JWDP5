@@ -8,28 +8,16 @@ function body() {
   validCommand()
 };
 
-//APPEL DES OBJETS DU LOCALSTORAGE
+//Appel des objets du localstorage
 let localPanier = JSON.parse(localStorage.getItem("productsTeddy", "contact", "Total", "orderId"));
 
-
-//--------------------------------SI LE PANIER EST VIDE
-
-let selectPanier = document.querySelector('#mon-panier');
-if (localPanier === null) {
-  let panierVide = `<div class='col-12 bg-white rounded-3 text-center'><p class='m-auto'>Panier vide</p></div>`;
-  selectPanier.innerHTML = panierVide
-  console.log('Panier vide')
-} else {
-  console.log('Panier plein')
-}
-
-
-//-------------------------------- CREATION DU PANIER,  SI LE PANIER EST PLEIN
-
-//STRUCTURE DU PANIER
+//-------------------------------------- MON PANIER -------------------------------------------
 
 function monPanier() {
-  //Selection de l'élément pour afficher mon panier
+
+  //Appel des objets du localstorage
+  let localPanier = JSON.parse(localStorage.getItem("productsTeddy", "contact", "Total", "orderId"));
+
   let monPanier = document.getElementById('panier-teddy');
 
   //Eléments responsives
@@ -48,146 +36,158 @@ function monPanier() {
   titrePanier.style.fontStyle = 'italic';
   titrePanier.textContent = "Mon panier";
 
-  //Tableau pour insérer mes produits
-  let divTableau = document.createElement('div');
-  divPanier2.appendChild(divTableau);
-  divTableau.setAttribute('id', 'mon-panier');
-  divTableau.classList.add('col-12');
+  //------------------SI LE PANIER EST VIDE
+  if (localPanier === null) {
 
-  let tableauPanier = document.createElement('table');
-  divTableau.appendChild(tableauPanier);
-  tableauPanier.classList.add('table', 'table-sm');
+    let panierVide = document.createElement('p');
+    divPanier.appendChild(panierVide);
+    panierVide.classList.add('text-center');
+    panierVide.innerHTML = 'Panier vide';
 
-  let theadPanier = document.createElement('thead');
-  tableauPanier.appendChild(theadPanier);
+    //--------------- SI LE PANIER EST PLEIN, CREATION DU PANIER
+  } else {
 
-  let trPanier = document.createElement('tr');
-  theadPanier.appendChild(trPanier);
+    //Tableau pour insérer mes produits
+    let divTableau = document.createElement('div');
+    divPanier2.appendChild(divTableau);
+    divTableau.setAttribute('id', 'mon-panier');
+    divTableau.classList.add('col-12');
 
-  //Colonne article
-  let thArticle = document.createElement('th');
-  trPanier.appendChild(thArticle);
-  thArticle.textContent = "Articles";
+    let tableauPanier = document.createElement('table');
+    divTableau.appendChild(tableauPanier);
+    tableauPanier.classList.add('table', 'table-sm');
 
-  //Colonne couleur
-  let thColor = document.createElement('th');
-  trPanier.appendChild(thColor);
-  thColor.textContent = "Couleur";
+    let theadPanier = document.createElement('thead');
+    tableauPanier.appendChild(theadPanier);
 
-  //Colonne quantité
-  let thQuantite = document.createElement('th');
-  trPanier.appendChild(thQuantite);
-  thQuantite.textContent = "Quantité";
+    let trPanier = document.createElement('tr');
+    theadPanier.appendChild(trPanier);
 
-  //Colonne prix
-  let thPrix = document.createElement('th');
-  trPanier.appendChild(thPrix);
-  thPrix.textContent = "Prix";
+    //Colonne article
+    let thArticle = document.createElement('th');
+    trPanier.appendChild(thArticle);
+    thArticle.textContent = "Articles";
 
-  //Eléments pour insérer les produits dans le tableau
-  let tbodyProduits = document.createElement('tbody');
-  tableauPanier.appendChild(tbodyProduits);
-  tbodyProduits.setAttribute("id", "products-list");
+    //Colonne couleur
+    let thColor = document.createElement('th');
+    trPanier.appendChild(thColor);
+    thColor.textContent = "Couleur";
 
-  //-------Générer les produits du localstorage dans le panier
-  let localPanier = JSON.parse(localStorage.getItem("productsTeddy"));
-  for (let produitTeddy in localPanier) {
-    let tableList = document.getElementById('tableau');
+    //Colonne quantité
+    let thQuantite = document.createElement('th');
+    trPanier.appendChild(thQuantite);
+    thQuantite.textContent = "Quantité";
 
-    let trProduit = document.createElement('tr');
-    tbodyProduits.appendChild(trProduit);
-    trProduit.setAttribute("id", "tableau");
+    //Colonne prix
+    let thPrix = document.createElement('th');
+    trPanier.appendChild(thPrix);
+    thPrix.textContent = "Prix";
 
-    let tdNom = document.createElement('td');
-    trProduit.appendChild(tdNom);
-    tdNom.setAttribute("id", "nom");
-    tdNom.innerHTML = localPanier[produitTeddy].name;
+    //Eléments pour insérer les produits dans le tableau
+    let tbodyProduits = document.createElement('tbody');
+    tableauPanier.appendChild(tbodyProduits);
+    tbodyProduits.setAttribute("id", "products-list");
 
-    let tdColor = document.createElement('td');
-    trProduit.appendChild(tdColor);
-    tdColor.setAttribute('id', 'couleur');
-    tdColor.innerHTML = localPanier[produitTeddy].color;
+    //-------Générer les produits du localstorage dans le panier
+    let localPanier = JSON.parse(localStorage.getItem("productsTeddy"));
+    for (let produitTeddy in localPanier) {
+      let tableList = document.getElementById('tableau');
 
-    let tdNombre = document.createElement('td');
-    trProduit.appendChild(tdNombre);
-    tdNombre.setAttribute("id", "nombre");
-    tdNombre.innerHTML = localPanier[produitTeddy].quantity;
+      let trProduit = document.createElement('tr');
+      tbodyProduits.appendChild(trProduit);
+      trProduit.setAttribute("id", "tableau");
 
-    //Calcul du prix, multiplication du prix d'un produit avec sa quantité
-    let tdPrix = document.createElement('td');
-    trProduit.appendChild(tdPrix);
-    tdPrix.setAttribute("id", "prix");
-    tdPrix.innerHTML = parseFloat(localPanier[produitTeddy].price) * localPanier[produitTeddy].quantity + '€';
+      let tdNom = document.createElement('td');
+      trProduit.appendChild(tdNom);
+      tdNom.setAttribute("id", "nom");
+      tdNom.innerHTML = localPanier[produitTeddy].name;
 
-    //Eléments bouton pour supprimer un article
+      let tdColor = document.createElement('td');
+      trProduit.appendChild(tdColor);
+      tdColor.setAttribute('id', 'couleur');
+      tdColor.innerHTML = localPanier[produitTeddy].color;
+
+      let tdNombre = document.createElement('td');
+      trProduit.appendChild(tdNombre);
+      tdNombre.setAttribute("id", "nombre");
+      tdNombre.innerHTML = localPanier[produitTeddy].quantity;
+
+      //Calcul du prix, multiplication du prix d'un produit avec sa quantité
+      let tdPrix = document.createElement('td');
+      trProduit.appendChild(tdPrix);
+      tdPrix.setAttribute("id", "prix");
+      tdPrix.innerHTML = parseFloat(localPanier[produitTeddy].price) * localPanier[produitTeddy].quantity + '€';
+
+      //Eléments bouton pour supprimer un article
+      let tdDelete = document.createElement('button');
+      trProduit.appendChild(tdDelete);
+      tdDelete.setAttribute("id", "supprimer");
+      tdDelete.classList.add('btnDelete');
+      tdDelete.style = 'none';
+      tdDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+
+    }
+    //-------Eléments pour insérer le prix total du panier
+    let tfTotal = document.createElement('tfoot');
+    tableauPanier.appendChild(tfTotal);
+    tfTotal.style.borderBottomColor = 'transparent';
+
+    let trTotal = document.createElement('tr');
+    tfTotal.appendChild(trTotal);
+
+    let thTotal = document.createElement('th');
+    trTotal.appendChild(thTotal);
+    thTotal.textContent = "Total : ";
+    thTotal.setAttribute('colspan', '3');
+
+    let tdTotal = document.createElement('td');
+    trTotal.appendChild(tdTotal);
+    tdTotal.setAttribute('id', 'subtotal');
+    tdTotal.setAttribute('colspan', '3');
+
+    console.log(localPanier);
+
+    //------Supprimer un produit du panier
+    let deleteItem = document.getElementsByClassName('btnDelete');
+    for (let i = 0; i < deleteItem.length; i++) {
+      let button = deleteItem[i]
+      button.addEventListener('click', function (event) {
+        let buttonClicked = event.target
+        buttonClicked.parentElement.parentElement.remove()
+        let productDelete = localPanier[i]._id;
+        localPanier = localPanier.filter((el) => el._id !== productDelete);
+        localStorage.setItem("productsTeddy", JSON.stringify(localPanier)
+        );
+        alert("Cet article a été supprimé de votre panier !");
+        document.location.reload();
+
+      })
+    }
+    //------Bouton vider le panier
+    let divBoutonPanier = document.createElement('div');
+    divTableau.append(divBoutonPanier);
+    divBoutonPanier.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex');
+
     let tdDelete = document.createElement('button');
-    trProduit.appendChild(tdDelete);
+    divBoutonPanier.appendChild(tdDelete);
+    tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
     tdDelete.setAttribute("id", "supprimer");
-    tdDelete.classList.add('btnDelete');
-    tdDelete.style = 'none';
-    tdDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+    tdDelete.innerHTML = 'Vider le panier';
 
-  }
-  //-------Eléments pour insérer le prix total du panier
-  let tfTotal = document.createElement('tfoot');
-  tableauPanier.appendChild(tfTotal);
-  tfTotal.style.borderBottomColor = 'transparent';
-
-  let trTotal = document.createElement('tr');
-  tfTotal.appendChild(trTotal);
-
-  let thTotal = document.createElement('th');
-  trTotal.appendChild(thTotal);
-  thTotal.textContent = "Total : ";
-  thTotal.setAttribute('colspan', '3');
-
-  let tdTotal = document.createElement('td');
-  trTotal.appendChild(tdTotal);
-  tdTotal.setAttribute('id', 'subtotal');
-  tdTotal.setAttribute('colspan', '3');
-
-  console.log(localPanier);
-
-  //------Supprimer un produit du panier
-  let deleteItem = document.getElementsByClassName('btnDelete');
-  for (let i = 0; i < deleteItem.length; i++) {
-    let button = deleteItem[i]
-    button.addEventListener('click', function (event) {
-      let buttonClicked = event.target
-      buttonClicked.parentElement.parentElement.remove()
-      let productDelete = localPanier[i]._id;
-      localPanier = localPanier.filter((el) => el._id !== productDelete);
-      localStorage.setItem("productsTeddy", JSON.stringify(localPanier)
-      );
-      alert("Cet article a été supprimé de votre panier !");
+    tdDelete.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.clear();
+      alert('Mon panier a été vidé !');
       document.location.reload();
+    });
 
-    })
+    //-----Bouton continuer mes achats
+    let tdContinue = document.createElement('a');
+    divBoutonPanier.appendChild(tdContinue);
+    tdContinue.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+    tdContinue.innerHTML = 'Continuer mes achats';
+    tdContinue.href = "index.html";
   }
-  //------Bouton vider le panier
-  let divBoutonPanier = document.createElement('div');
-  divTableau.append(divBoutonPanier);
-  divBoutonPanier.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex');
-
-  let tdDelete = document.createElement('button');
-  divBoutonPanier.appendChild(tdDelete);
-  tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
-  tdDelete.setAttribute("id", "supprimer");
-  tdDelete.innerHTML = 'Vider le panier';
-
-  tdDelete.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    alert('Mon panier a été vidé !');
-    document.location.reload();
-  });
-
-  //-----Bouton continuer mes achats
-  let tdContinue = document.createElement('a');
-  divBoutonPanier.appendChild(tdContinue);
-  tdContinue.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
-  tdContinue.innerHTML = 'Continuer mes achats';
-  tdContinue.href = "index.html";
 }
 
 
@@ -211,14 +211,12 @@ function totalPrice() {
   console.log(totalMoney);
 
   //Sélection de l'endroit où l'on veut inscrire le prix total
-  document.getElementById('subtotal').textContent = totalMoney + ' €';
+  document.getElementById('subtotal')/* .textContent = totalMoney + ' €' */;
   localStorage.setItem("Total", JSON.stringify(totalMoney + '€'));
 }
 
 
-
-
-//-----------------------------------CREATION DU FORMULAIRE DE COMMANDE----------------------------------
+//----------------------------------- FORMULAIRE DE COMMANDE ----------------------------------
 
 //-----STRUCTURE DU FORMULAIRE
 function formCommand() {
@@ -260,13 +258,13 @@ function formCommand() {
   let labelNom = document.createElement('label');
   divNom.appendChild(labelNom);
   labelNom.classList.add('form-label', 'mb-0');
-  labelNom.setAttribute('for', 'firstName');
+  labelNom.setAttribute('for', 'lastName');
   labelNom.textContent = 'Nom';
 
   let inputNom = document.createElement('input');
   divNom.appendChild(inputNom);
   inputNom.classList.add('form-control');
-  inputNom.setAttribute('name', 'firstName');
+  inputNom.setAttribute('name', 'lastName');
   inputNom.setAttribute('id', 'Nom');
   inputNom.setAttribute('type', 'text');
   inputNom.setAttribute('required', 'required');
@@ -284,13 +282,13 @@ function formCommand() {
   let labelPrenom = document.createElement('label');
   divPrenom.appendChild(labelPrenom);
   labelPrenom.classList.add('form-label', 'mb-0');
-  labelPrenom.setAttribute('for', 'lastName');
+  labelPrenom.setAttribute('for', 'firstName');
   labelPrenom.textContent = 'Prénom';
 
   let inputPrenom = document.createElement('input');
   divPrenom.appendChild(inputPrenom);
   inputPrenom.classList.add('form-control');
-  inputPrenom.setAttribute('name', 'lastName');
+  inputPrenom.setAttribute('name', 'firstName');
   inputPrenom.setAttribute('id', 'Prenom');
   inputPrenom.setAttribute('type', 'text');
   inputPrenom.setAttribute('required', 'required');
@@ -372,7 +370,7 @@ function formCommand() {
   spanVille.classList.add('d-block');
   spanVille.style.fontSize = 'small';
 
-  //Eléments pour message erreur
+  //Eléments pour message erreur ("Veuillez remplir tous les champs")
   let divErreur = document.createElement('div');
   formElement.appendChild(divErreur);
   divVille.classList.add('col-md-4');
@@ -396,21 +394,23 @@ function formCommand() {
   boutonCommand.textContent = "Commander";
 }
 
-//---------------------------- VALIDATION DES CHAMPS AVEC REGEX ET ENVOIE VERS LE SERVER
+//---------------------------- VALIDATION DU FORMULAIRE AVEC REGEX ET ENVOIE VERS LE SERVER
 
 function validCommand() {
 
   //-----------VALIDATION DES CHAMPS AVEC REGEX
 
   let form = document.querySelector('#formulaire');
+
+  //Pour insérer les messages d'erreur 
   let span = document.getElementsByTagName('span');
 
   //VALIDATION NOM
-  form.firstName.addEventListener('change', function () {
+  form.lastName.addEventListener('change', function () {
     validNom(this);
   });
   let validNom = function (inputNom) {
-    let regex = /^[A-Za-z]{2,20}$/;
+    let regex = /^[A-Za-z\s]{2,20}$/;
 
     if (regex.test(inputNom.value)) {
       span[0].innerText = 'Validé !';
@@ -424,11 +424,11 @@ function validCommand() {
   }
 
   //VALIDATION PRENOM
-  form.lastName.addEventListener('change', function () {
+  form.firstName.addEventListener('change', function () {
     validPrenom(this);
   });
   let validPrenom = function (inputPrenom) {
-    let regex = /^[A-Za-z]{2,20}$/;
+    let regex = /^[A-Za-z\s]{2,20}$/;
 
     if (regex.test(inputPrenom.value)) {
       span[1].innerText = 'Validé !';
@@ -464,7 +464,7 @@ function validCommand() {
     validAdresse(this);
   });
   let validAdresse = function (inputAdresse) {
-    let regex = /^[A-Za-z0-9\s]{5,20}$/;
+    let regex = /^[A-Za-z0-9\s]{5,100}$/;
 
     if (regex.test(inputAdresse.value)) {
       span[3].innerText = 'Validé !';
@@ -482,7 +482,7 @@ function validCommand() {
     validVille(this);
   });
   let validVille = function (inputVille) {
-    let regex = /^[A-Za-z]{2,20}$/;
+    let regex = /^[A-Za-z\s]{2,20}$/;
 
     if (regex.test(inputVille.value)) {
       span[4].innerText = 'Validé !';
@@ -503,16 +503,16 @@ function validCommand() {
     e.preventDefault();
 
     //Si le formulaire est validé...(=>)
-    if (validNom(form.firstName) && validPrenom(form.lastName) && validEmail(form.email)
+    if (validNom(form.lastName) && validPrenom(form.firstName) && validEmail(form.email)
       && validAdresse(form.address) && validVille(form.city)) {
 
-      console.log('validé');
+      console.log('formulaire validé');
 
       // => Création de l'objet contact
       class formulaire {
         constructor() {
-          this.firstName = document.querySelector("#Nom").value;
-          this.lastName = document.querySelector("#Prenom").value;
+          this.lastName = document.querySelector("#Nom").value;
+          this.firstName = document.querySelector("#Prenom").value;
           this.email = document.querySelector("#Mail").value;
           this.address = document.querySelector("#Adresse").value;
           this.city = document.querySelector("#Ville").value;
@@ -554,6 +554,7 @@ function validCommand() {
 
           // =>  Récupération de l'orderId du server et l'envoyer dans le localstorage
           localStorage.setItem("orderId", JSON.stringify(data.orderId));
+
           console.log(data);
 
           // =>  Redirection vers la page commande

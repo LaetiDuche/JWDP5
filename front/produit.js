@@ -89,7 +89,7 @@ function getOneTeddy() {
       let optionTeddy = document.createElement("option");
       selectTeddy.appendChild(optionTeddy);
       optionTeddy.innerHTML = "Choisir une couleur";
-      optionTeddy.setAttribute('value', '0');
+      optionTeddy.setAttribute('min', '1');
 
       let colorTeddy = document.getElementById("colorteddy");
 

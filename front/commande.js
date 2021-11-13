@@ -14,13 +14,10 @@ function messageValidation() {
   let Prenom = JSON.parse(localStorage.getItem("contact")).firstName;
   let Nom = JSON.parse(localStorage.getItem("contact")).lastName;
   
-
-  //Insertion du Total et de l'orderId dans le message
+  //Insertion du Total, nom, prénom et de l'orderId dans le message
   let message = document.getElementById('confirm-message');
 
-  console.log('contact');
-
-  //Message
+  //Message de confirmation
   let confirmId = document.createElement('p');
   message.appendChild(confirmId);
   confirmId.classList.add('col-12', 'bg-white', 'py-4','my-4', 'rounded-3',  'text-center');
@@ -29,6 +26,8 @@ function messageValidation() {
   </br>Votre commande n° <strong>${orderId}</strong> , 
   </br> d'un montant total de <strong>${Total} </strong>, a été envoyée avec succés! </br>
   </br> A bientôt sur Orinours !`;
+
+  console.log('commande ok');
 
   //-----Bouton revenir à l'accueil
   let divRetour = document.createElement('div');
@@ -42,6 +41,7 @@ function messageValidation() {
   btnRetour.setAttribute('type', 'submit');
   btnRetour.setAttribute('id', 'btn-revenir');
 
+  //Vidage du localstorage et retour à l'accueil
  let btnReturn = document.querySelector('#btn-revenir');
  btnReturn.addEventListener('click', function (e) {
     e.preventDefault();

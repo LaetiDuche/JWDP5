@@ -41,7 +41,7 @@ button {
 }
 @media (min-width: 1440px){
   #footer-panier{
-     position:absolute;
+     position:relative;
      width: 100%;
      bottom: 0;
   }

@@ -211,7 +211,7 @@ function totalPrice() {
   console.log(totalMoney);
 
   //Sélection de l'endroit où l'on veut inscrire le prix total
-  document.getElementById('subtotal')/* .textContent = totalMoney + ' €' */;
+  document.getElementById('subtotal').textContent = totalMoney + ' €';
   localStorage.setItem("Total", JSON.stringify(totalMoney + '€'));
 }
 

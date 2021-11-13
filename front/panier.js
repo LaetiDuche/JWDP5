@@ -13,6 +13,9 @@ let localPanier = JSON.parse(localStorage.getItem("productsTeddy", "contact", "T
 
 //-------------------------------------- MON PANIER -------------------------------------------
 
+//si le panier est vide
+
+
 function monPanier() {
 
   //Appel des objets du localstorage
@@ -43,6 +46,9 @@ function monPanier() {
     divPanier.appendChild(panierVide);
     panierVide.classList.add('text-center');
     panierVide.innerHTML = 'Panier vide';
+
+    formCommand();
+    validCommand();
 
     //--------------- SI LE PANIER EST PLEIN, CREATION DU PANIER
   } else {
@@ -188,7 +194,7 @@ function monPanier() {
     tdContinue.innerHTML = 'Continuer mes achats';
     tdContinue.href = "index.html";
   }
-}
+};
 
 
 //----------------------------CALCUL DU PRIX TOTAL DU PANIER
@@ -221,11 +227,12 @@ function totalPrice() {
 //-----STRUCTURE DU FORMULAIRE
 function formCommand() {
   //Selection de l'élément pour afficher le formulaire 
-  let confirmCommand = document.getElementById('panier-teddy');
+  let confirmCommand = document.getElementById('formulaire-teddy');
 
   //Eléments responsives
   let divForm = document.createElement('div');
   confirmCommand.appendChild(divForm);
+  /* divForm.setAttribute('id', 'formulaire'); */
   divForm.classList.add('col-12', 'bg-white', 'p-4', 'rounded-3', 'my-2');
 
   let titreDiv = document.createElement('div');

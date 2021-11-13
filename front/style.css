@@ -21,9 +21,6 @@ h2{
 .jumbotron{
     box-shadow: inset 0px 4px 4px -3px rgb(53 53 53 / 20%);
 }
- /* .card:hover{
-    transform: scale(1.015);
-} */
 .card-img-top {
     height: 16rem;
     object-fit: cover;
@@ -41,4 +38,11 @@ button {
        width: 100%;
        bottom: 0;
     }
+}
+@media (min-width: 1440px){
+  #footer-panier{
+     position:absolute;
+     width: 100%;
+     bottom: 0;
+  }
 }

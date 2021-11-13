@@ -13,9 +13,6 @@ let localPanier = JSON.parse(localStorage.getItem("productsTeddy", "contact", "T
 
 //-------------------------------------- MON PANIER -------------------------------------------
 
-//si le panier est vide
-
-
 function monPanier() {
 
   //Appel des objets du localstorage

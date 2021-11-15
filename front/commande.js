@@ -29,6 +29,8 @@ function messageValidation() {
 
   console.log('commande ok');
 
+  localStorage.clear();
+
   //-----Bouton revenir à l'accueil
   let divRetour = document.createElement('div');
   confirmId.append(divRetour);

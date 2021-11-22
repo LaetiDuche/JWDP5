@@ -1,4 +1,4 @@
-Pour visualiser le site, il faut installer la partie backend en local en suivant ces consignes :
+1 - Installer la partie back-end:
 
 # Orinoco #
 
@@ -15,3 +15,7 @@ can then run the server with `node server`.
 The server should run on `localhost` with default port `3000`. If the
 server runs on another port for any reason, this is printed to the
 console when the server starts, e.g. `Listening on port 3001`.
+
+
+2 - Visualiser le site :
+Faire un npm start pour le dossier back et ouvrir le fichier index.html dans votre navigateur.

@@ -1,3 +1,8 @@
+// Page index où l'on récupère tous les produits de l'api venant du server, 
+// et création des cartes pour intégrer les infos des produits générés par une boucle,
+// et ajout du bouton 'voir le produit'.
+
+
 //APPEL DES FONCTIONS
 body();
 function body() {
@@ -19,7 +24,6 @@ function getTeddies() {
     })
     .then(function (insertDataTeddies) {
       const cartes = insertDataTeddies;
-      console.log(cartes);
 
       //Création des cartes automatiques
       for (let card in cartes) {

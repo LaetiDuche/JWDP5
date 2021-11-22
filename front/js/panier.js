@@ -1,3 +1,11 @@
+// Page panier où l'on crée un tableau du panier généré par une boucle, 
+// avec la récupération des produits enregistrés dans le localstorage,
+// calcul des prix des produits avec la quantité, et calcule du prix total du panier,
+// ajout des boutons 'poubelle' pour supprimer un article, bouton 'vider le panier', bouton 'continuer mes achats'.
+// Création du formulaire de commande, avec validation des champs avec regex,  objet contact crée et enregistré dans le localstorage,
+// envoie de l'objet sendData qui contient l'objet contact et le tableau des ids des produits venant du panier,
+// envoie au server, puis récupération de l'order id de confirmation de la commande venant du server et redirection vers la page commande.
+
 //---------------------APPEL DES FONCTIONS
 
 body();
@@ -148,8 +156,6 @@ function monPanier() {
     tdTotal.setAttribute('id', 'subtotal');
     tdTotal.setAttribute('colspan', '3');
 
-    console.log(localPanier);
-
     //------Supprimer un produit du panier
     let deleteItem = document.getElementsByClassName('btnDelete');
     for (let i = 0; i < deleteItem.length; i++) {
@@ -204,14 +210,12 @@ function totalPrice() {
   productsPriceList.forEach(function (productsPrice) {
     total.push(parseFloat(productsPrice.textContent));
   })
-  console.log(total);
 
   //Addition de tous les prix
   let totalMoney = total.reduce(function (total, productsPrice) {
     total += productsPrice;
     return total;
   }, 0)
-  console.log(totalMoney);
 
   //Sélection de l'endroit où l'on veut inscrire le prix total
   document.getElementById('subtotal').textContent = totalMoney + ' €';
@@ -510,8 +514,6 @@ function validCommand() {
     if (validNom(form.lastName) && validPrenom(form.firstName) && validEmail(form.email)
       && validAdresse(form.address) && validVille(form.city)) {
 
-      console.log('formulaire validé');
-
       // => Création de l'objet contact
       class formulaire {
         constructor() {
@@ -523,7 +525,6 @@ function validCommand() {
         }
       }
       let contact = new formulaire();
-      console.log('contact crée');
 
       // =>  Envoie de l'objet contact dans le localstorage
       localStorage.setItem("contact", JSON.stringify(contact));
@@ -534,16 +535,12 @@ function validCommand() {
         let productsId = localPanier[j]._id;
         products.push(productsId);
       }
-      console.log("products");
-      console.log(products);
 
       // =>  Création de l'objet (contact + products) à envoyer au server
       const sendData = {
         contact,
         products,
       };
-      console.log(sendData);
-      console.log('sendData');
 
       // =>  Envoie de l'objet "sendData" vers le serveur
       fetch("http://localhost:3000/api/teddies/order", {
@@ -559,8 +556,6 @@ function validCommand() {
           // =>  Récupération de l'orderId du server et l'envoyer dans le localstorage
           localStorage.setItem("orderId", JSON.stringify(data.orderId));
 
-          console.log(data);
-
           // =>  Redirection vers la page commande
           document.location.href = "commande.html";
         })
@@ -572,7 +567,6 @@ function validCommand() {
     } else {
       span[5].innerText = 'Veuillez remplir tous les champs !';
       span[5].style.color = 'red';
-      console.log('formulaire non validé');
     }
   })
 }

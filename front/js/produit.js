@@ -1,3 +1,8 @@
+// Page produit où l'on crée la fiche produit du produit sélectionné dans la page index 
+// et insertion de toutes les infos du produit avec en plus un menu déroulant pour les couleurs, 
+// le choix d'une quantité et ajout des boutons 'ajout au panier'  et 'voir mon panier', 
+// et enregistrement dans le localstorage.
+
 //ACCÉS AUX URLS DES TEDDIES
 let params = new URL(document.location).searchParams;
 let id = params.get("id");
@@ -164,7 +169,6 @@ function ajoutPanier() {
         quantity: quantite.value,
         _id: id
       };
-      console.log(productPanier);
 
       //Pour ajouter l'objet products dans le localstorage
       let localPanier = [];

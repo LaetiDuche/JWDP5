@@ -1,3 +1,7 @@
+// Page de confirmation de commande , dans lequel on ajoute un message de remerciement dans lequel on génère le nom et prénom du client,
+// ainsi que l'order id, et le prix total du panier,
+// vidage du localstorage et ajout d'un bouton 'revenir à l'accueil'.
+
 //-----------------MESSAGE DE VALIDATION DE COMMANDE
 
 //Insertion dans le DOM
@@ -26,8 +30,6 @@ function messageValidation() {
   </br>Votre commande n° <strong>${orderId}</strong> , 
   </br> d'un montant total de <strong>${Total} </strong>, a été envoyée avec succés! </br>
   </br> A bientôt sur Orinours !`;
-
-  console.log('commande ok');
 
   localStorage.clear();
 

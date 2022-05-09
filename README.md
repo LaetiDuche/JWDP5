@@ -18,3 +18,7 @@ console when the server starts, e.g. `Listening on port 3001`.
 Visualiser le site :
 
 Faire un npm start pour le dossier back et ouvrir le fichier index.html dans votre navigateur.
+
+Images du site: 
+
+![127 0 0 1_3001_front_html_index html](https://user-images.githubusercontent.com/79939699/167389364-c15a0ff7-004c-404c-b61a-f573d363e4de.png)

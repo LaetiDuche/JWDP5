@@ -1,0 +1,78 @@
+body{
+    /* font-family:'verdana'; */
+    background-color:#f3e9f1;
+}
+a, a:hover{
+    outline-color: BlueViolet;
+}
+h3, .far, .fab {
+    color: BlueViolet;
+}
+.nav-link, .social, #poubelle{
+    background: -webkit-linear-gradient(to left ,#905bfd,DarkOrange); 
+    background: -moz-linear-gradient(to left ,#905bfd,DarkOrange); 
+    background: linear-gradient(to left ,#905bfd,DarkOrange); 
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color:transparent;
+}
+h1, h2, .display-4{
+  color: DarkOrange;
+  font-weight: bold;
+}
+h2{
+    margin-right: auto;
+}
+.fas, .far, .fab{
+    font-size: 1.2rem;
+}
+.jumbotron{
+    box-shadow: inset 0px 4px 4px -3px rgb(53 53 53 / 20%);
+}
+.card, .form-select, .command{
+    border-radius: 20px;
+}
+#quantite{
+    border: 1px solid #ced4da;
+    border-radius: 1rem;
+}
+.card-img-top {
+    height: 16rem;
+    object-fit: cover;
+    transition: transform .2s;
+    border-radius: 20px 20px 0px 0px;
+}
+.bouton{
+    text-decoration: none;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(to top left,#905bfd,DarkOrange);
+    font-size: 1rem;
+    color: white;
+    box-shadow: 0px 7px 7px 0px rgba(51, 47, 23, 0.15);
+    padding: 0.5rem 1rem;
+}
+.bouton:hover{
+    font-size: 1.05rem;
+    color: white;
+}
+.form-control{
+    border-radius: 20px;
+}
+
+
+@media (min-width: 1024px){
+    #footer-command{
+       position: absolute;
+       width: 100%;
+       bottom: 0;
+    }
+}
+@media (min-width: 1440px){
+  #footer-panier{
+     position:relative;
+     width: 100%;
+     bottom: 0;
+  }
+}

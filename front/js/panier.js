@@ -31,7 +31,7 @@ function monPanier() {
   //Eléments responsives
   let divPanier = document.createElement('div');
   monPanier.appendChild(divPanier);
-  divPanier.classList.add('col-12', 'bg-white', 'p-4', 'rounded-3', 'my-2');
+  divPanier.classList.add('col-12', 'bg-white', 'px-4', 'pb-2', 'pt-4', 'rounded-3', 'my-2');
 
   let divPanier2 = document.createElement('div');
   divPanier.appendChild(divPanier2);
@@ -41,7 +41,7 @@ function monPanier() {
   let titrePanier = document.createElement('h2');
   divPanier2.appendChild(titrePanier);
   titrePanier.style.color = 'DarkOrange';
-  titrePanier.style.fontStyle = 'italic';
+  titrePanier.classList.add('mb-4');
   titrePanier.textContent = "Mon panier";
 
   //------------------SI LE PANIER EST VIDE
@@ -66,7 +66,7 @@ function monPanier() {
 
     let tableauPanier = document.createElement('table');
     divTableau.appendChild(tableauPanier);
-    tableauPanier.classList.add('table', 'table-sm');
+    tableauPanier.classList.add('table', 'mb-4');
 
     let theadPanier = document.createElement('thead');
     tableauPanier.appendChild(theadPanier);
@@ -87,7 +87,7 @@ function monPanier() {
     //Colonne quantité
     let thQuantite = document.createElement('th');
     trPanier.appendChild(thQuantite);
-    thQuantite.textContent = "Quantité";
+    thQuantite.textContent = "Qté.";
 
     //Colonne prix
     let thPrix = document.createElement('th');
@@ -132,8 +132,8 @@ function monPanier() {
       //Eléments bouton pour supprimer un article
       let tdDelete = document.createElement('button');
       trProduit.appendChild(tdDelete);
-      tdDelete.setAttribute("id", "supprimer");
-      tdDelete.classList.add('btnDelete');
+      tdDelete.setAttribute("id", "poubelle");
+      tdDelete.classList.add('btnDelete', 'btn');
       tdDelete.style = 'none';
       tdDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
@@ -175,11 +175,11 @@ function monPanier() {
     //------Bouton vider le panier
     let divBoutonPanier = document.createElement('div');
     divTableau.append(divBoutonPanier);
-    divBoutonPanier.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex');
+    divBoutonPanier.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex', 'flex-wrap');
 
     let tdDelete = document.createElement('button');
     divBoutonPanier.appendChild(tdDelete);
-    tdDelete.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+    tdDelete.classList.add('bouton', 'mb-3');
     tdDelete.setAttribute("id", "supprimer");
     tdDelete.innerHTML = 'Vider le panier';
 
@@ -193,7 +193,7 @@ function monPanier() {
     //-----Bouton continuer mes achats
     let tdContinue = document.createElement('a');
     divBoutonPanier.appendChild(tdContinue);
-    tdContinue.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+    tdContinue.classList.add('bouton', 'mb-3');
     tdContinue.innerHTML = 'Continuer mes achats';
     tdContinue.href = "index.html";
   }
@@ -243,8 +243,7 @@ function formCommand() {
   let titreForm = document.createElement('h2');
   titreDiv.appendChild(titreForm);
   titreForm.style.color = 'DarkOrange';
-  titreForm.style.fontStyle = 'italic';
-  titreForm.classList.add('text-start');
+  titreForm.classList.add('text-start', 'mb-4');
   titreForm.textContent = "Confirmer ma commande";
 
   //Sous-titre du formulaire
@@ -395,7 +394,7 @@ function formCommand() {
 
   let boutonCommand = document.createElement('button');
   divBouton.appendChild(boutonCommand);
-  boutonCommand.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+  boutonCommand.classList.add('bouton');
   boutonCommand.setAttribute('type', 'submit');
   boutonCommand.setAttribute('id', 'btn-command');
   boutonCommand.setAttribute('value', 'Commander');

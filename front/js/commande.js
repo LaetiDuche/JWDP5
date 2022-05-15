@@ -24,7 +24,7 @@ function messageValidation() {
   //Message de confirmation
   let confirmId = document.createElement('p');
   message.appendChild(confirmId);
-  confirmId.classList.add('col-12', 'bg-white', 'py-4','my-4', 'rounded-3',  'text-center');
+  confirmId.classList.add('col', 'bg-white','py-4','mt-3', 'text-center', 'command');
   confirmId.innerHTML =
     `Merci <strong> ${Prenom} ${Nom} </strong> pour votre commande !</br>
   </br>Votre commande n° <strong>${orderId}</strong> , 
@@ -36,11 +36,11 @@ function messageValidation() {
   //-----Bouton revenir à l'accueil
   let divRetour = document.createElement('div');
   confirmId.append(divRetour);
-  divRetour.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex', 'my-4');
+  divRetour.classList.add('col-12', 'text-center', 'justify-content-around', 'd-flex', 'mt-2', 'mb-1');
 
   let btnRetour = document.createElement('button');
   divRetour.appendChild(btnRetour);
-  btnRetour.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+  btnRetour.classList.add('bouton');
   btnRetour.textContent = 'Revenir à l\'accueil';
   btnRetour.setAttribute('type', 'submit');
   btnRetour.setAttribute('id', 'btn-revenir');

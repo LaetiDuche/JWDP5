@@ -34,11 +34,11 @@ function getTeddies() {
         //l'article
         let articleTeddy = document.createElement('article');
         firstDiv.appendChild(articleTeddy);
-        articleTeddy.classList.add('col-12', 'col-md-6', 'col-xl-4', 'my-3');
+        articleTeddy.classList.add('col-12', 'col-md-6', 'col-xl-4', 'my-2', 'article');
 
         let figureTeddy = document.createElement('figure');
         articleTeddy.appendChild(figureTeddy);
-        figureTeddy.classList.add('card', 'rounded-3', 'my-1', 'shadow', 'px-0');
+        figureTeddy.classList.add('card', 'my-1', 'shadow', 'px-0');
 
         //Insertion de l'image
         let imageTeddy = document.createElement('img');
@@ -63,7 +63,6 @@ function getTeddies() {
         let nomTeddy = document.createElement('h2');
         divTitle.appendChild(nomTeddy);
         nomTeddy.style.color = 'DarkOrange';
-        nomTeddy.style.fontStyle = 'italic';
         nomTeddy.innerHTML = insertDataTeddies[card].name;//Appel data 
 
         //Insertion du prix en euro 
@@ -80,11 +79,11 @@ function getTeddies() {
         //Insertion du bouton voir le produit
         let divButton = document.createElement('div');
         textTeddy.appendChild(divButton);
-        divButton.classList.add('col-12', 'text-center');
+        divButton.classList.add('col-12', 'text-center', 'mb-3', 'mt-4');
 
         let buttonTeddy = document.createElement('a');
         divButton.appendChild(buttonTeddy);
-        buttonTeddy.classList.add('btn', 'btn-outline-light', 'rounded-3', 'shadow', 'btn-sm');
+        buttonTeddy.classList.add('bouton', 'shadow');
         buttonTeddy.innerHTML = 'Voir le produit';
         buttonTeddy.href = `produit.html?id=${insertDataTeddies[card]._id}`; //Appel data
       }

@@ -40,7 +40,7 @@ function getOneTeddy() {
 
       let figureTeddy = document.createElement("figure");
       ficheTeddy.appendChild(figureTeddy);
-      figureTeddy.classList.add("card", "rounded-3", "col-md-12", "my-1", "shadow-sm");
+      figureTeddy.classList.add("card", "col-md-12", "my-1", "shadow-sm");
 
       //Insertion de l'image
       let imageTeddy = document.createElement("img");
@@ -130,12 +130,11 @@ function getOneTeddy() {
       //Insertion du bouton pour ajouter au panier
       let divTeddy = document.createElement("div");
       textTeddy.appendChild(divTeddy);
-      divTeddy.classList.add("col-12", "text-center", "mt-4", 'd-flex', 'justify-content-around');
+      divTeddy.classList.add("col-12", "text-center",'mb-3', 'mt-4', 'd-flex', 'justify-content-around');
 
       let buttonTeddy = document.createElement("button");
       divTeddy.appendChild(buttonTeddy);
-      buttonTeddy.classList.add("btn", "btn-outline-light", 'rounded-3', "shadow", 'btn-sm');
-      buttonTeddy.style.color = 'BlueViolet';
+      buttonTeddy.classList.add("bouton");
       buttonTeddy.setAttribute("id", "bouton");
       buttonTeddy.setAttribute("type", "submit");
       buttonTeddy.innerHTML = "Ajouter au panier";  //Appel data des couleurs
@@ -143,7 +142,7 @@ function getOneTeddy() {
       //Insertion bouton voir mon panier
       let buttonVoirPanier = document.createElement('a');
       divTeddy.appendChild(buttonVoirPanier);
-      buttonVoirPanier.classList.add("btn", "btn-outline-light", "shadow", 'rounded-3', 'btn-sm');
+      buttonVoirPanier.classList.add("bouton", "shadow");
       buttonVoirPanier.innerHTML = 'Voir mon panier';
       buttonVoirPanier.href = "panier.html";
 
